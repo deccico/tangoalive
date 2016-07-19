@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'eventos/style.css' %}" />
+
 {% if latest_eventos_list %}
     <ul>
     {% for evento in latest_eventos_list %}

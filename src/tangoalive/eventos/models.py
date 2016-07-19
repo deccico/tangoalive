@@ -27,7 +27,7 @@ class Place(models.Model):
 class Evento(models.Model):
     name = models.CharField(max_length=200)
     pub_date = models.DateField(default=datetime.datetime.now)
-    date = models.DateField()
+    event_date = models.DateField()
     time_from = models.TimeField()
     duration = models.DurationField()
     recurrent_definition = models.CharField(max_length=20, blank=True)
