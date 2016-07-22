@@ -1,3 +1,4 @@
 *.pyc
 *.sqlite*
 *.idea
+src/tangoalive/eventos/static/eventos/eventos_pics/*

@@ -24,7 +24,7 @@ class Place(models.Model):
 
 @python_2_unicode_compatible  # only if you need to support Python 2
 class Evento(models.Model):
-    EVENTOS_FOLDER_FORMAT = 'eventos/static/eventos/eventos_pics/%Y_%m/%d/%H_%M_%S/'
+    EVENTOS_FOLDER_FORMAT = 'eventos_pics/%Y_%m/%d/%H_%M_%S/'
     name = models.CharField(max_length=200)
     pub_date = models.DateField(default=datetime.datetime.now)
     event_date = models.DateField()
@@ -33,7 +33,6 @@ class Evento(models.Model):
     recurrent_definition = models.CharField(max_length=20, blank=True)
     place = models.ForeignKey(Place, blank=True, null=True)
     approved = models.BooleanField(default=False)
-    #the stupid strfmt is to prevent name clashes (just in case)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_2 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_3 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
