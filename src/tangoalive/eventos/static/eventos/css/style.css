@@ -17,3 +17,8 @@
 @-ms-viewport     { width: device-width; }
 @-o-viewport      { width: device-width; }
 @viewport         { width: device-width; }
+
+.tango-title{
+    color: SteelBlue;
+    font-weight: bold;
+}
