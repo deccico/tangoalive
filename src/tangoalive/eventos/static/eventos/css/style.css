@@ -22,8 +22,3 @@
     color: SteelBlue;
     font-weight: bold;
 }
-
-img {
-    object-fit: cover;
-    overflow: hidden;
-}
