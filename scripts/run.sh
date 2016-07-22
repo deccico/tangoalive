@@ -1,0 +1,1 @@
+nohup ./runtango.sh &
