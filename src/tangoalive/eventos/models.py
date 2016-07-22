@@ -27,6 +27,7 @@ class Place(models.Model):
 class Evento(models.Model):
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/%Y_%m/%d/%H_%M_%S/'
     name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
     pub_date = models.DateField(default=datetime.datetime.now)
     event_date = models.DateField()
     time_from = models.TimeField()
@@ -43,3 +44,4 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.name
+
