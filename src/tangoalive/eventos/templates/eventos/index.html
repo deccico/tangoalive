@@ -26,18 +26,29 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="lead .navbar-fixed-bottom"><a href="#">About</a></li>
-            <li role="presentation" class="lead .navbar-fixed-bottom"><a href="#">Contact</a></li>
-          </ul>
-        <h2 class="no-block">&nbsp;<span class="tango-title"><a href="#">Tango Alive </a></span>| <small><a href="#">Browse Events</a></small></h2>
-        </nav>
-      </div>
+
+      <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Tango Alive</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
+              <li class="active"><a href="#">Browse Events</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+      </nav>
 
     <!-- Carousel
     ================================================== -->
+
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner" role="listbox">
         <div class="item active">
@@ -53,6 +64,7 @@
       </div>
     </div>
     <!-- /.carousel -->
+
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
