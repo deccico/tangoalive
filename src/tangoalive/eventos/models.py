@@ -17,6 +17,7 @@ class Place(models.Model):
     telephone_2 = models.CharField(max_length=100, blank=True, null=True)
     telephone_3 = models.CharField(max_length=100, blank=True, null=True)
     owner = models.CharField(max_length=100, blank=True, null=True)
+    transportation_options = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     
     def __str__(self):
