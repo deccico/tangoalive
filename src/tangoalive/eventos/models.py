@@ -78,6 +78,7 @@ class Grupo(models.Model):
     image_4 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
     musicos = models.ManyToManyField(Musico, blank=True)
+    url = models.URLField(blank=True, null=True)
     video_youtube = models.URLField(blank=True, null=True)
     soundcloud = models.URLField(blank=True, null=True)
     spotify = models.URLField(blank=True, null=True)
