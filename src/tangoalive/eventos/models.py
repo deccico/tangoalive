@@ -5,7 +5,41 @@ from django.utils.encoding import python_2_unicode_compatible
 
 PICS_DIR = "%Y_%m/%d/%H_%M_%S/"
 
-@python_2_unicode_compatible  
+@python_2_unicode_compatible
+class Musico(models.Model):
+    MUSICOS_FOLDER_FORMAT = 'musicos_pics/{0}/'.format(PICS_DIR)
+    name = models.CharField(max_length=100)
+    foto = models.ImageField(upload_to=MUSICOS_FOLDER_FORMAT, blank=True, null=True)
+    biografia = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class Grupo(models.Model):
+    GRUPOS_FOLDER_FORMAT = 'grupos_pics/{0}/'.format(PICS_DIR)
+    name = models.CharField(max_length=150)
+    description = models.TextField(blank=True, null=True)
+    image_1 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_2 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_3 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_4 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_5 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    musicos = models.ManyToManyField(Musico, blank=True)
+    url = models.URLField(blank=True, null=True)
+    video_youtube = models.URLField(blank=True, null=True)
+    soundcloud = models.URLField(blank=True, null=True)
+    spotify = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    band_camp = models.URLField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
 class Place(models.Model):
     name = models.CharField(max_length=200)
     latitude = models.DecimalField(max_digits=10, decimal_places=7)
@@ -36,6 +70,7 @@ class EventoTipo(models.Model):
 class Evento(models.Model):
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)
+    grupo = models.ForeignKey(Grupo, blank=True, null=True)
     tipo_evento = models.ForeignKey(EventoTipo, blank=True, null=True)
     precio = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -51,40 +86,6 @@ class Evento(models.Model):
     image_3 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_4 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-@python_2_unicode_compatible
-class Musico(models.Model):
-    MUSICOS_FOLDER_FORMAT = 'musicos_pics/{0}/'.format(PICS_DIR)
-    name = models.CharField(max_length=100)
-    foto = models.ImageField(upload_to=MUSICOS_FOLDER_FORMAT, blank=True, null=True)
-    biografia = models.TextField(blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-@python_2_unicode_compatible
-class Grupo(models.Model):
-    GRUPOS_FOLDER_FORMAT = 'grupos_pics/{0}/'.format(PICS_DIR)
-    name = models.CharField(max_length=150)
-    description = models.TextField(blank=True, null=True)
-    image_1 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
-    image_2 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
-    image_3 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
-    image_4 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
-    image_5 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
-    musicos = models.ManyToManyField(Musico, blank=True)
-    url = models.URLField(blank=True, null=True)
-    video_youtube = models.URLField(blank=True, null=True)
-    soundcloud = models.URLField(blank=True, null=True)
-    spotify = models.URLField(blank=True, null=True)
-    twitter = models.URLField(blank=True, null=True)
-    facebook = models.URLField(blank=True, null=True)
-    band_camp = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
