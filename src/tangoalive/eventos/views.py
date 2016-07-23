@@ -4,14 +4,16 @@ from django.shortcuts import render
 from django.template import loader
 from django.utils import timezone
 
-from .models import Evento
+from .models import Evento, Portada
 
 
 def index(request):
     latest_eventos_list = get_last_eventos()
     template = loader.get_template('eventos/index.html')
+    portada = Portada.objects.get(id=1)
     context = {
         'latest_eventos_list': latest_eventos_list,
+        'portada': portada
     }
     return HttpResponse(template.render(context, request))
 

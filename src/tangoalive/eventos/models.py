@@ -3,7 +3,9 @@ import datetime
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-@python_2_unicode_compatible  # only if you need to support Python 2
+PICS_DIR = "%Y_%m/%d/%H_%M_%S/"
+
+@python_2_unicode_compatible  
 class Place(models.Model):
     name = models.CharField(max_length=200)
     latitude = models.DecimalField(max_digits=10, decimal_places=7)
@@ -23,10 +25,19 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
-@python_2_unicode_compatible  # only if you need to support Python 2
+@python_2_unicode_compatible
+class EventoTipo(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible  
 class Evento(models.Model):
-    EVENTOS_FOLDER_FORMAT = 'eventos_pics/%Y_%m/%d/%H_%M_%S/'
+    EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)
+    tipo_evento = models.ForeignKey(EventoTipo, blank=True, null=True)
+    precio = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     pub_date = models.DateField(default=datetime.datetime.now)
     event_date = models.DateField()
@@ -44,4 +55,49 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.name
+
+@python_2_unicode_compatible
+class Musico(models.Model):
+    MUSICOS_FOLDER_FORMAT = 'musicos_pics/{0}/'.format(PICS_DIR)
+    name = models.CharField(max_length=100)
+    foto = models.ImageField(upload_to=MUSICOS_FOLDER_FORMAT, blank=True, null=True)
+    biografia = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class Grupo(models.Model):
+    GRUPOS_FOLDER_FORMAT = 'grupos_pics/{0}/'.format(PICS_DIR)
+    name = models.CharField(max_length=150)
+    description = models.TextField(blank=True, null=True)
+    image_1 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_2 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_3 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_4 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    image_5 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
+    musicos = models.ManyToManyField(Musico, blank=True)
+    video_youtube = models.URLField(blank=True, null=True)
+    soundcloud = models.URLField(blank=True, null=True)
+    spotify = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    band_camp = models.URLField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class Portada(models.Model):
+    PORTADA_FOLDER_FORMAT = 'portada_pics/'
+    texto = models.TextField()
+    image_1 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
+    image_2 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
+    image_3 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return "Portada"
 
