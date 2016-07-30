@@ -1,1 +1,42 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block carousel %}
+<div class="row top">
+    <div class="col-xs-12 banner">
+        <img class="resize_horizontal" src="{% static 'eventos/images/background.jpg' %}" alt="Tango Alive">
+        <div class="caption">
+          <h1>Tango Alive</h1>
+          <p><a class="btn btn-lg btn-primary" href="#" role="button">Subscribe today</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block acarousel %}
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide">
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img class="" src="{% static 'eventos/images/background.jpg' %}" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Tango Alive</h1>
+          <p>The latest live Tango events in Buenos Aires.</p>
+          <p><a class="btn btn-lg btn-primary" href="#" role="button">Subscribe today</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.carousel -->
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    //$(window).ready(updateHeight);
+    //$(window).resize(updateHeight);
+</script>
+{% endblock %}

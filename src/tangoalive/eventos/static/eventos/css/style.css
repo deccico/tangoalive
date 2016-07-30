@@ -18,7 +18,91 @@
 @-o-viewport      { width: device-width; }
 @viewport         { width: device-width; }
 
-.tango-title{
-    color: SteelBlue;
-    font-weight: bold;
+
+.menu-top{
+  padding-bottom: 0px;
+  margin: 0px;
 }
+.resize_horizontal{
+ width:100%;
+}
+.resize_vertical{
+ height:100%;
+}
+.caption {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: rgb(255, 255, 255);
+  text-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px;
+  text-align: center;
+}
+
+
+/* Portada banner */
+@media only screen and (min-width: 100px) {
+    .caption {
+        top:70%
+    }
+    .caption p {
+        margin-bottom: 6px;
+        font-size: 12px;
+        line-height: 0.7;
+        color: red;
+    }
+    .caption h1 {
+        font-size: 20px;
+    }
+    .btn-group-lg>.btn, .btn-lg {
+        padding: 5px 7px;
+        font-size: 8px;
+        line-height: 0.7;
+        border-radius: 2px;
+    }
+}
+
+@media only screen and (min-width: 638px) {
+    .caption {
+        top:70%
+    }
+    .caption p {
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.0;
+        color: red;
+    }
+    .caption h1 {
+        font-size: 30px;
+    }
+    .btn-group-lg>.btn, .btn-lg {
+        padding: 7px 11px;
+        font-size: 12px;
+        line-height: 1.0;
+        border-radius: 4px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .caption {
+        top:70%
+    }
+    .caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+        color: blue;
+    }
+    .caption h1 {
+        font-size: 40px;
+    }
+    .btn-group-lg>.btn, .btn-lg {
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
+}
+
+

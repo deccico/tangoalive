@@ -21,3 +21,11 @@
   }
 
 })();
+
+
+function updateHeight()
+{
+    var div = $('#myCarousel');
+    var width = div.width();
+    div.css('height', width);
+}

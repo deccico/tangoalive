@@ -27,7 +27,7 @@
 ================================================== -->
   <body>
 
-      <nav class="navbar navbar-inverse navbar-static-top">
+      <nav class="navbar navbar-inverse navbar-static-top menu-top">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -47,23 +47,6 @@
       </nav>
 
     {% block carousel %}
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="" src="{% static 'eventos/images/background.jpg' %}" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Tango Alive</h1>
-              <p>Tango Alive brings you the latest information on live Tango events in Buenos Aires.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Subscribe today</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /.carousel -->
     {% endblock %}
 
     <!-- Marketing messaging and featurettes
@@ -102,7 +85,6 @@
 
     </div><!-- /.container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -111,5 +93,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'eventos/js/scripts.js' %}"></script>
+    {% block extra_scripts %}
+    {% endblock %}
   </body>
 </html>
