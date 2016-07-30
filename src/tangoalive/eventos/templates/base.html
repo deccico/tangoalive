@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,9 +39,9 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-              <li class="active"><a href="#">Browse Events</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="#">Buscar eventos</a></li>
+              <li><a href="#about">Acerca de</a></li>
+              <li><a href="#contact">Contacto</a></li>
             </ul>
           </div>
       </nav>
@@ -66,7 +66,7 @@
           <img class="img-circle" src="/media/{{evento.image_1}}" alt="Generic placeholder image" width="140" height="140">
           <h2>{{ evento.name }}</h2>
           <p>{{ evento.description }}</p>
-          <p><a class="btn btn-default" href="/eventos/{{ evento.id }}/" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="/eventos/{{ evento.id }}/" role="button">Ver detalles &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         {% endfor %}
         </ul>
@@ -80,7 +80,7 @@
       <hr class="featurette-divider">
       <!-- FOOTER -->
       <footer>
-        <p>&copy; 2016 Tango Alive &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2016 Tango Alive </p>
       </footer>
 
     </div><!-- /.container -->
