@@ -3,3 +3,4 @@
 *.idea
 src/tangoalive/eventos/static/eventos/eventos_pics/*
 src/tangoalive/media
+resources/tmp
