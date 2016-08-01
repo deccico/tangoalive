@@ -22,16 +22,19 @@
           <p>{{ evento.event_date }} {{ event.time_from }} {{ event.duration }} minutos</p>
 
           <h4>&iquest;Donde?</h4>
-          <p>{{ evento.place }} </p>
+          <p>{{ evento.place.name }} </p>
 
           {% if evento.precio %}
           <h4>Subheading</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
           {% endif %}
-
         </div>
-      </div>
 
+        {% if evento.place.google_map_code %}
+        <div class="col-lg-6">
+        <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        {% endif %}
     </div> <!-- /container -->
 
 

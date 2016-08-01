@@ -45,6 +45,7 @@ class Place(models.Model):
     name = models.CharField(max_length=200)
     latitude = models.DecimalField(max_digits=10, decimal_places=7)
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
+    google_map_code = models.CharField(max_length=800, blank=True, null=True)
     address_line_1 = models.CharField(max_length=100)
     address_line_2 = models.CharField(max_length=100, blank=True, null=True)
     address_city = models.CharField(max_length=100, blank=True, null=True)
