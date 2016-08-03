@@ -18,11 +18,14 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from contact import views as contactviews
+
 urlpatterns = [
     url(r'', include('eventos.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^eventos/', include('eventos.urls')),
     url(r'^contact/', include('contact.urls')),
+    url(r'^about/', contactviews.about),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
