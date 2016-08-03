@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'', include('eventos.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^eventos/', include('eventos.urls')),
+    url(r'^contact/', include('contact.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
