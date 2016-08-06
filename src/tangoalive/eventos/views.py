@@ -26,9 +26,9 @@ def detail(request, eventos_id):
 
 def get_last_eventos(quantity=3):
     """
-    Return the last five published eventos (not including those set to be
+    Return the last quantity published eventos (not including those set to be
     published in the future).
     """
     return Evento.objects.filter(
-        pub_date__lte=timezone.now()
+        image_1__isnull=False, pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:quantity]
