@@ -34,5 +34,11 @@ def get_last_eventos(quantity=3):
 
 
 def browse(request):
+    latest_eventos_list = get_last_eventos(50)
     template = loader.get_template('eventos/browse.html')
-    return HttpResponse(template.render({}, request))
+    portada = Portada.objects.get(id=1)
+    context = {
+        'latest_eventos_list': latest_eventos_list,
+        'portada': portada
+    }
+    return HttpResponse(template.render(context, request))

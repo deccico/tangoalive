@@ -7,26 +7,41 @@
 
 {% block content %}
     <div class="container">
-
       <div class="jumbotron">
-        <h1>Buscar</h1>
+        <h1>Navegar Eventos</h1>
+        <p class="lead">Informaci&oacute;n acerca de Tango en Vivo en Buenos Aires.</p>
+        <!--
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+        -->
       </div>
-
       <div class="row marketing">
         <div class="col-lg-12">
-          <p>Tango Alive, te trae todos los conciertos de Tango para que no te pierdas la experiencia de disfrutar
-              Tango en vivo. Conectamos los fans de la música en vivo con los artistas.
-En Tango Alive conectamos a los seguidores con los artistas que ellos aman. Hoy en día estamos viviendo un momento
-              inédito para el Tango, el nivel de producción alcanzado de las agrupaciones y las orquestas es similiar o superior a la época dorada. El Tango vuelve a consolidarse como una música llena de vida en la ciudad de Buenos Aires.
-Tango Alive pone al alcance de los seguidores, una base de datos actualizada donde podrán descubrir nueva música a
-              través de distintos dispositivos.
-Creemos que vivir la experiencia de la música en vivo es un momento único e inigualable.
-              es nuesra pasión y los que nos moviliza.
-Proveemos información actualizada para que los fans puedan hacer un seguimiento para que nunca puedan
-              perderse un concierto en vivo y descburir nuevos artistas.
-Somos Tango Alive, nos gusta el Tango en Vivo.
-</p>
+            <table class="table table-striped">
+            </table>
+
+            <table class="table table-striped">
+                <thead>
+                <tr> <th>#</th> <th>Nombre</th> <th>Last Name</th> <th>Username</th> </tr>
+                </thead>
+                <tbody>
+                {% if latest_eventos_list %}
+                {% for evento in latest_eventos_list %}
+                <tr> <th scope=row>
+                    <img class="img-circle" src="/media/{{evento.image_1}}" width="140" height="140">
+                </th> <td>
+                    {{ evento.name }}
+                </td> <td>
+                    {{ evento.description }}
+                </td> <td>
+                    {{ evento.precio }}
+                </td> </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+
+
         </div>
     </div> <!-- /container -->
-
 {% endblock %}
+
