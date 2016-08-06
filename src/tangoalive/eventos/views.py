@@ -33,3 +33,6 @@ def get_last_eventos(quantity=3):
         pub_date__lte=timezone.now()).exclude(image_1=u'').order_by('-pub_date')[:quantity]
 
 
+def browse(request):
+    template = loader.get_template('eventos/browse.html')
+    return HttpResponse(template.render({}, request))

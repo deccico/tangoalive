@@ -18,13 +18,14 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from eventos import views as eventoviews
 
 urlpatterns = [
     url(r'', include('eventos.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^eventos/', include('eventos.urls')),
     url(r'^about/', include('contact.urls')),
-    url(r'^browse/', include('search.urls')),
+    url(r'^browse/', eventoviews.browse),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
