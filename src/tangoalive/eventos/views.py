@@ -30,5 +30,6 @@ def get_last_eventos(quantity=3):
     published in the future).
     """
     return Evento.objects.filter(
-        image_1__isnull=False, pub_date__lte=timezone.now()
-    ).order_by('-pub_date')[:quantity]
+        pub_date__lte=timezone.now()).exclude(image_1=u'').order_by('-pub_date')[:quantity]
+
+
