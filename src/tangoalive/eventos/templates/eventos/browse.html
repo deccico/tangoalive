@@ -21,7 +21,7 @@
 
             <table class="table table-striped">
                 <thead>
-                <tr> <th>#</th> <th>Nombre</th> <th>Last Name</th> <th>Username</th> </tr>
+                <tr> <th>#</th> <th>Evento</th> <th>Descripci&oacute;n</th> <th>&iquest;Cuando?</th> </tr>
                 </thead>
                 <tbody>
                 {% if latest_eventos_list %}
@@ -33,7 +33,7 @@
                 </td> <td>
                     {{ evento.description }}
                 </td> <td>
-                    {{ evento.precio }}
+                    {{ evento.event_date }}&nbsp;-&nbsp;{{ evento.time_from }}
                 </td> </tr>
                 {% endfor %}
                 {% endif %}
