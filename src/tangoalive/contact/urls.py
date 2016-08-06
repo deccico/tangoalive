@@ -3,5 +3,5 @@ from . import views
 
 app_name = "eventos"
 urlpatterns = [
-    url(r'^$', views.contact, name='contact'),
+    url(r'^$', views.about, name='about'),
 ]
