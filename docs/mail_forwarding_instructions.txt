@@ -1,0 +1,148 @@
+from: http://www.binarytides.com/postfix-mail-forwarding-debian/
+
+binarytides.com  Read Later
+Setup mail forwarding in postfix on Ubuntu or Debian
+by Google+  3 min read  original
+Postfix mail forwarding
+Postfix is a commonly used MTA (Mail Transfer Agent) program that can receive, deliver or route emails. So if you have your own domain and a server then using postfix you can setup emails on the domain like myname@mydomain.com.
+
+Setting up a full featured mail server with postfix is a lengthy process requiring quite some effort. Furthermore, using your own mail server you do miss out the convenience and features of the popular free email services like gmail or hotmail. One way is to use google's paid service to integrate gmail with the domain email.
+
+Alternatively, setup your webserver to forward all mails coming on your domain email, to your other address like gmail. Doing so would allow you to accept mails on your personal domain emails, making it look professional and at the same time use gmail service to access the same and enjoy the convenience of gmail too.
+
+mail for superman@site.com ==> [ site.com Postfix server ] ==> forwarded to superman@gmail.com
+So this post shows how to setup mail forwarding on a Debian or Ubuntu server using the postfix program. For other distros like CentOS and Fedora too, the steps are nearly the same.
+
+Install Postfix
+Installation is super quick. Postfix is there in the default repos, so just use apt-get to install.
+
+$ sudo apt-get install postfix
+During installation it would ask a couple of questions about how to configure the mail server. Fill in the required information and proceed. Once the installation is complete, the mail server daemon would be started.
+
+$ sudo service postfix status
+ * postfix is running
+You can further check that postfix is running a server on port 25 with the netstat command
+
+$ sudo netstat -ltnp | grep 25
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      1926/master
+tcp6       0      0 ::1:25                  :::*                    LISTEN      1926/master
+The last column shows the pid of the processing, which is postfix here.
+
+Verify DNS settings of domain
+Before proceeding to configuring postfix to forward mails on behalf of your domain, its necessary to ensure that the MX records for your domain are pointing to the right server. This can be done quickly with the dig command. Run it from your local machine.
+
+$ dig binarytides.com mx
+
+; <<>> DiG 9.9.3-rpz2+rl.13214.22-P2-Ubuntu-1:9.9.3.dfsg.P2-4ubuntu1.1 <<>> binarytides.com mx
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 7230
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;binarytides.com.               IN      MX
+
+;; ANSWER SECTION:
+binarytides.com.        85100   IN      MX      10 mail.binarytides.com.
+
+;; Query time: 74 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Fri Mar 28 08:59:17 IST 2014
+;; MSG SIZE  rcvd: 65
+In the 'ANSWER SECTION' it can be seen that mail.binarytides.com is reported as the mail server for binarytides.com. Next, dig up the a records for the domain mail.binarytides.com and it would show the server ip to which it points.
+
+$ dig mail.binarytides.com a
+
+; <<>> DiG 9.9.3-rpz2+rl.13214.22-P2-Ubuntu-1:9.9.3.dfsg.P2-4ubuntu1.1 <<>> mail.binarytides.com a
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 43356
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;mail.binarytides.com.          IN      A
+
+;; ANSWER SECTION:
+mail.binarytides.com.   85045   IN      A       173.255.230.5
+
+;; Query time: 30 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Fri Mar 28 09:00:19 IST 2014
+;; MSG SIZE  rcvd: 65
+Now the ANSWER SECTION shows the ip address of mail.binarytides.com which over here is correct. Do the same for your domain and verify that the mx records are setup correctly.
+
+Configure postfix to forward mails
+Now comes the final task of configuring postfix to forward mails, and it is surprisingly simple.
+Find the path of the configuration directory using the postconf command
+
+$  postconf | grep config_directory
+config_directory = /etc/postfix
+Now we know that all the necessary configuration files lie in the above directory, so get inside it.
+Edit the main.cf file
+
+/etc/postfix/main.cf
+And add the following lines at the end of it
+
+virtual_alias_domains = mydomain.com myanotherdomain.com
+virtual_alias_maps = hash:/etc/postfix/virtual
+The first line virtual_alias_domains lists the domains, for which postfix is going to accept emails. Multiple domains are added separated by a space.
+
+The second line virtual_alias_maps specifies the path to the file which is going to contain mappings specifying how to forward emails for the above domains.
+
+Now open the /etc/postfix/virtual file (create one if it does not exist) and add to it the emails you want to forward along with the destination emails.
+
+# lets forward 2 emails
+
+contact@mydomain.com myself@gmail.com
+sales@mydomain.com myself@gmail.com
+The first email is the address on which postfix shall receive emails, and the second is the address where postfix would forward the emails.
+
+The mail can be forwarded to multiple destinations
+
+contact@mydomain.com myself@gmail.com mystaff@gmail.com
+To catch and forward emails to any address for a given domain, use the following notation
+
+# forward all emails
+
+@mydomain.com myself@gmail.com mystaff@gmail.com
+After entering the forwarding rules, save the file and close it. Then run the following commands for the new settings to take effect
+
+Update the postfix lookup table
+
+$ postmap /etc/postfix/virtual
+Reload postfix configuration
+
+$ sudo /etc/init.d/postfix reload
+
+# or
+
+$ sudo service postfix reload
+Check with the postconf command that the domain aliases and alias file have been setup properly.
+
+$ postconf -n | grep virtual
+virtual_alias_domains = mydomain.com myanotherdomain.com
+virtual_alias_maps = hash:/etc/postfix/virtual
+root@localhost:~#
+Test it now
+Now try sending an email from somewhere outside the world, to the address on your domain, and you should see the same mail forwarded to the gmail account.
+
+Last Updated On : 8th April 2014
+
+
+possibly needed in the future:
+Warning! I have encountered that with a default postfix configuration this will open your server for SPAM as it allows log in via unauthenticated locations. Dear author, please add a line on smtp restrictions!
+
+I have disabled SASL as it seems to be unneeded for forwarding only and disable the unauthenticated destinations for now as a first step.
+
+default main.cf:
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+
+mail.log:
+Mar 29 19:23:10 planetsofa postfix/smtpd[11118]: warning: hostname 88.249.45.76.dynamic.ttnet.com.tr does not resolve to address 88.249.45.76: Name or service not known
+Mar 29 19:23:10 planetsofa postfix/smtpd[11118]: connect from unknown[88.249.45.76]
+Mar 29 19:23:10 planetsofa postfix/smtpd[11118]: 5F14113E0005: client=unknown[88.249.45.76]
+Mar 29 19:23:10 planetsofa postfix/cleanup[11122]: 5F14113E0005: message-id=
