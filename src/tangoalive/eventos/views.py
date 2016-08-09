@@ -30,8 +30,10 @@ def get_last_eventos(quantity=3):
     published in the future).
     """
     return Evento.objects.filter(
-        pub_date__lte=timezone.now(), image_1__isnull=False).exclude(image_1=u'').order_by('-pub_date')[:quantity]
-
+        pub_date__lte=timezone.now(),
+        event_date__gte=timezone.now(),
+        image_1__isnull=False
+    ).exclude(image_1=u'').order_by('event_date')[:quantity]
 
 def browse(request):
     latest_eventos_list = get_last_eventos(50)
@@ -42,3 +44,4 @@ def browse(request):
         'portada': portada
     }
     return HttpResponse(template.render(context, request))
+
