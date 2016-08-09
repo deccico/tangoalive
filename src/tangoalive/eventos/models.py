@@ -16,7 +16,8 @@ class Musico(models.Model):
     def __str__(self):
         return self.name
 
-@python_2_unicode_compatible
+@python_2_unicode_compatible\
+#Grupo musical
 class Grupo(models.Model):
     GRUPOS_FOLDER_FORMAT = 'grupos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=150)
@@ -72,7 +73,7 @@ class EventoTipo(models.Model):
 class Evento(models.Model):
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)
-    grupo = models.ForeignKey(Grupo, blank=True, null=True)
+    grupo = models.ManyToManyField(Grupo, blank=True, null=True)
     tipo_evento = models.ForeignKey(EventoTipo, blank=True, null=True)
     precio = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
