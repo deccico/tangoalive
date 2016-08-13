@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import datetime
+from django.contrib import admin
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -73,7 +74,7 @@ class EventoTipo(models.Model):
 class Evento(models.Model):
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)
-    grupo = models.ManyToManyField(Grupo, blank=True, null=True)
+    grupo = models.ManyToManyField(Grupo, blank=True)
     tipo_evento = models.ForeignKey(EventoTipo, blank=True, null=True)
     precio = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -93,6 +94,9 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.name
+
+class EventoAdmin(admin.ModelAdmin):
+    filter_horizontal = ['grupo']
 
 @python_2_unicode_compatible
 class Portada(models.Model):
