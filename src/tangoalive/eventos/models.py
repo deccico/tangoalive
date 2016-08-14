@@ -42,6 +42,9 @@ class Grupo(models.Model):
     def __str__(self):
         return self.name
 
+class GrupoAdmin(admin.ModelAdmin):
+    filter_horizontal = ['musicos']
+
 @python_2_unicode_compatible
 class Place(models.Model):
     name = models.CharField(max_length=200)
