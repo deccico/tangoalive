@@ -3,6 +3,7 @@ import datetime
 from django.contrib import admin
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 PICS_DIR = "%Y_%m/%d/%H_%M_%S/"
 
@@ -16,6 +17,11 @@ class Musico(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MusicoAdmin(admin.ModelAdmin):
+    ordering = ['name']
+
 
 @python_2_unicode_compatible\
 #Grupo musical
@@ -44,6 +50,7 @@ class Grupo(models.Model):
 
 class GrupoAdmin(admin.ModelAdmin):
     filter_horizontal = ['musicos']
+    ordering = ['name']
 
 @python_2_unicode_compatible
 class Place(models.Model):
@@ -66,12 +73,20 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
+class PlaceAdmin(admin.ModelAdmin):
+    ordering = ['name']
+
+
 @python_2_unicode_compatible
 class EventoTipo(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+class EventoTipoAdmin(admin.ModelAdmin):
+    ordering = ['name']
+
 
 @python_2_unicode_compatible  
 class Evento(models.Model):
@@ -98,8 +113,27 @@ class Evento(models.Model):
     def __str__(self):
         return self.name
 
+    def is_published(self):
+        return self.pub_date <= timezone.now().date()
+    is_published.boolean = True
+    is_published.admin_order_field = 'pub_date'
+    is_published.short_description = 'Publicado?'
+
+    def is_in_the_future(self):
+        return self.event_date >= timezone.now().date()
+    is_in_the_future.boolean = True
+    is_in_the_future.admin_order_field = 'event_date'
+    is_in_the_future.short_description = 'Activo?'
+
+
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo']
+    list_display = ('name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future')
+    list_filter = ['pub_date', 'event_date']
+    search_fields = ['name']
+    ordering = ['event_date']
+    show_full_result_count = True
+
 
 @python_2_unicode_compatible
 class Portada(models.Model):
