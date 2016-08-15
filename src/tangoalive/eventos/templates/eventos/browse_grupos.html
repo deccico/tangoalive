@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block menu_items %}
-<li class="active"><a href="/browse">Buscar eventos</a></li>
-<li><a href="/grupos/browse_grupos">Grupos musicales</a></li>
+<li><a href="/browse">Buscar eventos</a></li>
+<li  class="active"><a href="/grupos/browse_grupos">Grupos musicales</a></li>
 <li><a href="/about">Acerca de</a></li>
 {% endblock %}
 
 {% block content %}
     <div class="container">
       <div class="jumbotron">
-        <h1>Navegar Eventos</h1>
-        <p class="lead">Informaci&oacute;n acerca de Tango en Vivo en Buenos Aires.</p>
+        <h1>Grupos Musicales</h1>
         <!--
+        <p class="lead">Informaci&oacute;n acerca de Tango en Vivo en Buenos Aires.</p>
         <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
         -->
       </div>
@@ -19,19 +19,19 @@
         <div class="col-lg-12">
             <table class="table table-striped">
                 <thead>
-                <tr> <th>#</th> <th>Evento</th> <th>Descripci&oacute;n</th> <th>&iquest;Cuando?</th> </tr>
+                <tr> <th>#</th> <th>Grupo</th> <th>Biograf&iacute;a</th> <th>Biograf&iacute;a larga</th> </tr>
                 </thead>
                 <tbody>
-                {% if latest_eventos_list %}
-                {% for evento in latest_eventos_list %}
+                {% if grupos %}
+                {% for grupo in grupos %}
                 <tr> <th scope=row>
-                    <img class="img-circle" src="/media/{{evento.image_1}}" width="140" height="140">
+                    <img class="img-circle" src="/media/{{grupo.image_1}}" width="140" height="140">
                 </th> <td>
-                    {{ evento.name }}
+                    {{ grupo.name }}
                 </td> <td>
-                    {{ evento.description }}
+                    {{ grupo.bio_corta }}
                 </td> <td>
-                    {{ evento.event_date }}&nbsp;-&nbsp;{{ evento.time_from }}
+                    {{ grupo.bio_larga }}
                 </td> </tr>
                 {% endfor %}
                 {% endif %}

@@ -55,6 +55,7 @@ class GrupoAdmin(admin.ModelAdmin):
     filter_horizontal = ['musicos']
     ordering = ['name']
     show_full_result_count = True
+    save_on_top = True
 
 @python_2_unicode_compatible
 class Place(models.Model):
@@ -141,6 +142,7 @@ class EventoAdmin(admin.ModelAdmin):
     show_full_result_count = True
     #radio_fields = {"place": admin.VERTICAL}
     #raw_id_fields = ('place',)
+    save_on_top = True
 
 @python_2_unicode_compatible
 class Portada(models.Model):
