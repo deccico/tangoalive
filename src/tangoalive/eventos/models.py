@@ -21,6 +21,7 @@ class Musico(models.Model):
 
 class MusicoAdmin(admin.ModelAdmin):
     ordering = ['name']
+    show_full_result_count = True
 
 
 @python_2_unicode_compatible\
@@ -28,7 +29,8 @@ class MusicoAdmin(admin.ModelAdmin):
 class Grupo(models.Model):
     GRUPOS_FOLDER_FORMAT = 'grupos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=150)
-    description = models.TextField(blank=True, null=True)
+    bio_corta = models.CharField(max_length=250, blank=True, null=True)
+    bio_larga = models.TextField(blank=True, null=True)
     image_1 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
     image_2 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
     image_3 = models.ImageField(upload_to=GRUPOS_FOLDER_FORMAT, blank=True, null=True)
@@ -44,6 +46,7 @@ class Grupo(models.Model):
     spotify = models.URLField(blank=True, null=True)
     band_camp = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+    embedded_video = models.CharField(max_length=800, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -51,6 +54,7 @@ class Grupo(models.Model):
 class GrupoAdmin(admin.ModelAdmin):
     filter_horizontal = ['musicos']
     ordering = ['name']
+    show_full_result_count = True
 
 @python_2_unicode_compatible
 class Place(models.Model):
@@ -75,6 +79,7 @@ class Place(models.Model):
 
 class PlaceAdmin(admin.ModelAdmin):
     ordering = ['name']
+    show_full_result_count = True
 
 
 @python_2_unicode_compatible
@@ -102,6 +107,7 @@ class Evento(models.Model):
     duration = models.DurationField()
     recurrent_definition = models.CharField(max_length=20, blank=True)
     place = models.ForeignKey(Place, blank=True, null=True)
+    embedded_video = models.CharField(max_length=800, blank=True, null=True)
     approved = models.BooleanField(default=False)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_2 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
@@ -133,7 +139,8 @@ class EventoAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['event_date']
     show_full_result_count = True
-
+    #radio_fields = {"place": admin.VERTICAL}
+    #raw_id_fields = ('place',)
 
 @python_2_unicode_compatible
 class Portada(models.Model):
