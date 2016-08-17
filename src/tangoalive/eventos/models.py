@@ -108,7 +108,6 @@ class Evento(models.Model):
     duration = models.DurationField()
     recurrent_definition = models.CharField(max_length=20, blank=True)
     place = models.ForeignKey(Place, blank=True, null=True)
-    embedded_video = models.CharField(max_length=800, blank=True, null=True)
     approved = models.BooleanField(default=False)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_2 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
