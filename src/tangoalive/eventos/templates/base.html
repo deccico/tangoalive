@@ -104,11 +104,13 @@
             <h2 class="text-bold">Pr&oacute;ximos Eventos</h2>
             <hr class="divider bg-saffron">
             <div class="range">
-              <div class="cell-sm-6 cell-md-4">
-                <img src="/static/eventos/images/intense/home-img-05-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+            {% if latest_eventos_list %}
+            {% for evento in latest_eventos_list %}
+              <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
+                <img src="/media/{{evento.image_1}}" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
                 <div class="text-sm-left offset-top-24">
                   <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">AVA Nob Hill</a></h5>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">{{ evento.name }}</a></h5>
                   </div>
                   <h6 class="offset-top-10"> $1199.00/mon</h6>
                   <ul class="list-inline list-inline-dotted text-dark">
@@ -117,95 +119,12 @@
                     <li>2 bathrooms</li>
                   </ul>
                   <div>
-                    <p>AVA Nob Hill includes studios and 1 and 2 bedroom apartments that feature an urban-inspired design that extends beyond your walls and throughout the entire community.</p>
+                    <p>{{ evento.description }}</p>
                   </div>
                 </div>
               </div>
-              <div class="cell-sm-6 cell-md-4 offset-top-66 offset-sm-top-0">
-                <img src="/static/eventos/images/intense/home-img-06-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Ashton San Francisco</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"> $1595.00/mon</h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    <li>1200 sq ft</li>
-                    <li>2 bedrooms</li>
-                    <li>2 bathrooms</li>
-                  </ul>
-                  <div>
-                    <p>Ashton San Francisco offers luxury apartments, eco-friendly features, and remarkable on-site resident amenities. Enjoy premier services and access to our state-of-the-art fitness center, clubhouse, business center, and outdoor fire pit lounge.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cell-sm-6 cell-md-4 offset-top-66 offset-md-top-0">
-                <img src="/static/eventos/images/intense/home-img-07-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">The Presidio Residences</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"> $2699.00/mon</h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    <li>2200 sq ft</li>
-                    <li>4 bedrooms</li>
-                    <li>3 bathrooms</li>
-                  </ul>
-                  <div>
-                    <p>The Presidio Residences offer a unique opportunity to live in a national park setting and enjoy quiet neighborhoods, convenient location, beautiful open spaces, and outstanding recreational amenities.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cell-sm-6 cell-md-4 offset-top-66">
-                <img src="/static/eventos/images/intense/home-img-08-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Alchemy by Alta</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"> $1199.00/mon</h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    <li>1200 sq ft</li>
-                    <li>4 bedrooms</li>
-                    <li>2 bathrooms</li>
-                  </ul>
-                  <div>
-                    <p>One month FREE on select apartment homes for a limited time.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cell-sm-6 cell-md-4 offset-top-66">
-                <img src="/static/eventos/images/intense/home-img-09-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Avalon at Mission Bay</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"> $1595.00/mon</h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    <li>1200 sq ft</li>
-                    <li>2 bedrooms</li>
-                    <li>2 bathrooms</li>
-                  </ul>
-                  <div>
-                    <p>Avalon at Mission Bay located in San Francisco near the San Francisco Caltrain Station offers thoughtfully designed studio, 1, 2 and 3 bedroom apartments and town homes.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cell-sm-6 cell-md-4 offset-top-66">
-                <img src="/static/eventos/images/intense/home-img-10-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Bayside Village Apartments</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"> $2699.00/mon</h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    <li>2200 sq ft</li>
-                    <li>4 bedrooms</li>
-                    <li>3 bathrooms</li>
-                  </ul>
-                  <div>
-                    <p>Pick your pleasure from a vantage point that puts all the best of the city's lively South Beach neighborhood within easy reach.</p>
-                  </div>
-                </div>
-              </div>
+            {% endfor %}
+            {% endif %}
             </div>
             <div class="offset-top-50"><a href="catalog.html" class="btn btn-primary">ver todos los eventos</a></div>
           </div>

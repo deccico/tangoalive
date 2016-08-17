@@ -26,7 +26,7 @@ def get_bandas(quantity=3):
 
 
 def index(request):
-    latest_eventos_list = get_last_eventos()
+    latest_eventos_list = get_last_eventos(6)
     template = loader.get_template('eventos/index.html')
     portada = Portada.objects.get(id=1)
     context = {
