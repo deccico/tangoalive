@@ -1,87 +1,363 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="wide wow-animation smoothscroll scrollTo">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Tango Alive</title>
-    <meta name="description" content="Tango Alive te trae la última información sobre eventos de tango en vivo en Buenos Aires.">
-    <meta name="robots" content="noindex">  <!-- no search engine index -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'eventos/css/style.css' %}" />
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'eventos/css/carousel.css' %}" />
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
+    <link rel="stylesheet" href="/static/eventos/css/style.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="/static/eventos/images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="/static/eventos/js/html5shiv.min.js"></script>
+		<![endif]-->
   </head>
   <body>
-      <nav class="navbar navbar-inverse navbar-static-top menu-top">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Tango Alive</a>
+    <!-- Page-->
+    <div class="page text-center">
+      <!-- Page Header-->
+      <header class="page-head slider-menu-position">
+        <!-- RD Navbar Transparent-->
+        <div class="rd-navbar-wrap">
+          <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" class="rd-navbar rd-navbar-default rd-navbar-transparent" data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+            <div class="rd-navbar-inner">
+              <!-- RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+                <!-- RD Navbar Toggle-->
+                <button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                <!--Navbar Brand-->
+                <div class="rd-navbar-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+              </div>
+              <div class="rd-navbar-menu-wrap">
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-mobile-scroll">
+                    <!--Navbar Brand Mobile-->
+                    <div class="rd-navbar-mobile-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+                    <div class="form-search-wrap">
+                      <!-- RD Search Form-->
+                      <form action="search-results.html" method="GET" class="form-search rd-search">
+                        <div class="form-group">
+                          <label for="rd-navbar-form-search-widget" class="form-label form-search-label form-label-sm">Search</label>
+                          <input id="rd-navbar-form-search-widget" type="text" name="s" autocomplete="off" class="form-search-input input-sm form-control form-control-gray-lightest input-sm"/>
+                        </div>
+                        <button type="submit" class="form-search-submit"><span class="mdi mdi-magnify"></span></button>
+                      </form>
+                    </div>
+                    <!-- RD Navbar Nav-->
+                    <ul class="rd-navbar-nav">
+                      <li><a href="/"><span>Home</span></a>
+                      </li>
+                      <li><a href="#"><span>Eventos</span></a>
+                      </li>
+                      <li><a href="#"><span>Bandas</span></a>
+                      </li>
+                      <li><a href="portfolio-grid-3-columns.html"><span>Acerca de</span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!--RD Navbar Search-->
+                <div class="rd-navbar-search"><a data-rd-navbar-toggle=".rd-navbar-inner,.rd-navbar-search" href="#" class="rd-navbar-search-toggle mdi"><span></span></a>
+                  <form action="search-results.html" method="GET" class="rd-navbar-search-form search-form-icon-right rd-search">
+                    <div class="form-group">
+                      <label for="rd-navbar-search-form-input" class="form-label">Tipe&aacute; y apret&aacute; enter...</label>
+                      <input id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off" class="rd-navbar-search-form-input form-control form-control-gray-lightest"/>
+                    </div>
+                    <!--button(type="submit").rd-navbar-search-form-submit.mdi.mdi-magnify-->
+                  </form>
+                  <!--div.rd-navbar-live-search-results-->
+                  <!--button(data-rd-navbar-toggle=".rd-navbar-search, .rd-navbar-inner, .rd-navbar-live-search-results").rd-navbar-search-toggle-->
+                  <!--  span-->
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- Page Content-->
+      <main class="page-content">
+        <!-- Header Transparent-->
+                <!-- RD Parallax-->
+                <div data-on="false" data-md-on="true" class="rd-parallax">
+                  <div data-speed="0.35" data-type="media" data-url="/static/eventos/images/bg/2.jpg" class="rd-parallax-layer"></div>
+                  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+                    <section class="section-254 context-dark bg-overlay-gray-darkest">
+                      <div class="shell">
+                        <h2 class="offset-top-10"><span class="big"> Tango Alive</span></h2>
+                        <div class="post-meta">
+                          <ul class="list-inline p">
+                            <li>Eventos de Tango en vivo en Buenos Aires
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+
+        <!--Section Recent Properties-->
+        <section class="section-bottom-98 section-top-34 section-md-bottom-110 section-md-top-66">
+          <div class="shell">
+            <h2 class="text-bold">Pr&oacute;ximos Eventos</h2>
+            <hr class="divider bg-saffron">
+            <div class="range">
+              <div class="cell-sm-6 cell-md-4">
+                <img src="/static/eventos/images/intense/home-img-05-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">AVA Nob Hill</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $1199.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>1200 sq ft</li>
+                    <li>4 bedrooms</li>
+                    <li>2 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>AVA Nob Hill includes studios and 1 and 2 bedroom apartments that feature an urban-inspired design that extends beyond your walls and throughout the entire community.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-md-4 offset-top-66 offset-sm-top-0">
+                <img src="/static/eventos/images/intense/home-img-06-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Ashton San Francisco</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $1595.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>1200 sq ft</li>
+                    <li>2 bedrooms</li>
+                    <li>2 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>Ashton San Francisco offers luxury apartments, eco-friendly features, and remarkable on-site resident amenities. Enjoy premier services and access to our state-of-the-art fitness center, clubhouse, business center, and outdoor fire pit lounge.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-md-4 offset-top-66 offset-md-top-0">
+                <img src="/static/eventos/images/intense/home-img-07-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">The Presidio Residences</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $2699.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>2200 sq ft</li>
+                    <li>4 bedrooms</li>
+                    <li>3 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>The Presidio Residences offer a unique opportunity to live in a national park setting and enjoy quiet neighborhoods, convenient location, beautiful open spaces, and outstanding recreational amenities.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-md-4 offset-top-66">
+                <img src="/static/eventos/images/intense/home-img-08-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Alchemy by Alta</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $1199.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>1200 sq ft</li>
+                    <li>4 bedrooms</li>
+                    <li>2 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>One month FREE on select apartment homes for a limited time.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-md-4 offset-top-66">
+                <img src="/static/eventos/images/intense/home-img-09-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Avalon at Mission Bay</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $1595.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>1200 sq ft</li>
+                    <li>2 bedrooms</li>
+                    <li>2 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>Avalon at Mission Bay located in San Francisco near the San Francisco Caltrain Station offers thoughtfully designed studio, 1, 2 and 3 bedroom apartments and town homes.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-md-4 offset-top-66">
+                <img src="/static/eventos/images/intense/home-img-10-370x250.jpg" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
+                <div class="text-sm-left offset-top-24">
+                  <div>
+                    <h5 class="text-bold text-primary"><a href="single-property-page.html">Bayside Village Apartments</a></h5>
+                  </div>
+                  <h6 class="offset-top-10"> $2699.00/mon</h6>
+                  <ul class="list-inline list-inline-dotted text-dark">
+                    <li>2200 sq ft</li>
+                    <li>4 bedrooms</li>
+                    <li>3 bathrooms</li>
+                  </ul>
+                  <div>
+                    <p>Pick your pleasure from a vantage point that puts all the best of the city's lively South Beach neighborhood within easy reach.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="offset-top-50"><a href="catalog.html" class="btn btn-primary">ver todos los eventos</a></div>
           </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-right">
-              {% block menu_items %}
-              <li><a href="/browse">Buscar eventos</a></li>
-              <li><a href="/grupos/browse_grupos">Grupos musicales</a></li>
-              <li><a href="/about">Acerca de</a></li>
-              {% endblock %}
-            </ul>
+        </section>
+
+        <!-- imagen al final-->
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.35" data-type="media" data-url="/static/eventos/images/bg/5.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" class="rd-parallax-layer">
+              <section style="min-height: 160px; padding-bottom: 31.25%"></section>
+            </div>
           </div>
-      </nav>
+        </section>
 
-    {% block top %}
-    {% endblock %}
-
-    <div class="container marketing">
-      {% block content %}
-      <div class="row">
-        {% if latest_eventos_list %}
-        <ul>
-        {% for evento in latest_eventos_list %}
-        <div class="col-lg-4">
-          <img class="img-circle" src="/media/{{evento.image_1}}" width="140" height="140">
-          <h2>{{ evento.name }}</h2>
-          <p>{{ evento.description }}</p>
-          <p><a class="btn btn-default" href="/eventos/{{ evento.id }}/" role="button">Ver detalles &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-        {% endfor %}
-        </ul>
-        {% endif %}
-      </div><!-- /.row -->
-
-      {{ portada.texto|safe }}
-
-      {% endblock %}
-
-      <hr class="featurette-divider">
-      <!-- FOOTER -->
-      <footer>
-        <p>&copy; 2016 Tango Alive </p>
+      </main>
+      <!-- Page Footer-->
+      <!-- Default footer-->
+      <footer class="section-relative section-top-66 section-bottom-34 page-footer bg-gray-base context-dark">
+        <div class="shell">
+          <div class="range range-sm-center text-lg-left">
+            <div class="cell-sm-8 cell-md-12">
+              <div class="range range-xs-center">
+                <div class="cell-xs-7 text-xs-left cell-md-4 cell-lg-3 cell-lg-push-4">
+                  <h6 class="text-uppercase text-spacing-60">Latest news</h6>
+                        <!-- Post Widget-->
+                        <article class="post widget-post text-left text-picton-blue"><a href="blog-classic-single-post.html">
+                            <div class="unit unit-horizontal unit-spacing-xs unit-middle">
+                              <div class="unit-body">
+                                <div class="post-meta"><span class="icon-xxs mdi mdi-arrow-right"></span>
+                                  <time datetime="2016-01-01" class="text-dark">05/14/2015</time>
+                                </div>
+                                <div class="post-title">
+                                  <h6 class="text-regular">Let’s Change the world</h6>
+                                </div>
+                              </div>
+                            </div></a></article>
+                        <!-- Post Widget-->
+                        <article class="post widget-post text-left text-picton-blue"><a href="blog-classic-single-post.html">
+                            <div class="unit unit-horizontal unit-spacing-xs unit-middle">
+                              <div class="unit-body">
+                                <div class="post-meta"><span class="icon-xxs mdi mdi-arrow-right"></span>
+                                  <time datetime="2016-01-01" class="text-dark">05/14/2015</time>
+                                </div>
+                                <div class="post-title">
+                                  <h6 class="text-regular">The meaning of Web Design</h6>
+                                </div>
+                              </div>
+                            </div></a></article>
+                        <!-- Post Widget-->
+                        <article class="post widget-post text-left text-picton-blue"><a href="blog-classic-single-post.html">
+                            <div class="unit unit-horizontal unit-spacing-xs unit-middle">
+                              <div class="unit-body">
+                                <div class="post-meta"><span class="icon-xxs mdi mdi-arrow-right"></span>
+                                  <time datetime="2016-01-01" class="text-dark">05/14/2015</time>
+                                </div>
+                                <div class="post-title">
+                                  <h6 class="text-regular">Get Started with TemplateMonster</h6>
+                                </div>
+                              </div>
+                            </div></a></article>
+                </div>
+                <div class="cell-xs-5 offset-top-41 offset-xs-top-0 text-xs-left cell-md-3 cell-lg-2 cell-lg-push-3">
+                  <h6 class="text-uppercase text-spacing-60">Useful Links</h6>
+                  <div class="reveal-block">
+                    <div class="reveal-inline-block">
+                      <ul class="list list-marked">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="clients.html">Clients</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-xs-12 offset-top-41 cell-md-5 offset-md-top-0 text-md-left cell-lg-4 cell-lg-push-2">
+                  <h6 class="text-uppercase text-spacing-60">Newsletter</h6>
+                  <p>Keep up with our always upcoming  product features  and technologies. Enter your e-mail and subscribe to  our newsletter.</p>
+                  <div class="offset-top-30">
+                          <form data-form-output="form-subscribe-footer" data-form-type="subscribe" method="post" action="bat/rd-mailform.php" class="rd-mailform">
+                            <div class="form-group">
+                              <div class="input-group input-group-sm"><span class="input-group-addon"><span class="input-group-icon mdi mdi-email"></span></span>
+                                <input placeholder="Type your E-Mail" type="email" name="email" data-constraints="@Required @Email" class="form-control"><span class="input-group-btn">
+                                  <button type="submit" class="btn btn-sm btn-primary">Subscribe</button></span>
+                              </div>
+                            </div>
+                            <div id="form-subscribe-footer" class="form-output"></div>
+                          </form>
+                  </div>
+                </div>
+                <div class="cell-xs-12 offset-top-66 cell-lg-3 cell-lg-push-1 offset-lg-top-0">
+                  <!-- Footer brand-->
+                  <div class="footer-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+                  <p class="text-darker offset-top-4">Donde el tango vive</p>
+                        <ul class="list-inline">
+                          <li><a href="#" class="icon fa fa-facebook icon-xxs icon-circle icon-darkest-filled"></a></li>
+                          <li><a href="#" class="icon fa fa-twitter icon-xxs icon-circle icon-darkest-filled"></a></li>
+                          <li><a href="#" class="icon fa fa-google-plus icon-xxs icon-circle icon-darkest-filled"></a></li>
+                          <li><a href="#" class="icon fa fa-linkedin icon-xxs icon-circle icon-darkest-filled"></a></li>
+                        </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="shell offset-top-50">
+          <p class="small text-darker">Tango Alive &copy; <span id="copyright-year"></span> . <a href="privacy.html">Privacy Policy</a>
+            <!-- {%FOOTER_LINK}-->
+          </p>
+        </div>
       </footer>
-    </div><!-- /.container -->
-
-    <!-- Bootstrap core JavaScript ========= -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{% static 'eventos/js/jquery.min.js' %}"><\/script>')</script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{% static 'eventos/js/scripts.js' %}"></script>
-    {% block extra_scripts %}
-    {% endblock %}
+    </div>
+    <!-- Global Mailform Output-->
+    <div id="form-output-global" class="snackbars"></div>
+    <!-- PhotoSwipe Gallery-->
+    <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+      <div class="pswp__bg"></div>
+      <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+          <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button title="Close (Esc)" class="pswp__button pswp__button--close"></button>
+            <button title="Share" class="pswp__button pswp__button--share"></button>
+            <button title="Toggle fullscreen" class="pswp__button pswp__button--fs"></button>
+            <button title="Zoom in/out" class="pswp__button pswp__button--zoom"></button>
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div>
+          </div>
+          <button title="Previous (arrow left)" class="pswp__button pswp__button--arrow--left"></button>
+          <button title="Next (arrow right)" class="pswp__button pswp__button--arrow--right"></button>
+          <div class="pswp__caption">
+            <div class="pswp__caption__center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Java script-->
+    <script src="/static/eventos/js/core.min.js"></script>
+    <script src="/static/eventos/js/script.js"></script>
   </body>
 </html>
