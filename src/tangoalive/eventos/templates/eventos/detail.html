@@ -11,21 +11,50 @@
               <div class="range">
                 <div class="cell-md-7 cell-lg-8">
                   <!-- Owl Carousel-->
-                  <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]" data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic"><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-01-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-01-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-02-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-02-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-03-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-03-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-05-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-05-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-06-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-06-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-07-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-07-770x510.jpg" alt=""/>
-                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-08-770x510.jpg">
-                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-08-770x510.jpg" alt=""/>
-                      </figure></a>
+                  <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
+                       data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
+                      {% if evento.image_1 %}
+                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_1}}">
+                        <figure><img width="770" height="510" src="/media/{{evento.image_1}}" alt=""/></figure></a>
+                      {% endif %}
+                      {% if evento.image_2 %}
+                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_2}}">
+                        <figure><img width="770" height="510" src="/media/{{evento.image_2}}" alt=""/></figure></a>
+                      {% endif %}
+                      {% if evento.image_3 %}
+                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_3}}">
+                        <figure><img width="770" height="510" src="/media/{{evento.image_3}}" alt=""/></figure></a>
+                      {% endif %}
+                      {% if evento.image_4 %}
+                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_4}}">
+                        <figure><img width="770" height="510" src="/media/{{evento.image_4}}" alt=""/></figure></a>
+                      {% endif %}
+                      {% if evento.image_5 %}
+                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_5}}">
+                        <figure><img width="770" height="510" src="/media/{{evento.image_5}}" alt=""/></figure></a>
+                      {% endif %}
+                      {% for grupo in evento.grupo.all %}
+                          {% if grupo.image_1 %}
+                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_1}}">
+                            <figure><img width="770" height="510" src="/media/{{grupo.image_1}}" alt=""/></figure></a>
+                          {% endif %}
+                          {% if grupo.image_2 %}
+                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_2}}">
+                            <figure><img width="770" height="510" src="/media/{{grupo.image_2}}" alt=""/></figure></a>
+                          {% endif %}
+                          {% if grupo.image_3 %}
+                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_3}}">
+                            <figure><img width="770" height="510" src="/media/{{grupo.image_3}}" alt=""/></figure></a>
+                          {% endif %}
+                          {% if grupo.image_4 %}
+                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_4}}">
+                            <figure><img width="770" height="510" src="/media/{{grupo.image_4}}" alt=""/></figure></a>
+                          {% endif %}
+                          {% if grupo.image_5 %}
+                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_5}}">
+                            <figure><img width="770" height="510" src="/media/{{grupo.image_5}}" alt=""/></figure></a>
+                          {% endif %}
+                      {% endfor %}
                   </div>
                   <div class="text-sm-left offset-top-50">
                     <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
