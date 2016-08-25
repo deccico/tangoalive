@@ -78,6 +78,14 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
+    def get_dire(self):
+        return "{0} {1} {2} {3}".format(
+            "" if not self.address_line_1 else self.address_line_1,
+            "" if not self.address_line_2 else self.address_line_2,
+            "" if not self.address_city else self.address_city,
+            "" if not self.address_province else self.address_province)
+
+
 class PlaceAdmin(admin.ModelAdmin):
     ordering = ['name']
     show_full_result_count = True

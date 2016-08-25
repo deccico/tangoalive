@@ -69,74 +69,56 @@
                           <th></th>
                         </tr>
                         <tr>
-                          <th>Features</th>
-                          <td>Lawn, Sprinkler System, Marble Floors</td>
+                          <th>Grupo/s:</th>
+                          <td>
+                            {% for grupo in evento.grupo.all %}
+                                {{ grupo.name }} |
+                            {% endfor %}
+                          </td>
                         </tr>
+                        {% if evento.tipo_evento %}
                         <tr>
-                          <th>MLS Listing ID</th>
-                          <td>12345678</td>
+                          <th>Tipo Evento:</th>
+                          <td>{{ evento.tipo_evento }}</td>
                         </tr>
+                        {% endif %}
+                        {% if evento.precio %}
                         <tr>
-                          <th>Year Built</th>
-                          <td>1868</td>
+                          <th>Precio:</th>
+                          <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.precio }}</td>
                         </tr>
+                        {% endif %}
                         <tr>
-                          <th>Lot Size</th>
-                          <td>5.45</td>
+                          <th>&iquest;Cuando?</th>
+                          <td>{{ evento.event_date }} | {{ evento.time_from }} | {{ evento.duration }} minutos</td>
                         </tr>
+                        {% if evento.place %}
                         <tr>
-                          <th>Parking Type</th>
-                          <td>Garage - Attached</td>
+                          <th>&iquest;Donde?</th>
+                          <td><i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
+                                <br/>{{evento.place.get_dire}}</td>
                         </tr>
+                        {% endif %}
+                        {% if evento.notes %}
                         <tr>
-                          <th>Room Count</th>
-                          <td>6</td>
+                          <th>Info adicional:</th>
+                          <td><textarea rows="4" cols="50">{{ evento.notes }}</textarea></td>
                         </tr>
-                        <tr>
-                          <th>Roof Type</th>
-                          <td>Tile</td>
-                        </tr>
-                        <tr>
-                          <th>View Type</th>
-                          <td>Mountain</td>
-                        </tr>
-                        <tr>
-                          <th>Exterior Type</th>
-                          <td>Stucco</td>
-                        </tr>
+                        {% endif %}
+
                       </table>
                     </div>
                   </div>
                 </div>
                 <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
                   <div class="range">
-                    <div class="cell-xs-12 offset-top-50 cell-md-push-4">
-                      <div class="unit unit-md unit-md-horizontal">
-                        <div class="unit-left"><img src="/static/eventos/images/intenso/users/user-shirley-vasquez-120x120.jpg" width="120" height="120" alt="" class="img-responsive reveal-inline-block"></div>
-                        <div class="unit-body">
-                          <div>
-                            <h5 class="text-primary text-bold">Shirley Vasquez</h5>
-                          </div>
-                          <div class="offset-top-10">
-                            <address class="contact-info text-md-left">
-                              <ul class="list-unstyled p">
-                                <li class="reveal-block"><span class="icon icon-xxs mdi mdi-phone text-middle"></span> <a href="callto:1-800-7650-986" class="reveal-inline-block text-middle">1-800-7650-986</a>
-                                </li>
-                                <li class="reveal-block"><span class="icon icon-xxs mdi mdi-email-open text-middle"></span> <a href="mailto:russell@demolink.org" class="reveal-inline-block text-middle">shirley@demolink.org</a>
-                                </li>
-                              </ul>
-                            </address>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
                       <p><span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span> <span>{{evento.event_date}}</span>
                       </p>
                       {% if evento.tipo_evento %}
                       <div class="offset-top-20 offset-md-top-50">
                         <ul class="list-inline list-inline-dotted text-dark">
-                            <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
+                            <li><i class="mdi mdi-library-music"></i>&nbsp;{{ evento.tipo_evento }}</li>
                         </ul>
                       </div>
                       {% endif %}
