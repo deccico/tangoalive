@@ -1,41 +1,134 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <div class="container">
-
-      <div class="jumbotron">
-        <h1>{{ evento.name }} {{evento.grupo|default_if_none:""}}</h1>
-        <p class="lead">{{ evento.tipo_evento|default_if_none:""}} {{ evento.description }}</p>
-        <!--
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-        -->
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <p><img class="featurette-image img-responsive center-block" src="/media/{{evento.image_1}}"> </p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>&iquest;Cuando?</h4>
-          <p>{{ evento.event_date }} {{ event.time_from }} {{ event.duration }} minutos</p>
-
-          <h4>&iquest;Donde?</h4>
-          <p>{{ evento.place.name }} </p>
-
-          {% if evento.precio %}
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-          {% endif %}
-        </div>
-
-        {% if evento.place.google_map_code %}
-        <div class="col-lg-6">
-        <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-        {% endif %}
-    </div> <!-- /container -->
-
+      <!-- Page Contents-->
+      <main class="page-content">
+        <section class="section-98 section-sm-110">
+          <div class="shell">
+            <h2 class="text-bold">{{ evento.name }}</h2>
+            <hr class="divider bg-saffron">
+            <div class="offset-sm-top-66">
+              <div class="range">
+                <div class="cell-md-7 cell-lg-8">
+                  <!-- Owl Carousel-->
+                  <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]" data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic"><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-01-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-01-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-02-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-02-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-03-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-03-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-05-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-05-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-06-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-06-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-07-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-07-770x510.jpg" alt=""/>
+                      </figure></a><a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/static/eventos/images/intenso/single-property-page-08-770x510.jpg">
+                      <figure><img width="770" height="510" src="/static/eventos/images/intenso/single-property-page-08-770x510.jpg" alt=""/>
+                      </figure></a>
+                  </div>
+                  <div class="text-sm-left offset-top-50">
+                    <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
+                    {{ evento.description }}
+                  </div>
+                  <div class="offset-top-30">
+                    <!-- Bootstrap Table-->
+                    <div class="table-responsive clearfix">
+                      <table class="table table-striped">
+                        <tr>
+                          <th>Detalles</th>
+                          <th></th>
+                        </tr>
+                        <tr>
+                          <th>Features</th>
+                          <td>Lawn, Sprinkler System, Marble Floors</td>
+                        </tr>
+                        <tr>
+                          <th>MLS Listing ID</th>
+                          <td>12345678</td>
+                        </tr>
+                        <tr>
+                          <th>Year Built</th>
+                          <td>1868</td>
+                        </tr>
+                        <tr>
+                          <th>Lot Size</th>
+                          <td>5.45</td>
+                        </tr>
+                        <tr>
+                          <th>Parking Type</th>
+                          <td>Garage - Attached</td>
+                        </tr>
+                        <tr>
+                          <th>Room Count</th>
+                          <td>6</td>
+                        </tr>
+                        <tr>
+                          <th>Roof Type</th>
+                          <td>Tile</td>
+                        </tr>
+                        <tr>
+                          <th>View Type</th>
+                          <td>Mountain</td>
+                        </tr>
+                        <tr>
+                          <th>Exterior Type</th>
+                          <td>Stucco</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
+                  <div class="range">
+                    <div class="cell-xs-12 offset-top-50 cell-md-push-4">
+                      <div class="unit unit-md unit-md-horizontal">
+                        <div class="unit-left"><img src="/static/eventos/images/intenso/users/user-shirley-vasquez-120x120.jpg" width="120" height="120" alt="" class="img-responsive reveal-inline-block"></div>
+                        <div class="unit-body">
+                          <div>
+                            <h5 class="text-primary text-bold">Shirley Vasquez</h5>
+                          </div>
+                          <div class="offset-top-10">
+                            <address class="contact-info text-md-left">
+                              <ul class="list-unstyled p">
+                                <li class="reveal-block"><span class="icon icon-xxs mdi mdi-phone text-middle"></span> <a href="callto:1-800-7650-986" class="reveal-inline-block text-middle">1-800-7650-986</a>
+                                </li>
+                                <li class="reveal-block"><span class="icon icon-xxs mdi mdi-email-open text-middle"></span> <a href="mailto:russell@demolink.org" class="reveal-inline-block text-middle">shirley@demolink.org</a>
+                                </li>
+                              </ul>
+                            </address>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
+                      <p><span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span> <span>{{evento.event_date}}</span>
+                      </p>
+                      {% if evento.tipo_evento %}
+                      <div class="offset-top-20 offset-md-top-50">
+                        <ul class="list-inline list-inline-dotted text-dark">
+                            <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
+                        </ul>
+                      </div>
+                      {% endif %}
+                      <div class="offset-top-20 offset-md-top-50">
+                        <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp; {{ evento.precio|default:" no disponible" }} </h5>
+                      </div>
+                    </div>
+                    <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20"><a href="#" class="btn btn-primary">Reservar entrada</a>
+                    </div>
+                    <div class="cell-xs-12 offset-top-66 cell-md-push-3">
+                      <!-- RD Google Map-->
+                      <div class="rd-google-map">
+                          <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
 {% endblock %}

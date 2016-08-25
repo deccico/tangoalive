@@ -77,78 +77,11 @@
           </nav>
         </div>
       </header>
-      <!-- Page Content-->
-      <main class="page-content">
-        <!-- Header Transparent-->
-                <!-- RD Parallax-->
-                <div data-on="false" data-md-on="true" class="rd-parallax">
-                  <div data-speed="0.35" data-type="media" data-url="/static/eventos/images/bg/2.jpg" class="rd-parallax-layer"></div>
-                  <div data-speed="0" data-type="html" class="rd-parallax-layer">
-                    <section class="section-254 context-dark bg-overlay-gray-darkest">
-                      <div class="shell">
-                        <h2 class="offset-top-10"><span class="big"> Tango Alive</span></h2>
-                        <div class="post-meta">
-                          <ul class="list-inline p">
-                            <li>Eventos de Tango en vivo en Buenos Aires
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </div>
 
-        <!--Section Recent Properties-->
-        <section class="section-bottom-98 section-top-34 section-md-bottom-110 section-md-top-66">
-          <div class="shell">
-            <h2 class="text-bold">Pr&oacute;ximos Eventos</h2>
-            <hr class="divider bg-saffron">
-            <div class="range">
-            {% if latest_eventos_list %}
-            {% for evento in latest_eventos_list %}
-              <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
-                <img src="/media/{{evento.image_1}}" width="370" height="250" alt="" class="img-responsive reveal-inline-block">
-                <div class="text-sm-left offset-top-24">
-                  <div>
-                    <h5 class="text-bold text-primary"><a href="single-property-page.html">{{ evento.name }}</a></h5>
-                  </div>
-                  <h6 class="offset-top-10"><i class="fa fa-dollar"></i>&nbsp; {{ evento.precio|default:" no disponible" }} </h6>
-                  <ul class="list-inline list-inline-dotted text-dark">
-                    {% if evento.tipo_evento %}
-                      <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
-                    {% endif %}
-                    <li><i class="fa fa-calendar"></i> {{ evento.event_date }}</li>
-                    {% if evento.place %}
-                      <li><i class="mdi mdi-home-variant"> </i>{{ evento.place }}</li>
-                    {% endif %}
-                  </ul>
-                  <div>
-                    <p>{{ evento.description|slice:":200"|safe}}
-                        {% if evento.description|length > 200 %}
-                            (...)
-                        {% endif %}
-                    </p></br>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-            {% endif %}
-            </div>
-            <div class="offset-top-50"><a href="catalog.html" class="btn btn-primary">ver todos los eventos</a></div>
-          </div>
-        </section>
+      {% block content %}
+      {% endblock %}
 
-        <!-- imagen al final-->
-        <section>
-          <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.35" data-type="media" data-url="/static/eventos/images/bg/5.jpg" class="rd-parallax-layer"></div>
-            <div data-speed="0" data-type="html" class="rd-parallax-layer">
-              <section style="min-height: 160px; padding-bottom: 31.25%"></section>
-            </div>
-          </div>
-        </section>
 
-      </main>
       <!-- Page Footer-->
       <!-- Default footer-->
       <footer class="section-relative section-top-66 section-bottom-34 page-footer bg-gray-base context-dark">
