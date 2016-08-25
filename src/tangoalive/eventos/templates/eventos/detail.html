@@ -146,12 +146,14 @@
                     </div>
                     <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20"><a href="#" class="btn btn-primary">Reservar entrada</a>
                     </div>
+                    {% if evento.place.google_map_code %}
                     <div class="cell-xs-12 offset-top-66 cell-md-push-3">
                       <!-- RD Google Map-->
                       <div class="rd-google-map">
                           <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
                       </div>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
