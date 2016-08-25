@@ -13,6 +13,7 @@
                   <!-- Owl Carousel-->
                   <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
                        data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
+                      {# todo: fix the model (maybe) #}
                       {% if evento.image_1 %}
                       <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_1}}">
                         <figure><img width="770" height="510" src="/media/{{evento.image_1}}" alt=""/></figure></a>
@@ -133,6 +134,8 @@
                       <!-- RD Google Map-->
                       <div class="rd-google-map">
                           <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                          <i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
+                          <br/>{{evento.place.get_dire}}
                       </div>
                     </div>
                     {% endif %}

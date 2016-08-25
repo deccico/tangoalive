@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import datetime
+import re
 from django.contrib import admin
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -84,6 +85,14 @@ class Place(models.Model):
             "" if not self.address_line_2 else self.address_line_2,
             "" if not self.address_city else self.address_city,
             "" if not self.address_province else self.address_province)
+
+    def get_maps_url(self):
+        maps_url = self.google_map_code
+        if maps_url and len(maps_url) < 3:
+            maps_url = maps_url.split('"')[0]
+        else:
+            maps_url = ""
+        return maps_url
 
 
 class PlaceAdmin(admin.ModelAdmin):
