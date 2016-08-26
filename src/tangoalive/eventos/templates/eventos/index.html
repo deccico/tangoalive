@@ -50,7 +50,7 @@
             {% endif %}
           </ul>
           <div>
-            <p>{{ evento.description|slice:":200"|safe}}
+            <p>{{ evento.description|slice:":200"|striptags}}
                 {% if evento.description|length > 200 %}
                     (...)
                 {% endif %}
@@ -61,7 +61,7 @@
     {% endfor %}
     {% endif %}
     </div>
-    <div class="offset-top-50"><a href="catalog.html" class="btn btn-primary">ver todos los eventos</a></div>
+    <div class="offset-top-50"><a href="/browse_events" class="btn btn-primary">ver todos los eventos</a></div>
   </div>
 </section>
 
