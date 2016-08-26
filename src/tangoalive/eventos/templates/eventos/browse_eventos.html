@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <section class="rd-parallax context-dark">
+          <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/bg/8.jpg" class="rd-parallax-layer"></div>
+          <div data-speed="0" data-type="html" class="rd-parallax-layer">
+            <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+              <div>
+                <h1 class="text-bold">Listado de Eventos</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+      <!-- Page Contents-->
+      <main class="page-content">
+        <!--Section Eventos Filter-->
+        <section class="section-50 bg-lighter">
+          <div class="shell">
+            <!-- RD Mailform-->
+            <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" class="rd-mailform text-left bg-lighter">
+              <h5 class="text-bold">Filtro de Eventos</h5>
+              <div class="range range-xs-center offset-top-0">
+               <div class="range-spacer offset-top-20 veil reveal-md-flex"></div>
+                <div class="cell-sm-6 cell-md-3 offset-top-20 offset-md-top-0">
+                  <div class="range">
+                    <div class="cell-sm-6">
+                      <div class="form-group">
+                        <label for="form-filter-min-beds" class="form-label form-label-outside">Lugar:</label>
+                        <select id="form-filter-min-beds" name="min-beds" data-minimum-results-for-search="Infinity" class="form-control">
+                          <option value="1">Todos</option>
+                          <option value="2">La Viruta</option>
+                          <option value="3">CAFF</option>
+                          <option value="4">JAF</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="cell-sm-6 offset-top-20 offset-sm-top-0">
+                      <div class="form-group">
+                        <label for="form-filter-min-bath" class="form-label form-label-outside">Tipo Evento:</label>
+                        <select id="form-filter-min-bath" name="min-bath" data-minimum-results-for-search="Infinity" class="form-control">
+                      <option value="1">Todos</option>
+                      <option value="2">Milonga</option>
+                      <option value="3">Concierto</option>
+                      <option value="4">Milonga + Concierto</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-sm-6 cell-md-3 offset-top-20 offset-md-top-0">
+                  <div class="form-group-multiple">
+                    <div class="form-group">
+                      <label for="form-filter-price-from" class="form-label form-label-outside"><span class="veil reveal-sm-block">Precio desde:</span><span class="veil-sm">Precio desde:</span></label>
+                      <input id="form-filter-price-from" type="text" name="price-from" data-constraints="@Required @IsNumeric" class="form-control bg-white">
+                    </div>
+                    <div class="form-group">
+                      <label for="form-filter-price-to" class="form-label form-label-outside"> &nbsp;<span class="veil-sm">Precio hasta:</span></label>
+                      <input id="form-filter-price-to" type="text" name="price-to" data-constraints="@Required @IsNumeric" class="form-control bg-white">
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-sm-6 cell-md-3 offset-top-20 offset-md-top-0">
+                  <div class="form-group-multiple">
+                      <div class="form-group">
+                        <label for="form-filter-min-beds" class="form-label form-label-outside">Grupo:</label>
+                        <select id="form-filter-min-beds" name="min-beds" data-minimum-results-for-search="Infinity" class="form-control">
+                          <option value="1">Todos</option>
+                          <option value="2">La Viruta</option>
+                          <option value="3">CAFF</option>
+                          <option value="4">JAF</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="cell-md-3 offset-top-20 offset-md-top-0">
+                  <div class="range range-xs-bottom">
+                    <div class="cell-sm-6">
+                      <div class="form-group">
+                        <label for="form-filter-sorting" class="form-label form-label-outside">Ordenar</label>
+                        <select id="form-filter-sorting" name="sorting" data-minimum-results-for-search="Infinity" class="form-control">
+                          <option value="1">Por fecha</option>
+                          <option value="1">Por precio</option>
+                          <option value="2">Por evento</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="cell-sm-6">
+                      <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+<!--Section Recent Properties-->
+<section class="section-bottom-98 section-top-34 section-md-bottom-110 section-md-top-66">
+  <div class="shell">
+    <div class="range">
+    {% if latest_eventos_list %}
+    {% for evento in latest_eventos_list %}
+      <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
+        <a href="/eventos/{{ evento.id }}">
+            <img src="/media/{{evento.image_1}}" width="370" height="250" alt=""
+                 class="img-responsive reveal-inline-block">
+        </a>
+        <div class="text-sm-left offset-top-24">
+          <div>
+            <h5 class="text-bold text-primary"><a href="/eventos/{{ evento.id }}">{{ evento.name }}</a></h5>
+          </div>
+          <h6 class="offset-top-10"><i class="fa fa-dollar"></i>&nbsp; {{ evento.precio|default:" no disponible" }} </h6>
+          <ul class="list-inline list-inline-dotted text-dark">
+            {% if evento.tipo_evento %}
+              <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
+            {% endif %}
+            <li><i class="fa fa-calendar"></i> {{ evento.event_date }}</li>
+            {% if evento.place %}
+              <li><i class="mdi mdi-home-variant"> </i>{{ evento.place }}</li>
+            {% endif %}
+          </ul>
+          <div>
+            <p>{{ evento.description|slice:":200"|striptags}}
+                {% if evento.description|length > 200 %}
+                    (...)
+                {% endif %}
+            </p></br>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+                <div class="offset-top-66 text-center">
+                  <!-- Classic Pagination-->
+                  <nav>
+                    <ul class="pagination-classic">
+                      <li><a href="#">Anterior</a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">Siguiente</a></li>
+                    </ul>
+                  </nav>
+                  <!--// Classic Pagination-->
+                  <!--ul.pagination-classic-->
+                  <!--  li.previous-->
+                  <!--    a.btn.btn-default(href='#' class= size)= nameListPrev-->
+                  <!--  each val, index in amountList-->
+                  <!--    - var isActive = (index == active - 1)? "active": ""-->
+                  <!--    - var isHidden = (index > 2)? "veil reveal-xs-inline-block": ""-->
+                  <!--    li(class="#{isHidden} #{isActive}")-->
+                  <!--      a.btn.btn-default(href='#' class="#{size}" )= val-->
+                  <!--  li.next-->
+                  <!--    a.btn.btn-default(href='#' class= size)= nameListNext-->
+                </div>
+  </div>
+</section>
+
+      </main>
+
+{% endblock %}
+

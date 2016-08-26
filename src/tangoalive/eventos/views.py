@@ -44,7 +44,7 @@ def detail(request, eventos_id):
 
 def browse(request):
     latest_eventos_list = get_last_eventos(50)
-    template = loader.get_template('eventos/browse.html')
+    template = loader.get_template('eventos/browse_eventos.html')
     portada = Portada.objects.get(id=1)
     context = {
         'latest_eventos_list': latest_eventos_list,
