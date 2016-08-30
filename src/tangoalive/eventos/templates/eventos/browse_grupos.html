@@ -1,12 +1,77 @@
 {% extends "base.html" %}
 
-{% block menu_items %}
-<li><a href="/browse">Buscar eventos</a></li>
-<li  class="active"><a href="/grupos/browse_grupos">Grupos musicales</a></li>
-<li><a href="/about">Acerca de</a></li>
+{% block content %}
+        <section class="rd-parallax context-dark">
+          <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/bg/8.jpg" class="rd-parallax-layer"></div>
+          <div data-speed="0" data-type="html" class="rd-parallax-layer">
+            <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+              <div>
+                <h1 class="text-bold">Listado de Bandas</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+<!--Section Recent Properties-->
+<section class="section-bottom-98 section-top-34 section-md-bottom-110 section-md-top-66">
+  <div class="shell">
+    <div class="range">
+    {% if grupos %}
+    {% for grupo in grupos %}
+      <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
+        <a href="/grupos/grupo/{{ grupo.id }}">
+            <img src="/media/{{grupo.image_1}}" width="370" height="250" alt="{{ grupo.name }}"
+                 class="img-responsive reveal-inline-block">
+        </a>
+        <div class="text-sm-left offset-top-24">
+          <div>
+            <h5 class="text-bold text-primary"><a href="/grupos/grupo/{{ grupo.id }}">{{ grupo.name }}</a></h5>
+          </div>
+          <div>
+            <h6 class="offset-top-10">Biograf&iacute;a:</h6>
+            {{ grupo.bio_corta|safe|default:" No disponible." }}
+            </br>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+                <div class="offset-top-66 text-center">
+                  <!-- Classic Pagination-->
+                  <nav>
+                    <ul class="pagination-classic">
+                      <li><a href="#">Anterior</a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">Siguiente</a></li>
+                    </ul>
+                  </nav>
+                  <!--// Classic Pagination-->
+                  <!--ul.pagination-classic-->
+                  <!--  li.previous-->
+                  <!--    a.btn.btn-default(href='#' class= size)= nameListPrev-->
+                  <!--  each val, index in amountList-->
+                  <!--    - var isActive = (index == active - 1)? "active": ""-->
+                  <!--    - var isHidden = (index > 2)? "veil reveal-xs-inline-block": ""-->
+                  <!--    li(class="#{isHidden} #{isActive}")-->
+                  <!--      a.btn.btn-default(href='#' class="#{size}" )= val-->
+                  <!--  li.next-->
+                  <!--    a.btn.btn-default(href='#' class= size)= nameListNext-->
+                </div>
+  </div>
+</section>
+
+      </main>
+
 {% endblock %}
 
-{% block content %}
+
+
+
+{% block oldcontent %}
     <div class="container">
       <div class="jumbotron">
         <h1>Grupos Musicales</h1>

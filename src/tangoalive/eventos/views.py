@@ -59,3 +59,10 @@ def browse_grupos(request):
         'grupos': grupos
     }
     return HttpResponse(template.render(context, request))
+
+def grupo_detail(request, grupo_id):
+    try:
+        grupo = Grupo.objects.get(pk=grupo_id)
+    except Evento.DoesNotExist:
+        raise Http404("Grupo does not exist")
+    return render(request, 'eventos/grupo_detail.html', {'grupo': grupo})
