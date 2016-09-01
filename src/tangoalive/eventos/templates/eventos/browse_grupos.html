@@ -29,10 +29,10 @@
           </div>
           <div>
             <h6 class="offset-top-10">Biograf&iacute;a:</h6>
-              {% if grupo.bio_corta|length %}
+              {% if grupo.bio_corta| %}
                     No disponible.
               {% else %}
-                    {{ grupo.bio_corta|safe }}
+                    {{ grupo.bio_corta|safe|default:" No disponible." }}
               {% endif %}
             </br></br>
           </div>
