@@ -62,13 +62,16 @@
                           <td>
                               <table class="">
                                 <tr>
-                                    <th>Fecha</th><th>Lugar</th><th>Evento</th>
+                                    <th>Fecha</th><th>Lugar</th><th>Evento</th><th></th>
                                 </tr>
                                 {% for evento in eventos.all %}
                                   <tr>
-                                      <td>{{evento.event_date}}</td>
+                                      <td><a href="/eventos/{{evento.id}}">{{ evento.event_date }}</a></td>
                                       <td>{{ evento.place }}</td>
-                                      <td>{{ evento.name }}</td>
+                                      <td><a href="/eventos/{{evento.id}}">{{ evento.name }}</a></td>
+                                      <td><a href="/eventos/{{evento.id}}">
+                                          <i class="glyphicon glyphicon-eye-open"></i>
+                                      </a></td>
                                   </tr>
                                 {% endfor %}
                               </table>

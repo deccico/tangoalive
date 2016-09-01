@@ -73,7 +73,8 @@
                           <th>Grupo/s:</th>
                           <td>
                             {% for grupo in evento.grupo.all %}
-                                {{ grupo.name }} |
+                              <a href="/grupos/grupo/{{grupo.id}}">
+                                {{ grupo.name }} </a> |
                             {% endfor %}
                           </td>
                         </tr>
