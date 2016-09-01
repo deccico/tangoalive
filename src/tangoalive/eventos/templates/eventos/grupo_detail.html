@@ -56,6 +56,25 @@
                           </td>
                         </tr>
                         {% endif %}
+                        {% if eventos %}
+                        <tr>
+                          <th>Pr&oacute;ximos Eventos:</th>
+                          <td>
+                              <table class="">
+                                <tr>
+                                    <th>Fecha</th><th>Lugar</th><th>Evento</th>
+                                </tr>
+                                {% for evento in eventos.all %}
+                                  <tr>
+                                      <td>{{evento.event_date}}</td>
+                                      <td>{{ evento.place }}</td>
+                                      <td>{{ evento.name }}</td>
+                                  </tr>
+                                {% endfor %}
+                              </table>
+                          </td>
+                        </tr>
+                        {% endif %}
                         <tr>
                           <th>M&uacute;sicos/s:</th>
                           <td>

@@ -19,6 +19,14 @@ def get_last_eventos(quantity=3):
         description__gte=25
     ).exclude(image_1=u'').order_by('event_date')[:quantity]
 
+def get_eventos_from_grupo(grupo_name, quantity=10):
+    return Evento.objects.filter(
+        pub_date__lte=timezone.now(),
+        event_date__gte=timezone.now(),
+        grupo__name=grupo_name
+    ).order_by('event_date')[:quantity]
+
+
 def get_bandas(quantity=3):
     return Grupo.objects.filter(
         image_1__isnull=False
@@ -63,6 +71,10 @@ def browse_grupos(request):
 def grupo_detail(request, grupo_id):
     try:
         grupo = Grupo.objects.get(pk=grupo_id)
+        eventos = get_eventos_from_grupo(grupo.name, 10)
     except Evento.DoesNotExist:
         raise Http404("Grupo does not exist")
-    return render(request, 'eventos/grupo_detail.html', {'grupo': grupo})
+    return render(request, 'eventos/grupo_detail.html',
+                  {'grupo': grupo,
+                   'eventos': eventos
+                   })
