@@ -26,12 +26,15 @@ def get_eventos_from_grupo(grupo_name, quantity=10):
         grupo__name=grupo_name
     ).order_by('event_date')[:quantity]
 
-
-def get_bandas(page_from, quantity):
-    return Grupo.objects.filter(
+def get_grupos(page_from, quantity):
+    results_from = page_from * quantity
+    results_to = page_from * quantity + quantity
+    grupos = Grupo.objects.filter(
         image_1__isnull=False
-    ).exclude(image_1=u'').order_by('name')[page_from*quantity:page_from*quantity + quantity]
-
+    ).exclude(image_1=u'').order_by('name')[results_from:results_to]
+    #todo:cache this operation
+    total = len(Grupo.objects.filter(image_1__isnull=False).exclude(image_1=u''))
+    return total, grupos
 
 def index(request):
     latest_eventos_list = get_last_eventos(6)
@@ -60,17 +63,43 @@ def browse(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+def create_page_links(page_size, total, page_index, link):
+    items = ""
+    print(page_size, total, page_index, link)
+
+    count = 0
+    while (count*page_size) < total:
+        items += '<li class="{4}"><a href="{0}?from={1}&q={2}">{3}</a>' \
+                 '</li>'.format(link, count, page_size, count+1, "active" if page_index==count else "")
+        count += 1
+
+    if page_index > 0:
+        items = '<li><a href="{0}?from={1}&q={2}">Anterior</a></li>{3}'.format(link,
+                                                                               page_index-1, page_size, items)
+    if (page_index + 1) < (total - page_size):
+        items = '{3}<li><a href="{0}?from={1}&q={2}">Siguiente</a></li>'.format(link,
+                                                                                page_index+1, page_size, items)
+    page_links = '<nav><ul class="pagination-classic">{0}</ul></nav>'.format(items)
+    return page_links
+
+
 def browse_grupos(request):
     page_size = request.GET.get('q', '50')
-    page_size = int(page_size) if page_size.isdigit() else '50'
+    print 'size', page_size
+    page_size = int(page_size) if page_size.isdigit() else 50
     page_from = request.GET.get('from', '0')
-    page_from = int(page_from) if page_from.isdigit() else '0'
-    grupos = get_bandas(page_from, page_size)
+    print 'from', page_from
+    page_from = int(page_from) if page_from.isdigit() else 0
     template = loader.get_template('eventos/browse_grupos.html')
+    total, grupos = get_grupos(page_from, page_size)
     context = {
-        'grupos': grupos
+        'total': total,
+        'grupos': grupos,
+        'page_links': create_page_links(page_size, total, page_from, '/grupos/browse_grupos')
     }
     return HttpResponse(template.render(context, request))
+
 
 def grupo_detail(request, grupo_id):
     try:

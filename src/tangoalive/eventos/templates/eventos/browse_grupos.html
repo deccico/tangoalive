@@ -42,28 +42,7 @@
     {% endif %}
     </div>
                 <div class="offset-top-66 text-center">
-                  <!-- Classic Pagination-->
-                  <nav>
-                    <ul class="pagination-classic">
-                      <li><a href="#">Anterior</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">Siguiente</a></li>
-                    </ul>
-                  </nav>
-                  <!--// Classic Pagination-->
-                  <!--ul.pagination-classic-->
-                  <!--  li.previous-->
-                  <!--    a.btn.btn-default(href='#' class= size)= nameListPrev-->
-                  <!--  each val, index in amountList-->
-                  <!--    - var isActive = (index == active - 1)? "active": ""-->
-                  <!--    - var isHidden = (index > 2)? "veil reveal-xs-inline-block": ""-->
-                  <!--    li(class="#{isHidden} #{isActive}")-->
-                  <!--      a.btn.btn-default(href='#' class="#{size}" )= val-->
-                  <!--  li.next-->
-                  <!--    a.btn.btn-default(href='#' class= size)= nameListNext-->
+                    {{ page_links |safe}}
                 </div>
   </div>
 </section>
