@@ -66,8 +66,6 @@ def browse(request):
 
 def create_page_links(page_size, total, page_index, link):
     items = ""
-    print(page_size, total, page_index, link)
-
     count = 0
     while (count*page_size) < total:
         items += '<li class="{4}"><a href="{0}?from={1}&q={2}">{3}</a>' \
@@ -77,7 +75,7 @@ def create_page_links(page_size, total, page_index, link):
     if page_index > 0:
         items = '<li><a href="{0}?from={1}&q={2}">Anterior</a></li>{3}'.format(link,
                                                                                page_index-1, page_size, items)
-    if (page_index + 1) < (total - page_size):
+    if page_index > (count-1):
         items = '{3}<li><a href="{0}?from={1}&q={2}">Siguiente</a></li>'.format(link,
                                                                                 page_index+1, page_size, items)
     page_links = '<nav><ul class="pagination-classic">{0}</ul></nav>'.format(items)
@@ -85,11 +83,9 @@ def create_page_links(page_size, total, page_index, link):
 
 
 def browse_grupos(request):
-    page_size = request.GET.get('q', '50')
-    print 'size', page_size
-    page_size = int(page_size) if page_size.isdigit() else 50
+    page_size = request.GET.get('q', '24')
+    page_size = int(page_size) if page_size.isdigit() else 24
     page_from = request.GET.get('from', '0')
-    print 'from', page_from
     page_from = int(page_from) if page_from.isdigit() else 0
     template = loader.get_template('eventos/browse_grupos.html')
     total, grupos = get_grupos(page_from, page_size)
