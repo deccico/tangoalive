@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^eventos/', include('eventos.urls')),
     url(r'^about/', include('contact.urls')),
-    url(r'^browse_events/', eventoviews.browse),
+    url(r'^browse_events/', eventoviews.browse_eventos),
     url(r'^grupos/', include('eventos.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
