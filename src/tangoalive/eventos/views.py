@@ -62,7 +62,7 @@ def browse(request):
 
 def browse_grupos(request):
     from_var = request.GET.get('from', '0')
-    page_from = int(from_var) if from_var.is_digit() else '0'
+    page_from = int(from_var) if from_var.isdigit() else '0'
     grupos = get_bandas(50, page_from)
     template = loader.get_template('eventos/browse_grupos.html')
     context = {
