@@ -27,10 +27,10 @@ def get_eventos_from_grupo(grupo_name, quantity=10):
     ).order_by('event_date')[:quantity]
 
 
-def get_bandas(quantity=3):
+def get_bandas(page_from, quantity=3):
     return Grupo.objects.filter(
         image_1__isnull=False
-    ).exclude(image_1=u'').order_by('name')[:quantity]
+    ).exclude(image_1=u'').order_by('name')[page_from*quantity:quantity]
 
 
 def index(request):
@@ -61,7 +61,9 @@ def browse(request):
     return HttpResponse(template.render(context, request))
 
 def browse_grupos(request):
-    grupos = get_bandas(50)
+    from_var = request.GET.get('from', '0')
+    page_from = int(from_var) if from_var.is_digit() else '0'
+    grupos = get_bandas(50, page_from)
     template = loader.get_template('eventos/browse_grupos.html')
     context = {
         'grupos': grupos
@@ -78,3 +80,5 @@ def grupo_detail(request, grupo_id):
                   {'grupo': grupo,
                    'eventos': eventos
                    })
+
+
