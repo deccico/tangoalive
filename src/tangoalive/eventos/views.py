@@ -75,7 +75,7 @@ def create_page_links(page_size, total, page_index, link):
     if page_index > 0:
         items = '<li><a href="{0}?from={1}&q={2}">Anterior</a></li>{3}'.format(link,
                                                                                page_index-1, page_size, items)
-    if page_index > (count-1):
+    if page_index < (count-1):
         items = '{3}<li><a href="{0}?from={1}&q={2}">Siguiente</a></li>'.format(link,
                                                                                 page_index+1, page_size, items)
     page_links = '<nav><ul class="pagination-classic">{0}</ul></nav>'.format(items)
