@@ -131,6 +131,7 @@ class Evento(models.Model):
     image_3 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_4 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
+    entradas_disponibles = models.SmallIntegerField(default=0)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -148,7 +149,6 @@ class Evento(models.Model):
     is_in_the_future.admin_order_field = 'event_date'
     is_in_the_future.short_description = 'Activo?'
 
-
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo']
     list_display = ('name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future')
@@ -158,6 +158,22 @@ class EventoAdmin(admin.ModelAdmin):
     show_full_result_count = True
     #radio_fields = {"place": admin.VERTICAL}
     #raw_id_fields = ('place',)
+    save_on_top = True
+
+@python_2_unicode_compatible
+class EventoTicket(models.Model):
+    nombre = models.CharField(max_length=100, blank=True, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    codigo_compra = models.CharField(max_length=100, blank=True, null=True)
+    fecha_compra = models.DateField(default=datetime.datetime.now)
+    evento = models.ForeignKey(Evento, blank=True, null=True)
+
+    def __str__(self):
+        return "{0} {1}".format(self.evento.id, self.nombre)
+
+class EventoTicketAdmin(admin.ModelAdmin):
+    ordering = ['fecha_compra']
+    show_full_result_count = True
     save_on_top = True
 
 @python_2_unicode_compatible
