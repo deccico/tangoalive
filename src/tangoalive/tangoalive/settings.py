@@ -20,13 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '92imh#+vy@=00dd++$45$f-$=2td5*&kftf3q_w&aw_n2lkzxk'
+SECRET_KEY = '92imh#343kjflds09f#$%@=00dd++$45$f-$=2td5*&kftf3q_w&aw_n2lkzxk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [".tangoalive.com", "localhost"]
 
 # Application definition
 
