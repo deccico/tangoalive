@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page-->
+    <div class="page text-center">
+      <!-- Page Head-->
+      <header class="page-head">
+        <!-- RD Navbar Transparent-->
+        <section class="rd-parallax context-dark">
+          <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/bg/8.jpg" class="rd-parallax-layer"></div>
+          <div data-speed="0" data-type="html" class="rd-parallax-layer">
+            <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+              <div>
+                <h1 class="text-bold">Acerca de Tango Alive</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+      <!-- Page Contents-->
+      <main class="page-content">
+        <!--Section Real Estate Agents-->
+        <section class="section-98 section-sm-110 section-bottom-66">
+          <div class="shell">
+            <h2 class="text-bold">Pago en proceso</h2>
+            <hr class="divider bg-saffron">
+            <div class="offset-sm-top-66">
+              <!-- Responsive-tabs-->
+              <div data-type="horizontal" class="responsive-tabs responsive-tabs-classic">
+                <div data-group="tabs-group-default" class="resp-tabs-container tabs-group-default">
+                  <div>
+                    <div class="range section-34">
+                      <div class="cell-md-5"><img src="/static/eventos/images/bg/1.jpg" width="470" height="310" alt="" class="img-responsive reveal-inline-block"></div>
+                      <div class="cell-md-7 offset-top-30 offset-md-top-0 text-md-left">
+                        <div class="inset-md-left-40">
+          <p>{{ requesto }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+{% endblock %}

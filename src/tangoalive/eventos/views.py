@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import render
 from django.template import loader
+from django.utils.html import escape
 from django.utils import timezone
 
 from .models import Evento, Portada, Grupo
@@ -118,4 +119,25 @@ def grupo_detail(request, grupo_id):
                   {'grupo': grupo,
                    'eventos': eventos
                    })
+
+def payment_ok(request):
+    requesto = ""
+    for key, value in request.GET.items():
+        requesto += "k:{0},v:{1} - ".format(key, value)
+    for key, value in request.POST.items():
+        requesto += "k:{0},v:{1} - ".format(key, value)
+    return render(request, 'eventos/payment_ok.html',
+                  {'requesto': requesto,
+                   })
+
+def payment_in_process(request):
+    requesto = ""
+    for key, value in request.GET.items():
+        requesto += "k:{0},v:{1} - ".format(key, value)
+    for key, value in request.POST.items():
+        requesto += "k:{0},v:{1} - ".format(key, value)
+    return render(request, 'eventos/payment_in_process.html',
+                  {'requesto': requesto,
+                   })
+
 
