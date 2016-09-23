@@ -1,1 +1,1 @@
-nohup ./runtango.sh &
+nohup /home/adrian/tangoalive/scripts/runtango.sh &
