@@ -132,6 +132,7 @@ class Evento(models.Model):
     image_4 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     entradas_disponibles = models.SmallIntegerField(default=0)
+    url_pago  = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):

@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import render
 from django.template import loader
@@ -58,7 +61,7 @@ def detail(request, eventos_id):
     try:
         evento = Evento.objects.get(pk=eventos_id)
     except Evento.DoesNotExist:
-        raise Http404("Eventos does not exist")
+        raise Http404("Código de evento inexistente.")
     return render(request, 'eventos/detail.html', {'evento': evento})
 
 
@@ -121,23 +124,36 @@ def grupo_detail(request, grupo_id):
                    })
 
 def payment_ok(request):
-    requesto = ""
-    for key, value in request.GET.items():
-        requesto += "k:{0},v:{1} - ".format(key, value)
-    for key, value in request.POST.items():
-        requesto += "k:{0},v:{1} - ".format(key, value)
-    return render(request, 'eventos/payment_ok.html',
-                  {'requesto': requesto,
-                   })
+    #make sure we have an actual payment
+    event_id = request.GET.get('external_reference', '-1')
+    event_id = int(event_id) if event_id.isdigit() else -1
+    collection_id = request.GET.get('collection_id', '-1')
+    collection_status = request.GET.get('collection_status', 'none')
+    print collection_id, collection_status, event_id
+    if collection_id == "-1" or collection_status <> 'approved' or event_id == -1:
+        return HttpResponseRedirect("/")
+    evento = None
+    try:
+        evento = Evento.objects.get(pk=event_id)
+    except Evento.DoesNotExist:
+        #todo: add banner with error
+        return HttpResponseRedirect("/")
+    if evento:
+        #update tickets available
+        evento.entradas_disponibles = evento.entradas_disponibles - 1
+        evento.save()
+    #render page
+    return render(request, 'eventos/payment_ok.html', {})
 
 def payment_in_process(request):
-    requesto = ""
-    for key, value in request.GET.items():
-        requesto += "k:{0},v:{1} - ".format(key, value)
-    for key, value in request.POST.items():
-        requesto += "k:{0},v:{1} - ".format(key, value)
-    return render(request, 'eventos/payment_in_process.html',
-                  {'requesto': requesto,
-                   })
+    #make sure we have an actual payment
+    event_id = request.GET.get('external_reference', '-1')
+    event_id = int(event_id) if event_id.isdigit() else -1
+    collection_id = request.GET.get('collection_id', '-1')
+    #collection_status = request.GET.get('collection_status', 'none')
+    if collection_id == "-1" or event_id == -1:
+        return HttpResponseRedirect("/")
+    #render page
+    return render(request, 'eventos/payment_in_process.html', {})
 
 

@@ -128,8 +128,11 @@
                         <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp; {{ evento.precio|default:" no disponible" }} </h5>
                       </div>
                     </div>
-                    <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20"><a href="#" class="btn btn-primary">Reservar entrada</a>
+                    {% if evento.url_pago and evento.entradas_disponibles > 0 %}
+                    <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20">
+                        <a href="{{evento.url_pago}}" class="btn btn-primary">Pagar entrada</a>
                     </div>
+                    {% endif %}
                     {% if evento.place.google_map_code %}
                     <div class="cell-xs-12 offset-top-66 cell-md-push-3">
                       <!-- RD Google Map-->
