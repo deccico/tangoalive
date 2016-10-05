@@ -84,12 +84,10 @@
                           <td>{{ evento.tipo_evento }}</td>
                         </tr>
                         {% endif %}
-                        {% if evento.precio %}
                         <tr>
                           <th>Precio:</th>
-                          <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.precio }}</td>
+                          <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.get_precio }}</td>
                         </tr>
-                        {% endif %}
                         <tr>
                           <th>&iquest;Cuando?</th>
                           <td>{{ evento.event_date }} | {{ evento.time_from }} | {{ evento.duration }} minutos</td>
@@ -125,13 +123,20 @@
                       </div>
                       {% endif %}
                       <div class="offset-top-20 offset-md-top-50">
-                        <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp; {{ evento.precio|default:" no disponible" }} </h5>
+                        <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
+                            {{evento.get_precio}}
+                        </h5>
                       </div>
                     </div>
-                    {% if evento.url_pago and evento.entradas_disponibles > 0 %}
-                    <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20">
-                        <a href="{{evento.url_pago}}" class="btn btn-primary">Pagar entrada</a>
-                    </div>
+                    {% if evento.url_pago and evento.entradas_disponibles > 0 and eventos.precio_entrada > 0 %}
+                    <form action="{% url 'eventos:buy' evento.id %}" method="post">
+                    {% csrf_token %}
+                        <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20">
+                            {{ select_pago|safe }}
+                            <a href="{{evento.url_pago}}" class="btn btn-primary">Comprar entrada/s</a>
+                        </div>
+                    <input type="submit" value="Vote" />
+                    </form>
                     {% endif %}
                     {% if evento.place.google_map_code %}
                     <div class="cell-xs-12 offset-top-66 cell-md-push-3">

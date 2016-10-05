@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^grupo/(?P<grupo_id>[0-9]+)/$', views.grupo_detail, name='grupo_detail'),
     url(r'^payment_ok$', views.payment_ok, name='payment_ok'),
     url(r'^payment_in_process$', views.payment_in_process, name='payment_in_process'),
+    url(r'^(?P<eventos_id>[0-9]+)/buy/$', views.buy, name='buy'),
 ]

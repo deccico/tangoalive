@@ -3,7 +3,7 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.utils.html import escape
 from django.utils import timezone
@@ -60,9 +60,17 @@ def index(request):
 def detail(request, eventos_id):
     try:
         evento = Evento.objects.get(pk=eventos_id)
+        select_pago='<select name="quantity"><option value="1">1 ticket</option>{0}</select>'
+        additional_options = ''
+        if evento.entradas_disponibles > 1:
+            for i in range(2, evento.entradas_disponibles + 1):
+                additional_options += '<option value={0}>{0} tickets</option>'.format(i)
+            select_pago = select_pago.format(additional_options)
+
     except Evento.DoesNotExist:
         raise Http404("Código de evento inexistente.")
-    return render(request, 'eventos/detail.html', {'evento': evento})
+    return render(request, 'eventos/detail.html',
+                  {'evento': evento, 'select_pago': select_pago})
 
 
 def browse_eventos(request):
@@ -120,7 +128,7 @@ def grupo_detail(request, grupo_id):
         raise Http404("Grupo does not exist")
     return render(request, 'eventos/grupo_detail.html',
                   {'grupo': grupo,
-                   'eventos': eventos
+                   'eventos': eventos,
                    })
 
 def payment_ok(request):
@@ -156,4 +164,64 @@ def payment_in_process(request):
     #render page
     return render(request, 'eventos/payment_in_process.html', {})
 
+
+def buy(request, eventos_id):
+    evento = get_object_or_404(Evento, pk=eventos_id)
+    #get quantity
+    #create mp object
+    #forward to mp
+
+
+    #on the success view
+    #get event code
+    #get from mp the quantity
+    #begin transaction
+        #create payment entry in our database
+        #substract quantity from the event
+        #todo (set forward email from mp notification or send email from here)
+    #end transaction
+
+
+    #
+    # evento.votes += 1
+    # selected_choice.save()
+    # # Always return an HttpResponseRedirect after successfully dealing
+    # # with POST data. This prevents data from being posted twice if a
+    # # user hits the Back button.
+    # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+# import os, sys
+# import mercadopago
+# import json
+#
+# def index(req, **kwargs):
+# 	preference = {
+# 		"items": [
+# 			{
+# 				"title": "Multicolor kite",
+# 				"quantity": 1,
+# 				"currency_id": "ARS", # Available currencies at: https://api.mercadopago.com/currencies
+# 				"unit_price": 10.0
+# 			}
+# 		]
+# 	}
+# 	mp = mercadopago.MP("4971587513296525", "yugVAP2luDGtCX32vQzw9KoZ2Q0FnC21")
+#
+# 	preferenceResult = mp.create_preference(preference)
+#
+# 	url = preferenceResult["response"]["init_point"]
+#
+# 	output = """
+# 	<!doctype html>
+# 	<html>
+# 		<head>
+# 			<title>Pay</title>
+# 		</head>
+# 		<body>
+# 			<a href="{url}">Pay</a>
+# 		</body>
+# 	</html>
+# 	""".format (url=url)
+#
+# 	return output
 

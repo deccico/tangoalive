@@ -1,0 +1,44 @@
+ubuntu 14.04
+python 2.7
+
+root@tangoalive:/tmp# history |grep install
+    3  sudo apt-get install htop
+    4  apt-get install htop
+   11  apt-get install git
+   14  apt-get install git
+   16  apt-get install python-pip
+   19  pip install django
+   35  sudo pip install Pillow
+   36  pip install Pillow
+   39  sudo apt-get install zlib
+   41  apt-get install libghc-zlib-dev
+   42  apt-get install zlib-bin
+   43  pip install Pillow
+   44  apt-get install zlib-bin
+   47  apt-get install libghc-zlib-dev
+   48  pip install Pillow
+   50  pip install Pillow
+   51  sudo apt-get install libjpeg
+   53  sudo apt-get install libjpeg-dev
+   54  pip install Pillow
+   57  sudo apt-get install libimage-base-bundle-perl
+   58  pip install Pillow
+   61  pip install wheel
+   62  pip install Pillow-3.3.0-cp27-cp27m-manylinux1_x86_64.whl 
+   63  apt-get install python-imaging
+   64  pip install Pillow
+   65  pip install Pillow --upgrade
+   66  pip install Pillow
+   67  apt-get install tree
+   69  sudo apt-get install postfix
+   78  yum install htop
+   79  apt-get install htop
+   82  apt-get install dig
+  116  sudo apt-get install php-gd
+  119  sudo apt-get install php-gd
+  121  sudo apt-get install php5-curl php5-gd php5-cli php5-geoip php5-mysql
+  125  sudo apt-get install mariadb-server-core-5.5
+  128  sudo apt-get install mariadb-server-core-5.5 mariadb-client-5.5
+  134  sudo apt-get install mariadb-server
+  206  sudo pip install mercadopago
+

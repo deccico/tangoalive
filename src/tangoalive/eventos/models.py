@@ -117,7 +117,6 @@ class Evento(models.Model):
     name = models.CharField(max_length=200)
     grupo = models.ManyToManyField(Grupo, blank=True)
     tipo_evento = models.ForeignKey(EventoTipo, blank=True, null=True)
-    precio = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     pub_date = models.DateField(default=datetime.datetime.now)
     event_date = models.DateField()
@@ -132,11 +131,19 @@ class Evento(models.Model):
     image_4 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     entradas_disponibles = models.SmallIntegerField(default=0)
+    precio_texto = models.CharField(max_length=200, blank=True, null=True)
+    precio_entrada = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=5)
     url_pago  = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def get_precio(self):
+        if not self.precio_entrada and not self.precio_texto:
+            return " no disponible"
+        else:
+            return "{0} {1}".format(self.precio_entrada, self.precio_texto)
 
     def is_published(self):
         return self.pub_date <= timezone.now().date()
