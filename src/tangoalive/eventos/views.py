@@ -131,7 +131,84 @@ def grupo_detail(request, grupo_id):
                    'eventos': eventos,
                    })
 
+
+def buy(request, eventos_id):
+    evento = get_object_or_404(Evento, pk=eventos_id)
+    try:
+        quantity = int(request.POST['quantity'])
+    except:
+        return HttpResponseRedirect("/")
+
+    return render(request, 'eventos/process_ok.html', {
+        'message': "Compraste {0} tickets, para el evento {1} "
+                   "pronto nos pondremos en contacto para "
+                   "enviarte las entradas.".format(),
+    })
+
+    pass
+    #get quantity from the form (quantity element from the form)
+    #get event id from the form (event_id from the form)
+    #get event object based on the event id
+    #create mp object with the right quantity and event id
+    #forward to mp to let the user buy
+
+    #evento = get_object_or_404(Evento, pk=eventos_id)
+
+
+    #
+    # evento.votes += 1
+    # selected_choice.save()
+    # # Always return an HttpResponseRedirect after successfully dealing
+    # # with POST data. This prevents data from being posted twice if a
+    # # user hits the Back button.
+    # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+    # import os, sys
+    # import mercadopago
+    # import json
+    #
+    # def index(req, **kwargs):
+    # 	preference = {
+    # 		"items": [
+    # 			{
+    # 				"title": "Multicolor kite",
+    # 				"quantity": 1,
+    # 				"currency_id": "ARS", # Available currencies at: https://api.mercadopago.com/currencies
+    # 				"unit_price": 10.0
+    # 			}
+    # 		]
+    # 	}
+    # 	mp = mercadopago.MP("4971587513296525", "yugVAP2luDGtCX32vQzw9KoZ2Q0FnC21")
+    #
+    # 	preferenceResult = mp.create_preference(preference)
+    #
+    # 	url = preferenceResult["response"]["init_point"]
+    #
+    # 	output = """
+    # 	<!doctype html>
+    # 	<html>
+    # 		<head>
+    # 			<title>Pay</title>
+    # 		</head>
+    # 		<body>
+    # 			<a href="{url}">Pay</a>
+    # 		</body>
+    # 	</html>
+    # 	""".format (url=url)
+    #
+    # 	return output
+
 def payment_ok(request):
+    #we land here because mp sent us...
+    #get event code from the mp variables
+    #create mp object based on the event id
+    #get the quantity from the mp object
+    #get the buyer email from the mp object
+    #substract the quantity from the event
+    #send email to the buyer
+    #send email to ourselves
+
+
     #make sure we have an actual payment
     event_id = request.GET.get('external_reference', '-1')
     event_id = int(event_id) if event_id.isdigit() else -1
@@ -154,6 +231,9 @@ def payment_ok(request):
     return render(request, 'eventos/payment_ok.html', {})
 
 def payment_in_process(request):
+    #show message that we will wait for payment confirmation
+    # to send a ticket confirmation
+
     #make sure we have an actual payment
     event_id = request.GET.get('external_reference', '-1')
     event_id = int(event_id) if event_id.isdigit() else -1
@@ -163,65 +243,3 @@ def payment_in_process(request):
         return HttpResponseRedirect("/")
     #render page
     return render(request, 'eventos/payment_in_process.html', {})
-
-
-def buy(request, eventos_id):
-    evento = get_object_or_404(Evento, pk=eventos_id)
-    #get quantity
-    #create mp object
-    #forward to mp
-
-
-    #on the success view
-    #get event code
-    #get from mp the quantity
-    #begin transaction
-        #create payment entry in our database
-        #substract quantity from the event
-        #todo (set forward email from mp notification or send email from here)
-    #end transaction
-
-
-    #
-    # evento.votes += 1
-    # selected_choice.save()
-    # # Always return an HttpResponseRedirect after successfully dealing
-    # # with POST data. This prevents data from being posted twice if a
-    # # user hits the Back button.
-    # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-# import os, sys
-# import mercadopago
-# import json
-#
-# def index(req, **kwargs):
-# 	preference = {
-# 		"items": [
-# 			{
-# 				"title": "Multicolor kite",
-# 				"quantity": 1,
-# 				"currency_id": "ARS", # Available currencies at: https://api.mercadopago.com/currencies
-# 				"unit_price": 10.0
-# 			}
-# 		]
-# 	}
-# 	mp = mercadopago.MP("4971587513296525", "yugVAP2luDGtCX32vQzw9KoZ2Q0FnC21")
-#
-# 	preferenceResult = mp.create_preference(preference)
-#
-# 	url = preferenceResult["response"]["init_point"]
-#
-# 	output = """
-# 	<!doctype html>
-# 	<html>
-# 		<head>
-# 			<title>Pay</title>
-# 		</head>
-# 		<body>
-# 			<a href="{url}">Pay</a>
-# 		</body>
-# 	</html>
-# 	""".format (url=url)
-#
-# 	return output
-

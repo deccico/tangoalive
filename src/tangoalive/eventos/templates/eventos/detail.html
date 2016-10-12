@@ -128,14 +128,14 @@
                         </h5>
                       </div>
                     </div>
-                    {% if evento.url_pago and evento.entradas_disponibles > 0 and eventos.precio_entrada > 0 %}
-                    <form action="{% url 'eventos:buy' evento.id %}" method="post">
+                    {% if evento.entradas_disponibles > 0 and evento.precio_entrada > 0 %}
+                    <form action="/eventos/{{evento.id}}/buy/" method="post">
                     {% csrf_token %}
                         <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20">
                             {{ select_pago|safe }}
                             <a href="{{evento.url_pago}}" class="btn btn-primary">Comprar entrada/s</a>
                         </div>
-                    <input type="submit" value="Vote" />
+                    <input type="submit" value="Comprar" />
                     </form>
                     {% endif %}
                     {% if evento.place.google_map_code %}
