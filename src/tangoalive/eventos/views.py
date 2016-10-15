@@ -176,7 +176,7 @@ def buy(request, eventos_id):
 
     #create mp object with the right quantity and event id
     #forward to mp to let the user buy
-    _, url = get_compra_obj(evento, quantity, float(evento.precio_entrada), evento.id,
+    _, url = get_compra_obj(evento.name, quantity, float(evento.precio_entrada), evento.id,
                           "http://tangoalive.com/media/{0}".format(evento.image_1))
 
     #redirect to MP site
