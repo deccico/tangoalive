@@ -196,32 +196,35 @@ def get_payment_amount(payment_id):
 
 def payment_ok(request):
     #we land here because mp sent us...
+    #todo: verify that mp actually sent this request
     #get event code from the mp variables
     event_id = request.GET.get('external_reference', '-1')
     event_id = int(event_id) if event_id.isdigit() else -1
     evento = get_object_or_404(Evento, pk=event_id)
     collection_id = request.GET.get('collection_id', '-1')
     collection_status = request.GET.get('collection_status', 'none')
-    print collection_id, collection_status, event_id
     if collection_id == "-1" or collection_status != 'approved':
         return HttpResponseRedirect("/")
-
     #create mp object based on the event id
     #get the quantity from the mp object
-    amount = get_payment_amount(collection_id)
-
+    payment_amount = get_payment_amount(collection_id)
     #substract the quantity from the event
-    quantity = round(amount / float(evento.precio_entrada))
+    quantity = int(round(payment_amount / float(evento.precio_entrada)))
     evento.entradas_disponibles = evento.entradas_disponibles - quantity
     evento.save()
-
+    #send notifications
     #todo: send email to the buyer
     #todo: send email to ourselves
+    #we need to redirect to avoid a refresh updating the db
+    return HttpResponseRedirect("/eventos/payment_ok_render/{0}/{1}".format(evento.id, quantity))
 
+
+def payment_ok_render(request, event_id, quantity):
+    evento = get_object_or_404(Evento, pk=event_id)
     template = loader.get_template('eventos/payment_ok.html')
     context = {
         'evento':  evento,
-        'message': 'Compraste {0} tickets para el evento: "{1}" '
+        'message': 'Compraste {0} ticket/s para el evento: "{1}" '
                    'el {2} a las {3} en "{4}"'.format(int(quantity), evento,
                                                       evento.event_date.strftime("%d/%m"),
                                                       evento.time_from.strftime("%I:%M %p"),
