@@ -161,7 +161,7 @@ def get_compra_obj(title, quantity, price, external_reference, picture_url):
     }
     mp = mercadopago.MP(settings.MP_CLIENT_ID, settings.MP_CLIENT_SECRET)
     preferenceResult = mp.create_preference(preference)
-    url = preferenceResult["response"]["init_point"]
+    url = preferenceResult["response"]["sandbox_init_point"]
     return preferenceResult, url
 
 
