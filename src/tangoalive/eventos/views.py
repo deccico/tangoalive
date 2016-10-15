@@ -218,14 +218,17 @@ def payment_ok(request):
     #todo: send email to the buyer
     #todo: send email to ourselves
 
-    return render(request, 'eventos/payment_ok.html', {
+    template = loader.get_template('eventos/payment_ok.html')
+    context = {
         'evento':  evento,
         'message': 'Compraste {0} tickets, para el evento: "{1}" '
                    'el {2} a las {3} en "{4}"'.format(int(quantity), evento,
                                                       evento.event_date.strftime("%d/%m"),
                                                       evento.time_from.strftime("%I:%M %p"),
                                                       evento.place),
-    })
+    }
+    return HttpResponse(template.render(context, request))
+
 
 
 def payment_in_process(request):
