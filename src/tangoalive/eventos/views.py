@@ -211,7 +211,7 @@ def payment_ok(request):
     amount = get_payment_amount(collection_id)
 
     #substract the quantity from the event
-    quantity = round(amount / evento.precio_entrada)
+    quantity = round(amount / float(evento.precio_entrada))
     evento.entradas_disponibles = evento.entradas_disponibles - quantity
     evento.save()
 
