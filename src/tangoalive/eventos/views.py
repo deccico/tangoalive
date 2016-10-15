@@ -212,8 +212,7 @@ def payment_ok(request):
 
     #substract the quantity from the event
     quantity = round(amount / evento.precio_entrada)
-    remaining_tickets = quantity - evento.entradas_disponibles
-    evento.entradas_disponibles = remaining_tickets
+    evento.entradas_disponibles = evento.entradas_disponibles - quantity
     evento.save()
 
     #todo: send email to the buyer
