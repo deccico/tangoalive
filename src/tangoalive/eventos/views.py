@@ -155,8 +155,8 @@ def get_compra_obj(title, quantity, price, external_reference, picture_url):
         },
         u'back_urls': {
             'failure': '',
-            'pending': 'http://tangoalive.com/eventos/payment_ok',
-            'success': 'http://tangoalive.com/eventos/payment_in_process'
+            'pending': 'http://tangoalive.com/eventos/payment_in_process',
+            'success': 'http://tangoalive.com/eventos/payment_ok'
         },
     }
     mp = mercadopago.MP(settings.MP_CLIENT_ID, settings.MP_CLIENT_SECRET)
