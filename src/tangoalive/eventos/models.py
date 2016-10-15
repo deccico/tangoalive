@@ -133,7 +133,6 @@ class Evento(models.Model):
     entradas_disponibles = models.SmallIntegerField(default=0)
     precio_texto = models.CharField(max_length=200, blank=True, null=True)
     precio_entrada = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=5)
-    url_pago  = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):

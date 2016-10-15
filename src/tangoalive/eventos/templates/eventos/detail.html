@@ -113,41 +113,38 @@
                 <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
                   <div class="range">
                     <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
-                      <p><span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span> <span>{{evento.event_date}}</span>
+                      <p>
+                      <span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span>
+                      <span>{{evento.event_date}}</span>
                       </p>
                       {% if evento.tipo_evento %}
-                      <div class="offset-top-20 offset-md-top-50">
                         <ul class="list-inline list-inline-dotted text-dark">
-                            <li><i class="mdi mdi-library-music"></i>&nbsp;{{ evento.tipo_evento }}</li>
+                            <li><i class="mdi mdi-library-music"></i>&nbsp;
+                                {{ evento.tipo_evento }}</li>
                         </ul>
-                      </div>
                       {% endif %}
-                      <div class="offset-top-20 offset-md-top-50">
-                        <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
-                            {{evento.get_precio}}
-                        </h5>
-                      </div>
-                    </div>
+                      <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
+                          {{evento.get_precio}}
+                      </h5>
                     {% if evento.entradas_disponibles > 0 and evento.precio_entrada > 0 %}
-                    <form action="/eventos/{{evento.id}}/buy/" method="post">
-                    {% csrf_token %}
-                        <div class="cell-xs-12 cell-md-push-2 offset-top-41 offset-md-top-20">
-                            {{ select_pago|safe }}
-                            <a href="{{evento.url_pago}}" class="btn btn-primary">Comprar entrada/s</a>
-                        </div>
-                    <input type="submit" value="Comprar" />
-                    </form>
+                        <form id="comprar" action="/eventos/{{evento.id}}/buy/" method="post">
+                        {% csrf_token %}
+                                {{ select_pago|safe }}
+                                <a href="#"
+                                   onclick="document.getElementById('comprar').submit();"
+                                   class="btn btn-primary">Comprar entrada/s</a>
+                        </form>
                     {% endif %}
                     {% if evento.place.google_map_code %}
-                    <div class="cell-xs-12 offset-top-66 cell-md-push-3">
                       <!-- RD Google Map-->
+                        <br/>
                       <div class="rd-google-map">
                           <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
                           <i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
                           <br/>{{evento.place.get_dire}}
                       </div>
-                    </div>
                     {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>

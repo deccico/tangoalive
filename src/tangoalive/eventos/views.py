@@ -10,6 +10,7 @@ from django.utils import timezone
 
 from .models import Evento, Portada, Grupo
 
+import datetime
 
 def get_last_eventos(page_from, quantity):
     results_from = page_from * quantity
@@ -57,7 +58,7 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-def detail(request, eventos_id):
+def evento_detail(request, eventos_id):
     try:
         evento = Evento.objects.get(pk=eventos_id)
         select_pago='<select name="quantity"><option value="1">1 ticket</option>{0}</select>'
@@ -139,10 +140,12 @@ def buy(request, eventos_id):
     except:
         return HttpResponseRedirect("/")
 
-    return render(request, 'eventos/process_ok.html', {
-        'message': "Compraste {0} tickets, para el evento {1} "
-                   "pronto nos pondremos en contacto para "
-                   "enviarte las entradas.".format(),
+    return render(request, 'eventos/payment_ok.html', {
+        'message': 'Compraste {0} tickets, para el evento "{1}" '
+                   'el {2} a las {3} en "{4}"'.format(quantity, evento,
+                                                      evento.event_date.strftime("%d/%m"),
+                                                      evento.time_from.strftime("%I:%M %p"),
+                                                      evento.place),
     })
 
     pass
@@ -207,28 +210,28 @@ def payment_ok(request):
     #substract the quantity from the event
     #send email to the buyer
     #send email to ourselves
-
-
-    #make sure we have an actual payment
-    event_id = request.GET.get('external_reference', '-1')
-    event_id = int(event_id) if event_id.isdigit() else -1
-    collection_id = request.GET.get('collection_id', '-1')
-    collection_status = request.GET.get('collection_status', 'none')
-    print collection_id, collection_status, event_id
-    if collection_id == "-1" or collection_status <> 'approved' or event_id == -1:
-        return HttpResponseRedirect("/")
-    evento = None
-    try:
-        evento = Evento.objects.get(pk=event_id)
-    except Evento.DoesNotExist:
-        #todo: add banner with error
-        return HttpResponseRedirect("/")
-    if evento:
-        #update tickets available
-        evento.entradas_disponibles = evento.entradas_disponibles - 1
-        evento.save()
-    #render page
     return render(request, 'eventos/payment_ok.html', {})
+
+    # #make sure we have an actual payment
+    # event_id = request.GET.get('external_reference', '-1')
+    # event_id = int(event_id) if event_id.isdigit() else -1
+    # collection_id = request.GET.get('collection_id', '-1')
+    # collection_status = request.GET.get('collection_status', 'none')
+    # print collection_id, collection_status, event_id
+    # if collection_id == "-1" or collection_status <> 'approved' or event_id == -1:
+    #     return HttpResponseRedirect("/")
+    # evento = None
+    # try:
+    #     evento = Evento.objects.get(pk=event_id)
+    # except Evento.DoesNotExist:
+    #     #todo: add banner with error
+    #     return HttpResponseRedirect("/")
+    # if evento:
+    #     #update tickets available
+    #     evento.entradas_disponibles = evento.entradas_disponibles - 1
+    #     evento.save()
+    # #render page
+    # return render(request, 'eventos/payment_ok.html', {})
 
 def payment_in_process(request):
     #show message that we will wait for payment confirmation
