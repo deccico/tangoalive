@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
-from django.utils.html import escape
+from django.conf import settings
 from django.utils import timezone
 
 from .models import Evento, Portada, Grupo
@@ -133,73 +133,65 @@ def grupo_detail(request, grupo_id):
                    })
 
 
+def get_compra_obj(title, quantity, price, external_reference, picture_url):
+    import mercadopago
+    preference = {
+        'external_reference': '{0}'.format(external_reference),
+        "items": [
+            {
+                "title": title,
+                "quantity": quantity,
+                "currency_id": "ARS",
+                "unit_price": price,
+                "picture_url": picture_url,
+            }
+        ],
+        u'payment_methods': {
+            'installments': 1,
+            'excluded_payment_types': [
+                {'id': 'ticket'},
+                {'id': 'atm'},
+            ],
+        },
+        u'back_urls': {
+            'failure': '',
+            'pending': 'http://tangoalive.com/eventos/payment_ok',
+            'success': 'http://tangoalive.com/eventos/payment_in_process'
+        },
+    }
+    mp = mercadopago.MP(settings.MP_CLIENT_ID, settings.MP_CLIENT_SECRET)
+    preferenceResult = mp.create_preference(preference)
+    url = preferenceResult["response"]["init_point"]
+    return preferenceResult, url
+
+
 def buy(request, eventos_id):
+    #get event object based on the event id
     evento = get_object_or_404(Evento, pk=eventos_id)
+    #get quantity from the form
     try:
         quantity = int(request.POST['quantity'])
     except:
         return HttpResponseRedirect("/")
 
-    return render(request, 'eventos/payment_ok.html', {
-        'message': 'Compraste {0} tickets, para el evento "{1}" '
-                   'el {2} a las {3} en "{4}"'.format(quantity, evento,
-                                                      evento.event_date.strftime("%d/%m"),
-                                                      evento.time_from.strftime("%I:%M %p"),
-                                                      evento.place),
-    })
-
-    pass
-    #get quantity from the form (quantity element from the form)
-    #get event id from the form (event_id from the form)
-    #get event object based on the event id
     #create mp object with the right quantity and event id
     #forward to mp to let the user buy
+    _, url = get_compra_obj(evento, quantity, evento.precio_entrada, evento.id,
+                          "http://tangoalive.com/media/{0}".format(evento.image_1))
 
-    #evento = get_object_or_404(Evento, pk=eventos_id)
+    #redirect to MP site
+    return HttpResponseRedirect(url)
 
+    #test
+    # return render(request, 'eventos/payment_ok.html', {
+    #     'evento':  evento,
+    #     'message': 'Compraste {0} tickets, para el evento "{1}" '
+    #                'el {2} a las {3} en "{4}"'.format(quantity, evento,
+    #                                                   evento.event_date.strftime("%d/%m"),
+    #                                                   evento.time_from.strftime("%I:%M %p"),
+    #                                                   evento.place),
+    # })
 
-    #
-    # evento.votes += 1
-    # selected_choice.save()
-    # # Always return an HttpResponseRedirect after successfully dealing
-    # # with POST data. This prevents data from being posted twice if a
-    # # user hits the Back button.
-    # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-    # import os, sys
-    # import mercadopago
-    # import json
-    #
-    # def index(req, **kwargs):
-    # 	preference = {
-    # 		"items": [
-    # 			{
-    # 				"title": "Multicolor kite",
-    # 				"quantity": 1,
-    # 				"currency_id": "ARS", # Available currencies at: https://api.mercadopago.com/currencies
-    # 				"unit_price": 10.0
-    # 			}
-    # 		]
-    # 	}
-    # 	mp = mercadopago.MP("4971587513296525", "yugVAP2luDGtCX32vQzw9KoZ2Q0FnC21")
-    #
-    # 	preferenceResult = mp.create_preference(preference)
-    #
-    # 	url = preferenceResult["response"]["init_point"]
-    #
-    # 	output = """
-    # 	<!doctype html>
-    # 	<html>
-    # 		<head>
-    # 			<title>Pay</title>
-    # 		</head>
-    # 		<body>
-    # 			<a href="{url}">Pay</a>
-    # 		</body>
-    # 	</html>
-    # 	""".format (url=url)
-    #
-    # 	return output
 
 def payment_ok(request):
     #we land here because mp sent us...

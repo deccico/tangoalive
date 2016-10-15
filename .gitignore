@@ -7,3 +7,4 @@ src/tangoalive/eventos/static/eventos/eventos_pics/*
 src/tangoalive/media
 resources/tmp
 resources/pics
+src/tangoalive/tangoalive/custom_settings.py

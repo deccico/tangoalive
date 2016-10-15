@@ -11,19 +11,24 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import custom_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+#Mercado Pagos constants
+MP_CLIENT_ID = custom_settings.MP_CLIENT_ID
+MP_CLIENT_SECRET = custom_settings.MP_CLIENT_SECRET
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '92imh#343kjflds09f#$%@=00dd++$45$f-$=2td5*&kftf3q_w&aw_n2lkzxk'
+SECRET_KEY = custom_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = custom_settings.DEBUG
 
 ALLOWED_HOSTS = [".tangoalive.com", "localhost"]
 
@@ -118,3 +123,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
