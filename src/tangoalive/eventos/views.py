@@ -161,7 +161,7 @@ def get_compra_obj(title, quantity, price, external_reference, picture_url):
     }
     mp = mercadopago.MP(settings.MP_CLIENT_ID, settings.MP_CLIENT_SECRET)
     preferenceResult = mp.create_preference(preference)
-    url = preferenceResult["response"]["sandbox_init_point"]
+    url = preferenceResult["response"]["init_point"]
     return preferenceResult, url
 
 
@@ -182,36 +182,26 @@ def buy(request, eventos_id):
     #redirect to MP site
     return HttpResponseRedirect(url)
 
-    #test
-    # return render(request, 'eventos/payment_ok.html', {
-    #     'evento':  evento,
-    #     'message': 'Compraste {0} tickets, para el evento "{1}" '
-    #                'el {2} a las {3} en "{4}"'.format(quantity, evento,
-    #                                                   evento.event_date.strftime("%d/%m"),
-    #                                                   evento.time_from.strftime("%I:%M %p"),
-    #                                                   evento.place),
-    # })
-
-
 def payment_ok(request):
     #we land here because mp sent us...
     #get event code from the mp variables
+    event_id = request.GET.get('external_reference', '-1')
+    event_id = int(event_id) if event_id.isdigit() else -1
+    evento = get_object_or_404(Evento, pk=event_id)
+    collection_id = request.GET.get('collection_id', '-1')
+    collection_status = request.GET.get('collection_status', 'none')
+    print collection_id, collection_status, event_id
+    if collection_id == "-1" or collection_status != 'approved':
+        return HttpResponseRedirect("/")
+
     #create mp object based on the event id
     #get the quantity from the mp object
     #get the buyer email from the mp object
     #substract the quantity from the event
     #send email to the buyer
     #send email to ourselves
-    return render(request, 'eventos/payment_ok.html', {})
+    return render(request, 'eventos/payment_ok.html', {"evento": evento})
 
-    # #make sure we have an actual payment
-    # event_id = request.GET.get('external_reference', '-1')
-    # event_id = int(event_id) if event_id.isdigit() else -1
-    # collection_id = request.GET.get('collection_id', '-1')
-    # collection_status = request.GET.get('collection_status', 'none')
-    # print collection_id, collection_status, event_id
-    # if collection_id == "-1" or collection_status <> 'approved' or event_id == -1:
-    #     return HttpResponseRedirect("/")
     # evento = None
     # try:
     #     evento = Evento.objects.get(pk=event_id)
@@ -224,6 +214,18 @@ def payment_ok(request):
     #     evento.save()
     # #render page
     # return render(request, 'eventos/payment_ok.html', {})
+
+
+    #test
+    # return render(request, 'eventos/payment_ok.html', {
+    #     'evento':  evento,
+    #     'message': 'Compraste {0} tickets, para el evento "{1}" '
+    #                'el {2} a las {3} en "{4}"'.format(quantity, evento,
+    #                                                   evento.event_date.strftime("%d/%m"),
+    #                                                   evento.time_from.strftime("%I:%M %p"),
+    #                                                   evento.place),
+    # })
+
 
 def payment_in_process(request):
     #show message that we will wait for payment confirmation
