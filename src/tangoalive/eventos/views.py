@@ -182,6 +182,18 @@ def buy(request, eventos_id):
     #redirect to MP site
     return HttpResponseRedirect(url)
 
+def get_payment_amount(payment_id):
+    import mercadopago
+    mp = mercadopago.MP(settings.MP_CLIENT_ID, settings.MP_CLIENT_SECRET)
+    payment = mp.get_payment(payment_id)
+    amount = 0
+    try:
+        amount = float(payment["response"]["transaction_amount"])
+    except:
+        amount = 0
+    return amount
+
+
 def payment_ok(request):
     #we land here because mp sent us...
     #get event code from the mp variables
@@ -196,35 +208,25 @@ def payment_ok(request):
 
     #create mp object based on the event id
     #get the quantity from the mp object
-    #get the buyer email from the mp object
+    amount = get_payment_amount(collection_id)
+
     #substract the quantity from the event
-    #send email to the buyer
-    #send email to ourselves
-    return render(request, 'eventos/payment_ok.html', {"evento": evento})
+    quantity = round(amount / evento.precio_entrada)
+    remaining_tickets = quantity - evento.entradas_disponibles
+    evento.entradas_disponibles = remaining_tickets
+    evento.save()
 
-    # evento = None
-    # try:
-    #     evento = Evento.objects.get(pk=event_id)
-    # except Evento.DoesNotExist:
-    #     #todo: add banner with error
-    #     return HttpResponseRedirect("/")
-    # if evento:
-    #     #update tickets available
-    #     evento.entradas_disponibles = evento.entradas_disponibles - 1
-    #     evento.save()
-    # #render page
-    # return render(request, 'eventos/payment_ok.html', {})
+    #todo: send email to the buyer
+    #todo: send email to ourselves
 
-
-    #test
-    # return render(request, 'eventos/payment_ok.html', {
-    #     'evento':  evento,
-    #     'message': 'Compraste {0} tickets, para el evento "{1}" '
-    #                'el {2} a las {3} en "{4}"'.format(quantity, evento,
-    #                                                   evento.event_date.strftime("%d/%m"),
-    #                                                   evento.time_from.strftime("%I:%M %p"),
-    #                                                   evento.place),
-    # })
+    return render(request, 'eventos/payment_ok.html', {
+        'evento':  evento,
+        'message': 'Compraste {0} tickets, para el evento "{1}" '
+                   'el {2} a las {3} en "{4}"'.format(quantity, evento,
+                                                      evento.event_date.strftime("%d/%m"),
+                                                      evento.time_from.strftime("%I:%M %p"),
+                                                      evento.place),
+    })
 
 
 def payment_in_process(request):
