@@ -158,7 +158,7 @@ class Evento(models.Model):
 
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo']
-    list_display = ('name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future')
+    list_display = ('id', 'name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future')
     list_filter = ['pub_date', 'event_date']
     search_fields = ['name']
     ordering = ['event_date']
