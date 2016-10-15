@@ -227,7 +227,7 @@ def payment_ok(request):
                                                       evento.time_from.strftime("%I:%M %p"),
                                                       evento.place),
     }
-    return HttpResponseRedirect(template.render(context, request))
+    return HttpResponse(template.render(context, request))
 
 
 
