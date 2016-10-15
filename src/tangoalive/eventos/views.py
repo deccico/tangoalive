@@ -221,7 +221,7 @@ def payment_ok(request):
     return render(request, 'eventos/payment_ok.html', {
         'evento':  evento,
         'message': 'Compraste {0} tickets, para el evento: "{1}" '
-                   'el {2} a las {3} en "{4}"'.format(quantity, evento,
+                   'el {2} a las {3} en "{4}"'.format(int(quantity), evento,
                                                       evento.event_date.strftime("%d/%m"),
                                                       evento.time_from.strftime("%I:%M %p"),
                                                       evento.place),
