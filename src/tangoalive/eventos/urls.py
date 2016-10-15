@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^payment_ok_render/(?P<event_id>[0-9]+)/(?P<quantity>[0-9]+)/$', views.payment_ok_render, name='payment_ok_render'),
     url(r'^payment_in_process$', views.payment_in_process, name='payment_in_process'),
     url(r'^(?P<eventos_id>[0-9]+)/buy/$', views.buy, name='buy'),
+    url(r'^(?P<slug>[\w-]+)/$', views.evento_from_permalink, name='evento_from_permalink'),
 ]

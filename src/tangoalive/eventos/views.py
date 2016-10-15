@@ -10,7 +10,6 @@ from django.utils import timezone
 
 from .models import Evento, Portada, Grupo
 
-import datetime
 
 def get_last_eventos(page_from, quantity):
     results_from = page_from * quantity
@@ -67,12 +66,20 @@ def evento_detail(request, eventos_id):
             for i in range(2, evento.entradas_disponibles + 1):
                 additional_options += '<option value={0}>{0} tickets</option>'.format(i)
             select_pago = select_pago.format(additional_options)
-
     except Evento.DoesNotExist:
         raise Http404("Código de evento inexistente.")
     return render(request, 'eventos/detail.html',
                   {'evento': evento, 'select_pago': select_pago})
 
+def evento_from_permalink(request, slug):
+    print "slug!", slug
+    try:
+        evento = Evento.objects.get(permalink=slug)
+    except:
+        #couldn't find event. So so sorry...
+        return HttpResponseRedirect("/")
+    print "found slug!"
+    return evento_detail(request, evento.id)
 
 def browse_eventos(request):
     page_size = request.GET.get('q', '24')

@@ -21,12 +21,12 @@ from django.contrib import admin
 from eventos import views as eventoviews
 
 urlpatterns = [
-    url(r'', include('eventos.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^eventos/', include('eventos.urls')),
     url(r'^about/', include('contact.urls')),
     url(r'^browse_events/', eventoviews.browse_eventos),
     url(r'^grupos/', include('eventos.urls')),
+    url(r'', include('eventos.urls')),
+    url(r'^eventos/', include('eventos.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
