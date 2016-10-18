@@ -42,3 +42,10 @@ root@tangoalive:/tmp# history |grep install
   134  sudo apt-get install mariadb-server
   206  sudo pip install mercadopago
 
+
+----------
+
+piwiki install
+
+https://piwik.org/docs/requirements/
+
