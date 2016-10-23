@@ -8,6 +8,8 @@ from django.template import loader
 from django.conf import settings
 from django.utils import timezone
 
+import random
+
 from .models import Evento, Portada, Grupo
 
 
@@ -53,7 +55,9 @@ def index(request):
     portada = Portada.objects.get(id=1)
     context = {
         'latest_eventos_list': latest_eventos_list,
-        'portada': portada
+        'portada': portada,
+        'img_rnd_head': random.randint(1, 3),
+        'img_rnd_foot': '{0:04d}'.format(random.randint(1, 15)),
     }
     return HttpResponse(template.render(context, request))
 

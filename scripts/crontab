@@ -1,0 +1,4 @@
+# m h  dom mon dow   command
+*/5 * * * * /home/adrian/tangoalive/scripts/update.sh
+0   2 * * * /home/adrian/tangoalive/scripts/backup.sh
+*/10 * * * * /home/adrian/tangoalive/scripts/watchdog.sh
