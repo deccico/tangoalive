@@ -56,7 +56,7 @@ def index(request):
     context = {
         'latest_eventos_list': latest_eventos_list,
         'portada': portada,
-        'img_rnd_head': random.randint(1, 3),
+        'img_rnd_head': '{0:04d}'.format(random.randint(1, 27)),
         'img_rnd_foot': '{0:04d}'.format(random.randint(1, 15)),
     }
     return HttpResponse(template.render(context, request))
