@@ -49,3 +49,12 @@ piwiki install
 
 https://piwik.org/docs/requirements/
 
+#uwsgi / nginx
+sudo apt-get install python2.7-dev
+sudo apt-get install python-dev
+sudo pip install uwsgi
+
+sudo apt-get install nginx
+sudo /etc/init.d/nginx start
+
+
