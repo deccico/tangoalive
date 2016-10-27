@@ -49,7 +49,12 @@ piwiki install
 
 https://piwik.org/docs/requirements/
 
+--------------------
+
+
 #uwsgi / nginx
+#from: https://uwsgi.readthedocs.io/en/latest/tutorials/Django_and_nginx.html
+
 sudo apt-get install python2.7-dev
 sudo apt-get install python-dev
 sudo pip install uwsgi
