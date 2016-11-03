@@ -52,10 +52,8 @@ def get_grupos(page_from, quantity):
 def index(request):
     _, latest_eventos_list = get_last_eventos(0, 6)
     template = loader.get_template('eventos/index.html')
-    portada = Portada.objects.get(id=1)
     context = {
         'latest_eventos_list': latest_eventos_list,
-        'portada': portada,
         'img_rnd_head': '{0:04d}'.format(random.randint(1, 27)),
         'img_rnd_foot': '{0:04d}'.format(random.randint(1, 15)),
     }

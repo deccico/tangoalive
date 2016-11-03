@@ -6,6 +6,7 @@ venv
 src/tangoalive/eventos/static/eventos/eventos_pics/*
 src/tangoalive/media
 resources/tmp
+resources/bu
 resources/pics
 src/tangoalive/tangoalive/custom_settings.py
 src/tangoalive/static/
