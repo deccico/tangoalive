@@ -49,13 +49,12 @@ def get_grupos(page_from, quantity):
     total = len(Grupo.objects.filter(image_1__isnull=False).exclude(image_1=u''))
     return total, grupos
 
-def index(request):
+def home_page(request):
     _, latest_eventos_list = get_last_eventos(0, 6)
     template = loader.get_template('eventos/index.html')
     context = {
         'latest_eventos_list': latest_eventos_list,
         'img_rnd_head': '{0:04d}'.format(random.randint(1, 27)),
-        'img_rnd_foot': '{0:04d}'.format(random.randint(1, 15)),
     }
     return HttpResponse(template.render(context, request))
 
@@ -74,7 +73,7 @@ def evento_detail(request, eventos_id):
                   {'evento': evento, 'select_pago': select_pago})
 
 def evento_from_permalink(request, slug):
-    print "slug!", slug
+    print("slug")
     try:
         evento = Evento.objects.get(permalink=slug)
     except:
@@ -115,7 +114,7 @@ def create_page_links(page_size, total, page_index, link):
     return page_links
 
 
-def browse_grupos(request):
+def bandas(request):
     page_size = request.GET.get('q', '24')
     page_size = int(page_size) if page_size.isdigit() else 24
     page_from = request.GET.get('from', '0')
@@ -130,7 +129,7 @@ def browse_grupos(request):
     return HttpResponse(template.render(context, request))
 
 
-def grupo_detail(request, grupo_id):
+def banda_detail(request, grupo_id):
     try:
         grupo = Grupo.objects.get(pk=grupo_id)
         eventos = get_eventos_from_grupo(grupo.name, 10)

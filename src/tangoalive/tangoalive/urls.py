@@ -23,10 +23,10 @@ from eventos import views as eventoviews
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^about/', include('contact.urls')),
-    url(r'^browse_events/', eventoviews.browse_eventos),
-    url(r'^grupos/', include('eventos.urls')),
-    url(r'', include('eventos.urls')),
+    url(r'^bandas/', eventoviews.bandas),
+    url(r'^banda/', include('eventos.urls')),
     url(r'^eventos/', include('eventos.urls')),
+    url(r'', eventoviews.home_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
