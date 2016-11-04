@@ -59,6 +59,7 @@ def home_page(request):
     return HttpResponse(template.render(context, request))
 
 def evento_detail(request, eventos_id):
+    print("evento_detail")
     try:
         evento = Evento.objects.get(pk=eventos_id)
         select_pago='<select name="quantity"><option value="1">1 ticket</option>{0}</select>'
@@ -81,6 +82,7 @@ def evento_from_permalink(request, slug):
     return evento_detail(request, evento.id)
 
 def browse_eventos(request):
+    print("browse_eventos")
     page_size = request.GET.get('q', '24')
     page_size = int(page_size) if page_size.isdigit() else 24
     page_from = request.GET.get('from', '0')
@@ -128,6 +130,7 @@ def bandas(request):
 
 
 def banda_detail(request, grupo_id):
+    print("banda detail")
     try:
         grupo = Grupo.objects.get(pk=grupo_id)
         eventos = get_eventos_from_grupo(grupo.name, 10)

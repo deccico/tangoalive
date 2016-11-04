@@ -70,10 +70,10 @@
                           <th></th>
                         </tr>
                         <tr>
-                          <th>Grupo/s:</th>
+                          <th>Banda/s:</th>
                           <td>
                             {% for grupo in evento.grupo.all %}
-                              <a href="/grupos/grupo/{{grupo.id}}">
+                              <a href="/bandas/{{grupo.id}}">
                                 {{ grupo.name }} </a> |
                             {% endfor %}
                           </td>
