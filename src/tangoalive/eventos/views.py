@@ -73,13 +73,11 @@ def evento_detail(request, eventos_id):
                   {'evento': evento, 'select_pago': select_pago})
 
 def evento_from_permalink(request, slug):
-    print("slug")
     try:
         evento = Evento.objects.get(permalink=slug)
     except:
         #couldn't find event. So so sorry...
-        return HttpResponseRedirect("/")
-    print "found slug!"
+        return HttpResponseRedirect("/eventos")
     return evento_detail(request, evento.id)
 
 def browse_eventos(request):
