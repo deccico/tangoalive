@@ -21,6 +21,7 @@ from django.contrib import admin
 from eventos import views as eventoviews
 
 urlpatterns = [
+    url(r'^admin', admin.site.urls),
     url(r'^admin/', admin.site.urls),
     url(r'^about/', include('contact.urls')),
 
