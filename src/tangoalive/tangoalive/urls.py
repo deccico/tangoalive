@@ -23,9 +23,8 @@ from contact import views as contactviews
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    
-    url(r'^about/', contactviews.about),
-    url(r'^about', contactviews.about),
+
+    url(r'^acercade', contactviews.about),
 
     url(r'^bandas/(?P<grupo_id>[0-9]+)/$', eventoviews.banda_detail),
     url(r'^bandas/(?P<grupo_id>[0-9]+)$', eventoviews.banda_detail),
