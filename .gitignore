@@ -10,3 +10,4 @@ resources/bu
 resources/pics
 src/tangoalive/tangoalive/custom_settings.py
 src/tangoalive/static/
+src/tangoalive/log/

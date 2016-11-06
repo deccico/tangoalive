@@ -19,11 +19,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from eventos import views as eventoviews
+from contact import views as contactviews
 
 urlpatterns = [
-    url(r'^admin', admin.site.urls),
     url(r'^admin/', admin.site.urls),
-    url(r'^about/', include('contact.urls')),
+    
+    url(r'^about/', contactviews.about),
+    url(r'^about', contactviews.about),
 
     url(r'^bandas/(?P<grupo_id>[0-9]+)/$', eventoviews.banda_detail),
     url(r'^bandas/(?P<grupo_id>[0-9]+)$', eventoviews.banda_detail),
