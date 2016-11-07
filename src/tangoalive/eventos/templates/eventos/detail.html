@@ -1,156 +1,164 @@
 {% extends "base.html" %}
 
 {% block content %}
-      <!-- Page Contents-->
-      <main class="page-content">
-        <section class="section-98 section-sm-110">
-          <div class="shell">
-            <h2 class="text-bold">{{ evento.name }}</h2>
-            <hr class="divider bg-saffron">
-            <div class="offset-sm-top-66">
-              <div class="range">
-                <div class="cell-md-7 cell-lg-8">
-                  <!-- Owl Carousel-->
-                  <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
-                       data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
-                      {# todo: fix the model (maybe) #}
-                      {% if evento.image_1 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_1}}">
-                        <figure><img width="770" height="510" src="/media/{{evento.image_1}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if evento.image_2 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_2}}">
-                        <figure><img width="770" height="510" src="/media/{{evento.image_2}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if evento.image_3 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_3}}">
-                        <figure><img width="770" height="510" src="/media/{{evento.image_3}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if evento.image_4 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_4}}">
-                        <figure><img width="770" height="510" src="/media/{{evento.image_4}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if evento.image_5 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_5}}">
-                        <figure><img width="770" height="510" src="/media/{{evento.image_5}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% for grupo in evento.grupo.all %}
-                          {% if grupo.image_1 %}
-                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_1}}">
-                            <figure><img width="770" height="510" src="/media/{{grupo.image_1}}" alt=""/></figure></a>
-                          {% endif %}
-                          {% if grupo.image_2 %}
-                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_2}}">
-                            <figure><img width="770" height="510" src="/media/{{grupo.image_2}}" alt=""/></figure></a>
-                          {% endif %}
-                          {% if grupo.image_3 %}
-                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_3}}">
-                            <figure><img width="770" height="510" src="/media/{{grupo.image_3}}" alt=""/></figure></a>
-                          {% endif %}
-                          {% if grupo.image_4 %}
-                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_4}}">
-                            <figure><img width="770" height="510" src="/media/{{grupo.image_4}}" alt=""/></figure></a>
-                          {% endif %}
-                          {% if grupo.image_5 %}
-                          <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_5}}">
-                            <figure><img width="770" height="510" src="/media/{{grupo.image_5}}" alt=""/></figure></a>
-                          {% endif %}
-                      {% endfor %}
-                  </div>
-                  <div class="text-sm-left offset-top-50">
-                    <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
-                    {{ evento.description | safe }}
-                  </div>
-                  <div class="offset-top-30">
-                    <!-- Bootstrap Table-->
-                    <div class="table-responsive clearfix">
-                      <table class="table table-striped">
-                        <tr>
-                          <th>Detalles</th>
-                          <th></th>
-                        </tr>
-                        <tr>
-                          <th>Banda/s:</th>
-                          <td>
-                            {% for grupo in evento.grupo.all %}
-                              <a href="/bandas/{{grupo.id}}">
-                                {{ grupo.name }} </a> |
-                            {% endfor %}
-                          </td>
-                        </tr>
-                        {% if evento.tipo_evento %}
-                        <tr>
-                          <th>Tipo Evento:</th>
-                          <td>{{ evento.tipo_evento }}</td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                          <th>Precio:</th>
-                          <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.get_precio }}</td>
-                        </tr>
-                        <tr>
-                          <th>&iquest;Cuando?</th>
-                          <td>{{ evento.event_date }} | {{ evento.time_from }} | {{ evento.duration }} minutos</td>
-                        </tr>
-                        {% if evento.place %}
-                        <tr>
-                          <th>&iquest;Donde?</th>
-                          <td><i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
-                                <br/>{{evento.place.get_dire}}</td>
-                        </tr>
-                        {% endif %}
-                        {% if evento.notes %}
-                        <tr>
-                          <th>Info adicional:</th>
-                          <td><textarea rows="4" cols="50">{{ evento.notes }}</textarea></td>
-                        </tr>
-                        {% endif %}
+<section class="rd-parallax context-dark">
+  <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/buraku.png" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+      <div>
+        <h1 class="text-bold">{{ evento.name }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
 
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
-                  <div class="range">
-                    <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
-                      <p>
-                      <span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span>
-                      <span>{{evento.event_date}}</span>
-                      </p>
-                      {% if evento.tipo_evento %}
-                        <ul class="list-inline list-inline-dotted text-dark">
-                            <li><i class="mdi mdi-library-music"></i>&nbsp;
-                                {{ evento.tipo_evento }}</li>
-                        </ul>
-                      {% endif %}
-                      <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
-                          {{evento.get_precio}}
-                      </h5>
-                    {% if evento.entradas_disponibles > 0 and evento.precio_entrada > 0 %}
-                        <form id="comprar" action="/eventos/{{evento.id}}/buy/" method="post">
-                        {% csrf_token %}
-                                {{ select_pago|safe }}
-                                <a href="#"
-                                   onclick="document.getElementById('comprar').submit();"
-                                   class="btn btn-primary">Comprar entrada/s</a>
-                        </form>
-                    {% endif %}
-                    {% if evento.place.google_map_code %}
-                      <!-- RD Google Map-->
-                        <br/>
-                      <div class="rd-google-map">
-                          <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-                          <i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
-                          <br/>{{evento.place.get_dire}}
-                      </div>
-                    {% endif %}
-                    </div>
-                  </div>
-                </div>
-              </div>
+<!-- Page Contents-->
+<main class="page-content">
+<section class="section-98 section-sm-110">
+  <div class="shell">
+    <div class="offset-sm-top-66">
+      <div class="range">
+        <div class="cell-md-7 cell-lg-8">
+          <!-- Owl Carousel-->
+          <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
+               data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
+              {# todo: fix the model (maybe) #}
+              {% if evento.image_1 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_1}}">
+                <figure><img width="770" height="510" src="/media/{{evento.image_1}}" alt=""/></figure></a>
+              {% endif %}
+              {% if evento.image_2 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_2}}">
+                <figure><img width="770" height="510" src="/media/{{evento.image_2}}" alt=""/></figure></a>
+              {% endif %}
+              {% if evento.image_3 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_3}}">
+                <figure><img width="770" height="510" src="/media/{{evento.image_3}}" alt=""/></figure></a>
+              {% endif %}
+              {% if evento.image_4 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_4}}">
+                <figure><img width="770" height="510" src="/media/{{evento.image_4}}" alt=""/></figure></a>
+              {% endif %}
+              {% if evento.image_5 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{evento.image_5}}">
+                <figure><img width="770" height="510" src="/media/{{evento.image_5}}" alt=""/></figure></a>
+              {% endif %}
+              {% for grupo in evento.grupo.all %}
+                  {% if grupo.image_1 %}
+                  <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_1}}">
+                    <figure><img width="770" height="510" src="/media/{{grupo.image_1}}" alt=""/></figure></a>
+                  {% endif %}
+                  {% if grupo.image_2 %}
+                  <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_2}}">
+                    <figure><img width="770" height="510" src="/media/{{grupo.image_2}}" alt=""/></figure></a>
+                  {% endif %}
+                  {% if grupo.image_3 %}
+                  <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_3}}">
+                    <figure><img width="770" height="510" src="/media/{{grupo.image_3}}" alt=""/></figure></a>
+                  {% endif %}
+                  {% if grupo.image_4 %}
+                  <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_4}}">
+                    <figure><img width="770" height="510" src="/media/{{grupo.image_4}}" alt=""/></figure></a>
+                  {% endif %}
+                  {% if grupo.image_5 %}
+                  <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_5}}">
+                    <figure><img width="770" height="510" src="/media/{{grupo.image_5}}" alt=""/></figure></a>
+                  {% endif %}
+              {% endfor %}
+          </div>
+          <div class="text-sm-left offset-top-50">
+            <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
+            {{ evento.description | safe }}
+          </div>
+          <div class="offset-top-30">
+            <!-- Bootstrap Table-->
+            <div class="table-responsive clearfix">
+              <table class="table table-striped">
+                <tr>
+                  <th>Detalles</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Banda/s:</th>
+                  <td>
+                    {% for grupo in evento.grupo.all %}
+                      <a href="/bandas/{{grupo.id}}">
+                        {{ grupo.name }} </a> |
+                    {% endfor %}
+                  </td>
+                </tr>
+                {% if evento.tipo_evento %}
+                <tr>
+                  <th>Tipo Evento:</th>
+                  <td>{{ evento.tipo_evento }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>Precio:</th>
+                  <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.get_precio }}</td>
+                </tr>
+                <tr>
+                  <th>&iquest;Cuando?</th>
+                  <td>{{ evento.event_date }} | {{ evento.time_from }} | {{ evento.duration }} minutos</td>
+                </tr>
+                {% if evento.place %}
+                <tr>
+                  <th>&iquest;Donde?</th>
+                  <td><i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
+                        <br/>{{evento.place.get_dire}}</td>
+                </tr>
+                {% endif %}
+                {% if evento.notes %}
+                <tr>
+                  <th>Info adicional:</th>
+                  <td><textarea rows="4" cols="50">{{ evento.notes }}</textarea></td>
+                </tr>
+                {% endif %}
+
+              </table>
             </div>
           </div>
-        </section>
-      </main>
-
+        </div>
+        <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
+          <div class="range">
+            <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
+              <p>
+              <span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span>
+              <span>{{evento.event_date}}</span>
+              </p>
+              {% if evento.tipo_evento %}
+                <ul class="list-inline list-inline-dotted text-dark">
+                    <li><i class="mdi mdi-library-music"></i>&nbsp;
+                        {{ evento.tipo_evento }}</li>
+                </ul>
+              {% endif %}
+              <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
+                  {{evento.get_precio}}
+              </h5>
+            {% if evento.entradas_disponibles > 0 and evento.precio_entrada > 0 %}
+                <form id="comprar" action="/eventos/{{evento.id}}/buy/" method="post">
+                {% csrf_token %}
+                        {{ select_pago|safe }}
+                        <a href="#"
+                           onclick="document.getElementById('comprar').submit();"
+                           class="btn btn-primary">Comprar entrada/s</a>
+                </form>
+            {% endif %}
+            {% if evento.place.google_map_code %}
+              <!-- RD Google Map-->
+                <br/>
+              <div class="rd-google-map">
+                  <iframe src="{{ evento.place.google_map_code }} " width="280" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                  <i class="mdi mdi-home-variant"> </i>&nbsp;{{ evento.place }}.
+                  <br/>{{evento.place.get_dire}}
+              </div>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
 {% endblock %}

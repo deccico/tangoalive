@@ -1,155 +1,164 @@
 {% extends "base.html" %}
 
 {% block content %}
-      <!-- Page Contents-->
-      <main class="page-content">
-        <section class="section-98 section-sm-110">
-          <div class="shell">
-            <h2 class="text-bold">{{ grupo.name }}</h2>
-            <hr class="divider bg-saffron">
-            <div class="offset-sm-top-66">
-              <div class="range">
-                <div class="cell-md-7 cell-lg-12">
-                  <!-- Owl Carousel-->
-                  <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
-                       data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
-                      {# todo: fix the model (maybe) #}
-                      {% if grupo.image_1 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_1}}">
-                        <figure><img width="770" height="510" src="/media/{{grupo.image_1}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if grupo.image_2 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_2}}">
-                        <figure><img width="770" height="510" src="/media/{{grupo.image_2}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if grupo.image_3 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_3}}">
-                        <figure><img width="770" height="510" src="/media/{{grupo.image_3}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if grupo.image_4 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_4}}">
-                        <figure><img width="770" height="510" src="/media/{{grupo.image_4}}" alt=""/></figure></a>
-                      {% endif %}
-                      {% if grupo.image_5 %}
-                      <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_5}}">
-                        <figure><img width="770" height="510" src="/media/{{grupo.image_5}}" alt=""/></figure></a>
-                      {% endif %}
-                  </div>
+<section class="rd-parallax context-dark">
+  <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/buraku.png" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+      <div>
+        <h1 class="text-bold">{{ grupo.name }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
 
-                  <div class="text-sm-left offset-top-50">
-                    <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
-                    {{ grupo.bio_corta | safe }}
-                  </div>
-                  <div class="offset-top-30">
-                    <!-- Bootstrap Table-->
-                    <div class="table-responsive clearfix">
-                      <table class="table table-striped">
-                        <tr>
-                          <th>Detalles</th>
-                          <th></th>
-                        </tr>
-                        {% if grupo.embedded_video %}
-                        <tr>
-                          <th>Video:</th>
-                          <td>
-                            {{ grupo.embedded_video |safe }}
-                          </td>
-                        </tr>
-                        {% endif %}
-                        {% if eventos %}
-                        <tr>
-                          <th>Pr&oacute;ximos Eventos:</th>
-                          <td>
-                              <table class="">
-                                <tr>
-                                    <th>Fecha</th><th>Lugar</th><th>Evento</th><th></th>
-                                </tr>
-                                {% for evento in eventos.all %}
-                                  <tr>
-                                      <td><a href="/eventos/{{evento.id}}">{{ evento.event_date }}</a></td>
-                                      <td>{{ evento.place }}</td>
-                                      <td><a href="/eventos/{{evento.id}}">{{ evento.name }}</a></td>
-                                      <td><a href="/eventos/{{evento.id}}">
-                                          <i class="glyphicon glyphicon-eye-open"></i>
-                                      </a></td>
-                                  </tr>
-                                {% endfor %}
-                              </table>
-                          </td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                          <th>M&uacute;sicos/s:</th>
-                          <td>
-                            {% for musico in grupo.musicos.all %}
-                                {{ musico.name }} |
-                            {% endfor %}
-                          </td>
-                        </tr>
-                        {% if grupo.url %}
-                        <tr>
-                          <th>Url:</th>
-                          <td><a target="_blank" href="{{grupo.url}}">{{grupo.url}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.facebook %}
-                        <tr>
-                          <th>Facebook:</th>
-                          <td><a target="_blank" href="{{grupo.facebook}}">{{grupo.facebook}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.twitter %}
-                        <tr>
-                          <th>Twitter:</th>
-                          <td><a target="_blank" href="{{grupo.twitter}}">{{grupo.twitter}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.video_youtube %}
-                        <tr>
-                          <th>Video Youtube:</th>
-                          <td><a target="_blank" href="{{grupo.video_youtube}}">{{grupo.video_youtube}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.soundcloud %}
-                        <tr>
-                          <th>Soundcloud:</th>
-                          <td><a target="_blank" href="{{grupo.soundcloud}}">{{grupo.soundcloud}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.instagram %}
-                        <tr>
-                          <th>Instagram:</th>
-                          <td><a target="_blank" href="{{grupo.instagram}}">{{grupo.instagram}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.spotify%}
-                        <tr>
-                          <th>Spotify:</th>
-                          <td><a target="_blank" href="{{grupo.spotify}}">{{grupo.spotify}}</a></td>
-                        </tr>
-                        {% endif %}
-                        {% if grupo.band_camp %}
-                        <tr>
-                          <th>Band Camp:</th>
-                          <td><a target="_blank" href="{{grupo.band_camp}}">{{grupo.band_camp}}</a></td>
-                        </tr>
-                        {% endif %}
+<!-- Page Contents-->
+<main class="page-content">
+<section class="section-98 section-sm-110">
+  <div class="shell">
+    <div class="offset-sm-top-66">
+      <div class="range">
+        <div class="cell-md-7 cell-lg-12">
+          <!-- Owl Carousel-->
+          <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
+               data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
+              {# todo: fix the model (maybe) #}
+              {% if grupo.image_1 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_1}}">
+                <figure><img width="770" height="510" src="/media/{{grupo.image_1}}" alt=""/></figure></a>
+              {% endif %}
+              {% if grupo.image_2 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_2}}">
+                <figure><img width="770" height="510" src="/media/{{grupo.image_2}}" alt=""/></figure></a>
+              {% endif %}
+              {% if grupo.image_3 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_3}}">
+                <figure><img width="770" height="510" src="/media/{{grupo.image_3}}" alt=""/></figure></a>
+              {% endif %}
+              {% if grupo.image_4 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_4}}">
+                <figure><img width="770" height="510" src="/media/{{grupo.image_4}}" alt=""/></figure></a>
+              {% endif %}
+              {% if grupo.image_5 %}
+              <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{grupo.image_5}}">
+                <figure><img width="770" height="510" src="/media/{{grupo.image_5}}" alt=""/></figure></a>
+              {% endif %}
+          </div>
 
-                        {% if grupo.bio_larga%}
+          <div class="text-sm-left offset-top-50">
+            <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
+            {{ grupo.bio_corta | safe }}
+          </div>
+          <div class="offset-top-30">
+            <!-- Bootstrap Table-->
+            <div class="table-responsive clearfix">
+              <table class="table table-striped">
+                <tr>
+                  <th>Detalles</th>
+                  <th></th>
+                </tr>
+                {% if grupo.embedded_video %}
+                <tr>
+                  <th>Video:</th>
+                  <td>
+                    {{ grupo.embedded_video |safe }}
+                  </td>
+                </tr>
+                {% endif %}
+                {% if eventos %}
+                <tr>
+                  <th>Pr&oacute;ximos Eventos:</th>
+                  <td>
+                      <table class="">
                         <tr>
-                          <th>Biograf&iacute;a completa:</th>
-                          <td><textarea rows="4" cols="66">{{ grupo.bio_larga }}</textarea></td>
+                            <th>Fecha</th><th>Lugar</th><th>Evento</th><th></th>
                         </tr>
-                        {% endif %}
-
+                        {% for evento in eventos.all %}
+                          <tr>
+                              <td><a href="/eventos/{{evento.id}}">{{ evento.event_date }}</a></td>
+                              <td>{{ evento.place }}</td>
+                              <td><a href="/eventos/{{evento.id}}">{{ evento.name }}</a></td>
+                              <td><a href="/eventos/{{evento.id}}">
+                                  <i class="glyphicon glyphicon-eye-open"></i>
+                              </a></td>
+                          </tr>
+                        {% endfor %}
                       </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>M&uacute;sicos/s:</th>
+                  <td>
+                    {% for musico in grupo.musicos.all %}
+                        {{ musico.name }} |
+                    {% endfor %}
+                  </td>
+                </tr>
+                {% if grupo.url %}
+                <tr>
+                  <th>Url:</th>
+                  <td><a target="_blank" href="{{grupo.url}}">{{grupo.url}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.facebook %}
+                <tr>
+                  <th>Facebook:</th>
+                  <td><a target="_blank" href="{{grupo.facebook}}">{{grupo.facebook}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.twitter %}
+                <tr>
+                  <th>Twitter:</th>
+                  <td><a target="_blank" href="{{grupo.twitter}}">{{grupo.twitter}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.video_youtube %}
+                <tr>
+                  <th>Video Youtube:</th>
+                  <td><a target="_blank" href="{{grupo.video_youtube}}">{{grupo.video_youtube}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.soundcloud %}
+                <tr>
+                  <th>Soundcloud:</th>
+                  <td><a target="_blank" href="{{grupo.soundcloud}}">{{grupo.soundcloud}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.instagram %}
+                <tr>
+                  <th>Instagram:</th>
+                  <td><a target="_blank" href="{{grupo.instagram}}">{{grupo.instagram}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.spotify%}
+                <tr>
+                  <th>Spotify:</th>
+                  <td><a target="_blank" href="{{grupo.spotify}}">{{grupo.spotify}}</a></td>
+                </tr>
+                {% endif %}
+                {% if grupo.band_camp %}
+                <tr>
+                  <th>Band Camp:</th>
+                  <td><a target="_blank" href="{{grupo.band_camp}}">{{grupo.band_camp}}</a></td>
+                </tr>
+                {% endif %}
+
+                {% if grupo.bio_larga%}
+                <tr>
+                  <th>Biograf&iacute;a completa:</th>
+                  <td><textarea rows="4" cols="66">{{ grupo.bio_larga }}</textarea></td>
+                </tr>
+                {% endif %}
+
+              </table>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
 
 {% endblock %}
