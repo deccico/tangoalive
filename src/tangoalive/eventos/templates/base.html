@@ -34,7 +34,8 @@
   <body>
     <!-- Page-->
     <div class="page text-center">
-      <!-- Page Header-->
+
+      {% block pageheader %}
       <header class="page-head slider-menu-position">
         <!-- RD Navbar Transparent-->
         <div class="rd-navbar-wrap">
@@ -70,6 +71,7 @@
           </nav>
         </div>
       </header>
+      {% endblock %}
 
       {% block content %}
       {% endblock %}
@@ -98,7 +100,7 @@
         </div>
         <div class="shell offset-top-50">
           <p class="small text-darker">Tango Alive &copy; <span id="copyright-year"></span> .&nbsp;
-              &nbsp;version: d4eac78 .
+              &nbsp;version: dc46b73 .
             <!-- {%FOOTER_LINK}-->
           </p>
         </div>
