@@ -124,7 +124,7 @@ class Evento(models.Model):
     duration = models.DurationField()
     recurrent_definition = models.CharField(max_length=20, blank=True)
     place = models.ForeignKey(Place, blank=True, null=True)
-    approved = models.BooleanField(default=False)
+    highlighted = models.BooleanField(default=False)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_2 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_3 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
@@ -159,8 +159,8 @@ class Evento(models.Model):
 
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo']
-    list_display = ('id', 'name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future')
-    list_filter = ['pub_date', 'event_date']
+    list_display = ('id', 'name', 'place', 'pub_date', 'event_date', 'is_published', 'is_in_the_future', 'highlighted')
+    list_filter = ['pub_date', 'event_date', 'highlighted']
     search_fields = ['name']
     ordering = ['event_date']
     show_full_result_count = True
