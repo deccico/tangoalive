@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^bandas', eventoviews.bandas),
 
     url(r'^eventos/', include('eventos.urls')),
-    url(r'', eventoviews.home_page),
+    url(r'^$', eventoviews.home_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
