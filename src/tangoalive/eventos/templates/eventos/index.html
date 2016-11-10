@@ -39,7 +39,9 @@
             <div>
               <h4 class="thumbnail-terry-title">{{evento.name}} </h4>
             </div>
-            <p class="thumbnail-terry-desc offset-top-0">{{evento.event_date}} - {{evento.place}}</p>
+            <p class="thumbnail-terry-desc offset-top-0">
+                <i class="fa fa-calendar"></i> {{evento.event_date}} -
+                <i class="mdi mdi-home-variant"></i> {{evento.place}}</p>
               <a href="/eventos/{{evento.id}}" class="btn offset-top-10 offset-md-top-0 btn-primary">Ver Detalles</a>
           </figcaption>
         </figure>
