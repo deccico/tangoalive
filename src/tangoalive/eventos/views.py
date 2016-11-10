@@ -29,27 +29,17 @@ def get_last_eventos(page_from, quantity):
                 image_1__isnull=False,
                 description__gte=25
             ).exclude(image_1=u''))
-
     return total, eventos
 
 def get_last_highlighted(quantity):
-    results_from = page_from * quantity
-    results_to = page_from * quantity + quantity
     eventos = Evento.objects.filter(
+        highlighted=True,
         pub_date__lte=timezone.now(),
         event_date__gte=timezone.now(),
         image_1__isnull=False,
         description__gte=25
-    ).exclude(image_1=u'').order_by('event_date')[results_from:results_to]
-    #todo:cache this operation
-    total = len(Evento.objects.filter(
-                pub_date__lte=timezone.now(),
-                event_date__gte=timezone.now(),
-                image_1__isnull=False,
-                description__gte=25
-            ).exclude(image_1=u''))
-
-    return total, eventos
+    ).exclude(image_1=u'').order_by('event_date')[:quantity]
+    return  eventos
 
 def get_eventos_from_grupo(grupo_name, quantity=10):
     return Evento.objects.filter(
@@ -70,10 +60,11 @@ def get_grupos(page_from, quantity):
 
 def home_page(request):
     _, latest_eventos_list = get_last_eventos(0, 6)
-    _, latest_eventos_list = get_last_eventos(0, 6)
+    latest_eventos_highlighted = get_last_highlighted(4)
     template = loader.get_template('eventos/index.html')
     context = {
         'latest_eventos_list': latest_eventos_list,
+        'latest_eventos_highlighted': latest_eventos_highlighted,
         'img_rnd_head': '{0:04d}'.format(random.randint(1, 27)),
     }
     return HttpResponse(template.render(context, request))
