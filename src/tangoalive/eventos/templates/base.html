@@ -1,13 +1,13 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en" class="wide wow-animation smoothscroll scrollTo">
+<html lang="es" class="wide wow-animation smoothscroll scrollTo">
   <head>
     <title>Tango Alive</title>
     <meta charset="utf-8">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="google-site-verification" content="wM1wpq-HxpQs7APe0hVSO3orkWLHAI3IfJWo9uT8pyU" />
+    {% block custom_meta_tags %}{% endblock %}
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
     <link rel="stylesheet" href="/static/eventos/css/style.css">
@@ -32,121 +32,116 @@
     <noscript><p><img src="//162.250.235.192:81/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
   </head>
-  <body>
-    <!-- Page-->
-    <div class="page text-center">
-
-      {% block pageheader %}
-      <header class="page-head slider-menu-position">
-        <!-- RD Navbar Transparent-->
-        <div class="rd-navbar-wrap">
-          <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" class="rd-navbar rd-navbar-default rd-navbar-transparent"
-               data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
-            <div class="rd-navbar-inner">
-              <!-- RD Navbar Panel-->
-              <div class="rd-navbar-panel">
-                <!-- RD Navbar Toggle-->
-                <button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
-                <!--Navbar Brand-->
-                <div class="rd-navbar-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
-              </div>
-              <div class="rd-navbar-menu-wrap">
-                <div class="rd-navbar-nav-wrap">
-                  <div class="rd-navbar-mobile-scroll">
-                    <!--Navbar Brand Mobile-->
-                    <div class="rd-navbar-mobile-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
-                    <!-- RD Navbar Nav-->
-                    <ul class="rd-navbar-nav">
-                      <li><a href="/"><span>Home</span></a>
-                      </li>
-                      <li><a href="/eventos/"><span>Eventos</span></a>
-                      </li>
-                      <li><a href="/bandas/"><span>Bandas</span></a>
-                      </li>
-                      <li><a href="/acercade/"><span>Acerca de</span></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
-      {% endblock %}
-
-      {% block content %}
-      {% endblock %}
-
-
-      <!-- Page Footer-->
-      <!-- Default footer-->
-      <footer class="section-relative section-top-66 section-bottom-34 page-footer bg-gray-base context-dark">
-        <div class="shell">
-          <div class="range range-sm-center text-lg-center">
-            <div class="cell-sm-8 cell-md-12">
-              <div class="range range-xs-center">
-                <div class="cell-xs-12 offset-top-66 cell-lg-3 cell-lg-push-1 offset-lg-top-0">
-                  <!-- Footer brand-->
-                  <div class="footer-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
-                  <p class="text-darker offset-top-4">Donde el tango vive</p>
-                        <ul class="list-inline">
-                          <li><a href="https://www.facebook.com/TangoAlive/" target="_blank" class="icon fa fa-facebook icon-xxs icon-circle icon-darkest-filled"></a></li>
-                          <li><a href="https://twitter.com/tangoalive" target="_blank" class="icon fa fa-twitter icon-xxs icon-circle icon-darkest-filled"></a></li>
-                          <li><a href="mailto:hola@tangoalive.com" target="_blank" class="icon mdi mdi-email icon-xxs icon-circle icon-darkest-filled"></a></li>
-                        </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="shell offset-top-50">
-          <p class="small text-darker">Tango Alive &copy; <span id="copyright-year"></span> .&nbsp;
-              &nbsp;version: cef7954 .
-            <!-- {%FOOTER_LINK}-->
-          </p>
-        </div>
-      </footer>
-    </div>
-    <!-- Global Mailform Output-->
-    <div id="form-output-global" class="snackbars"></div>
-    <!-- PhotoSwipe Gallery-->
-    <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
-      <div class="pswp__bg"></div>
-      <div class="pswp__scroll-wrap">
-        <div class="pswp__container">
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-        </div>
-        <div class="pswp__ui pswp__ui--hidden">
-          <div class="pswp__top-bar">
-            <div class="pswp__counter"></div>
-            <button title="Close (Esc)" class="pswp__button pswp__button--close"></button>
-            <button title="Share" class="pswp__button pswp__button--share"></button>
-            <button title="Toggle fullscreen" class="pswp__button pswp__button--fs"></button>
-            <button title="Zoom in/out" class="pswp__button pswp__button--zoom"></button>
-            <div class="pswp__preloader">
-              <div class="pswp__preloader__icn">
-                <div class="pswp__preloader__cut">
-                  <div class="pswp__preloader__donut"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-            <div class="pswp__share-tooltip"></div>
-          </div>
-          <button title="Previous (arrow left)" class="pswp__button pswp__button--arrow--left"></button>
-          <button title="Next (arrow right)" class="pswp__button pswp__button--arrow--right"></button>
-          <div class="pswp__caption">
-            <div class="pswp__caption__center"></div>
+<body>
+<!-- Page-->
+<div class="page text-center">
+{% block pageheader %}
+<header class="page-head slider-menu-position">
+<!-- RD Navbar Transparent-->
+<div class="rd-navbar-wrap">
+  <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" class="rd-navbar rd-navbar-default rd-navbar-transparent"
+       data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+    <div class="rd-navbar-inner">
+      <!-- RD Navbar Panel-->
+      <div class="rd-navbar-panel">
+        <!-- RD Navbar Toggle-->
+        <button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+        <!--Navbar Brand-->
+        <div class="rd-navbar-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+      </div>
+      <div class="rd-navbar-menu-wrap">
+        <div class="rd-navbar-nav-wrap">
+          <div class="rd-navbar-mobile-scroll">
+            <!--Navbar Brand Mobile-->
+            <div class="rd-navbar-mobile-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+            <!-- RD Navbar Nav-->
+            <ul class="rd-navbar-nav">
+              <li><a href="/"><span>Home</span></a>
+              </li>
+              <li><a href="/eventos/"><span>Eventos</span></a>
+              </li>
+              <li><a href="/bandas/"><span>Bandas</span></a>
+              </li>
+              <li><a href="/acercade/"><span>Acerca de</span></a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <!-- Java script-->
-    <script src="/static/eventos/js/core.min.js"></script>
-    <script src="/static/eventos/js/script.js"></script>
-  </body>
+  </nav>
+</div>
+</header>
+{% endblock %}
+{% block content %}
+{% endblock %}
+<!-- Page Footer-->
+<footer class="section-relative section-top-66 section-bottom-34 page-footer bg-gray-base context-dark">
+<div class="shell">
+  <div class="range range-sm-center text-lg-center">
+    <div class="cell-sm-8 cell-md-12">
+      <div class="range range-xs-center">
+        <div class="cell-xs-12 offset-top-66 cell-lg-3 cell-lg-push-1 offset-lg-top-0">
+          <!-- Footer brand-->
+          <div class="footer-brand"><a href="/"><img style='margin-top: -5px;margin-left: -15px;' width='138' height='31' src='/static/eventos/images/tango_logo.png' alt=''/></a></div>
+          <p class="text-darker offset-top-4">Donde el tango vive</p>
+                <ul class="list-inline">
+                  <li><a href="https://www.facebook.com/TangoAlive/" target="_blank" class="icon fa fa-facebook icon-xxs icon-circle icon-darkest-filled"></a></li>
+                  <li><a href="https://twitter.com/tangoalive" target="_blank" class="icon fa fa-twitter icon-xxs icon-circle icon-darkest-filled"></a></li>
+                  <li><a href="mailto:hola@tangoalive.com" target="_blank" class="icon mdi mdi-email icon-xxs icon-circle icon-darkest-filled"></a></li>
+                </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="shell offset-top-50">
+  <p class="small text-darker">Tango Alive &copy; <span id="copyright-year"></span> .&nbsp;
+      &nbsp;version: cef7954 .
+    <!-- {%FOOTER_LINK}-->
+  </p>
+</div>
+</footer>
+</div>
+<!-- Global Mailform Output-->
+<div id="form-output-global" class="snackbars"></div>
+<!-- PhotoSwipe Gallery-->
+<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter"></div>
+        <button title="Close (Esc)" class="pswp__button pswp__button--close"></button>
+        <button title="Share" class="pswp__button pswp__button--share"></button>
+        <button title="Toggle fullscreen" class="pswp__button pswp__button--fs"></button>
+        <button title="Zoom in/out" class="pswp__button pswp__button--zoom"></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip"></div>
+      </div>
+      <button title="Previous (arrow left)" class="pswp__button pswp__button--arrow--left"></button>
+      <button title="Next (arrow right)" class="pswp__button pswp__button--arrow--right"></button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Java script-->
+<script src="/static/eventos/js/core.min.js"></script>
+<script src="/static/eventos/js/script.js"></script>
+</body>
 </html>

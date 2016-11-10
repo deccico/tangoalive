@@ -1,5 +1,11 @@
 {% extends "base.html" %}
-
+{% block custom_meta_tags %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{evento.name}}" />
+<meta property="og:description" content="{{evento.description}}" />
+<meta property="og:image" content="http://tangoalive.com/media/{{evento.image_1}}" />
+<meta property="og:locale" content="es_AR" />
+{% endblock %}
 {% block content %}
 <section class="rd-parallax context-dark">
   <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/buraku.png" class="rd-parallax-layer"></div>
@@ -11,7 +17,6 @@
     </div>
   </div>
 </section>
-
 <!-- Page Contents-->
 <main class="page-content">
 <section class="section-98 section-sm-110">
