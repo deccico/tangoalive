@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block custom_meta_tags %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Tango Alive" />
+<meta property="og:description" content="Tango Alive, te trae todos los conciertos de Tango para que no te pierdas la experiencia de disfrutar Tango en vivo. Conectamos los fans de la música en vivo con los artistas. En Tango Alive conectamos a los seguidores con los artistas que ellos aman.
+Hoy en día estamos viviendo un momento inédito para el Tango, el nivel de producción alcanzado de las agrupaciones y las orquestas es similiar o superior a la época dorada. El Tango vuelve a consolidarse como una música llena de vida en la ciudad de Buenos Aires. Tango Alive pone al alcance de los seguidores, una base de datos actualizada donde podrán descubrir nueva música a través de distintos dispositivos.
+Creemos que vivir la experiencia de la música en vivo es un momento único e inigualable. es nuesra pasión y los que nos moviliza. Proveemos información actualizada para que los fans puedan hacer un seguimiento para que nunca puedan perderse un concierto en vivo y descburir nuevos artistas. Somos Tango Alive, nos gusta el Tango en Vivo." />
+<meta property="og:image" content="http://tangoalive.com/static/eventos/images/tango_logo.png" />
+<meta property="og:locale" content="es_AR" />
 <meta name="google-site-verification" content="wM1wpq-HxpQs7APe0hVSO3orkWLHAI3IfJWo9uT8pyU" />
 {% endblock %}
 {% block content %}
@@ -26,7 +33,6 @@
     </section>
   </div>
 </div>
-
 {% if latest_eventos_highlighted %}
 <!--Section destacados -->
 <section class="section-34">
