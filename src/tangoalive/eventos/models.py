@@ -131,8 +131,6 @@ class Evento(models.Model):
     image_4 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     image_5 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
     entradas_disponibles = models.SmallIntegerField(default=0)
-    precio_texto = models.CharField(max_length=200, blank=True, null=True)
-    precio_entrada = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=5)
     permalink = models.SlugField(blank=True, null=True, max_length=50)
     notes = models.TextField(blank=True, null=True)
 
@@ -168,19 +166,18 @@ class EventoAdmin(admin.ModelAdmin):
     #raw_id_fields = ('place',)
     save_on_top = True
 
-# @python_2_unicode_compatible
-# class EventoTicket(models.Model):
-#     nombre = models.CharField(max_length=100, blank=True, null=True)
-#     email = models.CharField(max_length=100, blank=True, null=True)
-#     codigo_compra = models.CharField(max_length=100, blank=True, null=True)
-#     fecha_compra = models.DateField(default=datetime.datetime.now)
-#     evento = models.ForeignKey(Evento, blank=True, null=True)
-#
-#     def __str__(self):
-#         return "{0} {1}".format(self.evento.id, self.nombre)
-#
-# class EventoTicketAdmin(admin.ModelAdmin):
-#     ordering = ['fecha_compra']
-#     show_full_result_count = True
-#     save_on_top = True
+@python_2_unicode_compatible
+class EventoEntrada(models.Model):
+    descripcion = models.CharField(max_length=100, default="General", blank=True, null=True)
+    precio_entrada = models.DecimalField(default=0.0, decimal_places=2, max_digits=5)
+    precio_texto = models.CharField(max_length=200, blank=True, null=True)
+    evento = models.ForeignKey(Evento, blank=True, null=True)
+
+    def __str__(self):
+        return "{0} {1}".format(self.evento.id, self.precio_entrada, self.descripcion)
+
+class EventoEntradaAdmin(admin.ModelAdmin):
+    ordering = ['precio_entrada']
+    show_full_result_count = True
+    save_on_top = True
 
