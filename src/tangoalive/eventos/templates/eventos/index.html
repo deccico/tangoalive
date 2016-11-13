@@ -40,12 +40,11 @@ Creemos que vivir la experiencia de la música en vivo es un momento único e in
     <h2 class="text-bold">Eventos Destacados</h2>
     <div class="range range-xs-center">
     {% for evento in latest_eventos_highlighted %}
-      <div class="cell-xs-8 cell-sm-6 cell-lg-3">
+      <div class="clickable cell-xs-8 cell-sm-6 cell-lg-3">
+          <a href="/eventos/{{evento.id}}">&nbsp;</a>
         <!-- Thumbnail Terry-->
         <figure class="thumbnail-terry">
-            <a href="/eventos/{{evento.id}}">
-                <img width="442" height="280" src="/media/{{evento.image_1}}" alt=""/>
-            </a>
+            <img width="442" height="280" src="/media/{{evento.image_1}}" alt=""/>
           <figcaption>
             <div>
             <a href="/eventos/{{evento.id}}">
