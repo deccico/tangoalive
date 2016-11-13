@@ -140,7 +140,6 @@ class Evento(models.Model):
         return self.name
 
     def get_precio(self):
-        return " no disponible"
         if not self.precio_entrada and not self.precio_texto:
             return " no disponible"
         else:
