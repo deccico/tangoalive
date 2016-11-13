@@ -10,7 +10,7 @@ from django.utils import timezone
 
 import random
 
-from .models import Evento, Portada, Grupo
+from .models import Evento, Grupo
 
 
 def get_last_eventos(page_from, quantity):

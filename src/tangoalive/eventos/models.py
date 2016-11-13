@@ -184,15 +184,3 @@ class EventoTicketAdmin(admin.ModelAdmin):
     show_full_result_count = True
     save_on_top = True
 
-@python_2_unicode_compatible
-class Portada(models.Model):
-    PORTADA_FOLDER_FORMAT = 'portada_pics/'
-    texto = models.TextField()
-    image_1 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
-    image_2 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
-    image_3 = models.ImageField(upload_to=PORTADA_FOLDER_FORMAT, blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return "Portada"
-
