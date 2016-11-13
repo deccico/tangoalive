@@ -168,19 +168,19 @@ class EventoAdmin(admin.ModelAdmin):
     #raw_id_fields = ('place',)
     save_on_top = True
 
-@python_2_unicode_compatible
-class EventoTicket(models.Model):
-    nombre = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    codigo_compra = models.CharField(max_length=100, blank=True, null=True)
-    fecha_compra = models.DateField(default=datetime.datetime.now)
-    evento = models.ForeignKey(Evento, blank=True, null=True)
-
-    def __str__(self):
-        return "{0} {1}".format(self.evento.id, self.nombre)
-
-class EventoTicketAdmin(admin.ModelAdmin):
-    ordering = ['fecha_compra']
-    show_full_result_count = True
-    save_on_top = True
+# @python_2_unicode_compatible
+# class EventoTicket(models.Model):
+#     nombre = models.CharField(max_length=100, blank=True, null=True)
+#     email = models.CharField(max_length=100, blank=True, null=True)
+#     codigo_compra = models.CharField(max_length=100, blank=True, null=True)
+#     fecha_compra = models.DateField(default=datetime.datetime.now)
+#     evento = models.ForeignKey(Evento, blank=True, null=True)
+#
+#     def __str__(self):
+#         return "{0} {1}".format(self.evento.id, self.nombre)
+#
+# class EventoTicketAdmin(admin.ModelAdmin):
+#     ordering = ['fecha_compra']
+#     show_full_result_count = True
+#     save_on_top = True
 
