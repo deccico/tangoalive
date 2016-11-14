@@ -100,7 +100,7 @@
                 {% endif %}
                 <tr>
                   <th>Precio:</th>
-                  <td><i class="fa fa-dollar"></i>&nbsp;{{ evento.get_precio }}</td>
+                  <td><i class="fa fa-dollar"></i>{{ evento.get_precio|safe }}</td>
                 </tr>
                 <tr>
                   <th>&iquest;Cuando?</th>
@@ -137,8 +137,8 @@
                         {{ evento.tipo_evento }}</li>
                 </ul>
               {% endif %}
-              <h5 class="text-bold"> <i class="fa fa-dollar"></i>&nbsp;
-                  {{evento.get_precio}}
+              <h5 class="text-bold"> <i class="fa fa-dollar"></i>
+                  {{evento.get_precio|safe}}
               </h5>
             {% if evento.entradas_disponibles > 0 and evento.precio_entrada > 0 %}
                 <form id="comprar" action="/eventos/{{evento.id}}/buy/" method="post">

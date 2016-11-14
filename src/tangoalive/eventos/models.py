@@ -138,11 +138,12 @@ class Evento(models.Model):
         return self.name
 
     def get_precio(self):
-        return " no disponible"
-        if not self.precio_entrada and not self.precio_texto:
+        primera_entrada = self.eventoentrada_set.all()
+        if len(primera_entrada) == 0:
             return " no disponible"
         else:
-            return "{0} {1}".format(self.precio_entrada, self.precio_texto)
+            primera_entrada = primera_entrada[0]
+        return "{0} &nbsp;{1}".format(primera_entrada.precio_entrada, primera_entrada.precio_texto)
 
     def is_published(self):
         return self.pub_date <= timezone.now().date()
@@ -172,7 +173,7 @@ class EventoEntrada(models.Model):
     descripcion = models.CharField(max_length=100, default="General", blank=True, null=True)
     precio_entrada = models.DecimalField(default=0.0, decimal_places=2, max_digits=5)
     precio_texto = models.CharField(max_length=200, blank=True, null=True)
-    evento = models.ForeignKey(Evento, blank=True, null=True)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return "{0} {1}".format(self.evento.id, self.precio_entrada, self.descripcion)

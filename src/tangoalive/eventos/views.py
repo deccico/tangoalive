@@ -114,7 +114,6 @@ def create_page_links(page_size, total, page_index, link):
         items += '<li class="{4}"><a href="{0}?from={1}&q={2}">{3}</a>' \
                  '</li>'.format(link, count, page_size, count+1, "active" if page_index==count else "")
         count += 1
-
     if page_index > 0:
         items = '<li><a href="{0}?from={1}&q={2}">Anterior</a></li>{3}'.format(link,
                                                                                page_index-1, page_size, items)
