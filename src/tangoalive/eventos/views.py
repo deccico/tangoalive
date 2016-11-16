@@ -70,7 +70,6 @@ def home_page(request):
     return HttpResponse(template.render(context, request))
 
 def evento_detail(request, eventos_id):
-    print("evento_detail")
     try:
         evento = Evento.objects.get(pk=eventos_id)
         select_pago='<select name="quantity"><option value="1">1 ticket</option>{0}</select>'
@@ -82,7 +81,10 @@ def evento_detail(request, eventos_id):
     except Evento.DoesNotExist:
         raise Http404("Código de evento inexistente.")
     return render(request, 'eventos/detail.html',
-                  {'evento': evento, 'select_pago': select_pago})
+                  {'evento': evento,
+                   'select_pago': select_pago,
+                   'tipo_entradas': evento.tipo_entradas.all()
+                   })
 
 def evento_from_permalink(request, slug):
     try:
@@ -93,7 +95,6 @@ def evento_from_permalink(request, slug):
     return evento_detail(request, evento.id)
 
 def browse_eventos(request):
-    print("browse_eventos")
     page_size = request.GET.get('q', '24')
     page_size = int(page_size) if page_size.isdigit() else 24
     page_from = request.GET.get('from', '0')
@@ -140,7 +141,6 @@ def bandas(request):
 
 
 def banda_detail(request, grupo_id):
-    print("banda detail")
     try:
         grupo = Grupo.objects.get(pk=grupo_id)
         eventos = get_eventos_from_grupo(grupo.name, 10)
@@ -192,14 +192,13 @@ def buy(request, eventos_id):
         quantity = int(request.POST['quantity'])
     except:
         return HttpResponseRedirect("/")
-
     #create mp object with the right quantity and event id
     #forward to mp to let the user buy
     _, url = get_compra_obj(evento.name, quantity, float(evento.precio_entrada), evento.id,
                           "http://tangoalive.com/media/{0}".format(evento.image_1))
-
     #redirect to MP site
     return HttpResponseRedirect(url)
+
 
 def get_payment_amount(payment_id):
     import mercadopago
@@ -250,7 +249,6 @@ def payment_ok_render(request, event_id, quantity):
                                                       evento.place),
     }
     return HttpResponse(template.render(context, request))
-
 
 
 def payment_in_process(request):
