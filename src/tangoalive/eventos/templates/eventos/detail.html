@@ -2,7 +2,7 @@
 {% block custom_meta_tags %}
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{evento.name}}" />
-<meta property="og:description" content="{{evento.description}}" />
+<meta property="og:description" content="{{evento.description |striptags}}" />
 <meta property="og:image" content="http://tangoalive.com/media/{{evento.image_1}}" />
 <meta property="og:locale" content="es_AR" />
 {% endblock %}
