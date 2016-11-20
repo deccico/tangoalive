@@ -143,7 +143,9 @@
                                             {% for entrada in evento.tipo_entradas.all %}
                                             <tr>
                                                 <td>
-                                                    <input type="radio" name="entrada" value="{{entrada.id}}" {% if forloop.first %}checked{% endif %}>
+                                                    <input type="radio"
+                                                           name="entrada"
+                                                           value="{{entrada.id}}" {% if forloop.first %}checked{% endif %}>
                                                 </td>
                                                 <td>
                                                     <h5 class="text-bold"> <i class="fa fa-dollar"></i>
@@ -178,13 +180,4 @@
         </div>
     </section>
 </main>
-{% endblock %}
-
-{% block additional_js %}
-<script>
-$(document).ready(function(){
-    var i = $("input[type=radio][name='entrada']:checked").val();
-    console.log(i);
-});
-</script>
 {% endblock %}

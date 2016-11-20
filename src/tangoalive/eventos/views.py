@@ -10,7 +10,7 @@ from django.utils import timezone
 
 import random
 
-from .models import Evento, Grupo
+from .models import Evento, Grupo, EventoEntrada
 
 
 def get_last_eventos(page_from, quantity):
@@ -190,11 +190,13 @@ def buy(request, eventos_id):
     #get quantity from the form
     try:
         quantity = int(request.POST['quantity'])
+        entrada_id = int(request.POST['entrada'])
     except:
         return HttpResponseRedirect("/")
     #create mp object with the right quantity and event id
     #forward to mp to let the user buy
-    _, url = get_compra_obj(evento.name, quantity, float(evento.precio_entrada), evento.id,
+    evento_entrada = get_object_or_404(EventoEntrada, pk=entrada_id)
+    _, url = get_compra_obj(evento.name, quantity, float(evento_entrada.precio), evento.id,
                           "http://tangoalive.com/media/{0}".format(evento.image_1))
     #redirect to MP site
     return HttpResponseRedirect(url)
