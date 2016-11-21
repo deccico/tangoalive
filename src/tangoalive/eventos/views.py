@@ -197,7 +197,7 @@ def buy(request, eventos_id):
     #create mp object with the right quantity and event id
     #forward to mp to let the user buy
     evento_entrada = get_object_or_404(EventoEntrada, pk=entrada_id)
-    _, url = get_compra_obj(evento.name, quantity, float(evento_entrada.precio), evento.id,
+    _, url = get_compra_obj("{0} {1}".format(evento.name, str(evento_entrada.descripcion)), quantity, float(evento_entrada.precio), evento.id,
                           "http://tangoalive.com/media/{0}".format(evento.image_1))
     #redirect to MP site
     return HttpResponseRedirect(url)
