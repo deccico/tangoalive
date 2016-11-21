@@ -83,7 +83,8 @@ def evento_detail(request, eventos_id):
     return render(request, 'eventos/detail.html',
                   {'evento': evento,
                    'select_pago': select_pago,
-                   'tipo_entradas': evento.tipo_entradas.all()
+                   'tipo_entradas': evento.tipo_entradas.all(),
+                   'number_entradas': len(evento.tipo_entradas.all())
                    })
 
 def evento_from_permalink(request, slug):
