@@ -103,7 +103,7 @@ def browse_eventos(request):
     total, latest_eventos_list = get_last_eventos(page_from, page_size)
     context = {
         'latest_eventos_list': latest_eventos_list,
-        'page_links': create_page_links(page_size, total, page_from, '/browse_events')
+        'page_links': create_page_links(page_size, total, page_from, '/eventos')
     }
     return HttpResponse(template.render(context, request))
 
@@ -135,7 +135,7 @@ def bandas(request):
     context = {
         'total': total,
         'grupos': grupos,
-        'page_links': create_page_links(page_size, total, page_from, '/grupos/browse_grupos')
+        'page_links': create_page_links(page_size, total, page_from, '/bandas')
     }
     return HttpResponse(template.render(context, request))
 
