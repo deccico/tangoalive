@@ -19,15 +19,15 @@ def get_last_eventos(page_from, quantity):
     eventos = Evento.objects.filter(
         pub_date__lte=timezone.now(),
         event_date__gte=timezone.now(),
-        image_1__isnull=False,
-        description__gte=25
+        #description__gte=25,
+        image_1__isnull=False
     ).exclude(image_1=u'').order_by('event_date')[results_from:results_to]
     #todo:cache this operation
     total = len(Evento.objects.filter(
                 pub_date__lte=timezone.now(),
                 event_date__gte=timezone.now(),
-                image_1__isnull=False,
-                description__gte=25
+                #description__gte=25,
+                image_1__isnull=False
             ).exclude(image_1=u''))
     return total, eventos
 
