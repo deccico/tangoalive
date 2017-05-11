@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [".tangoalive.com", "localhost"]
 INSTALLED_APPS = [
     'eventos.apps.EventosConfig',
     'contact.apps.ContactConfig',
+    'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
