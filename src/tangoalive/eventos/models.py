@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 PICS_DIR = "%Y_%m/%d/%H_%M_%S/"
 
@@ -17,7 +18,6 @@ class Musico(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class MusicoAdmin(admin.ModelAdmin):
     ordering = ['name']
@@ -47,9 +47,18 @@ class Grupo(models.Model):
     band_camp = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     embedded_video = models.CharField(max_length=800, blank=True, null=True)
+    permalink = models.SlugField(max_length=50, unique=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.permalink:
+            self.permalink = slugify(self.permalink)
+        else:
+            self.permalink = self.permalink.lower()
+        super(Grupo, self).save(*args, **kwargs)
+
 
 class GrupoAdmin(admin.ModelAdmin):
     filter_horizontal = ['musicos']
@@ -148,6 +157,13 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.permalink:
+            self.permalink = slugify(self.permalink)
+        else:
+            self.permalink = self.permalink.lower()
+        super(Evento, self).save(*args, **kwargs)
 
     def get_precio(self):
         primera_entrada = self.tipo_entradas.all()

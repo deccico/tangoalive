@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <section class="rd-parallax context-dark">
+          <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/bg/8.jpg" class="rd-parallax-layer"></div>
+          <div data-speed="0" data-type="html" class="rd-parallax-layer">
+            <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+              <div>
+                <h1 class="text-bold"></br>Blog y noticias del Tango en Vivo</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+<!--Section Recent Properties-->
+<section class="section-bottom-98 section-top-34 section-md-bottom-110 section-md-top-66">
+  <div class="shell">
+    <div class="range">
+    {% if blogs %}
+    {% for blog in blogs %}
+      <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
+        <a href="/blog/{{ blog.permalink }}">
+            <img src="/media/{{blog.image_1}}" width="370" height="250" alt="{{ blog.title }}"
+                 class="img-responsive reveal-inline-block">
+        </a>
+        <div class="text-sm-left offset-top-24">
+          <div>
+            <h5 class="text-bold text-primary"><a href="/blog/{{ blog.permalink}}">{{ blog.title }}</a></h5>
+          </div>
+          <div>
+            <h6 class="offset-top-10">Biograf&iacute;a:</h6>
+              {% if not blog.short_text %}
+                    No disponible.
+              {% else %}
+                    {{ blog.short_text|safe|default:" No disponible." }}
+              {% endif %}
+            </br></br>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+                <div class="offset-top-66 text-center">
+                    {{ page_links |safe}}
+                </div>
+  </div>
+</section>
+
+      </main>
+{% endblock %}
+
+
+{% block oldcontent %}
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Blog Posts</h1>
+        <!--
+        <p class="lead">Informaci&oacute;n acerca de Tango en Vivo en Buenos Aires.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+        -->
+      </div>
+      <div class="row marketing">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <thead>
+                <tr> <th>#</th> <th>Blog</th> <th>Biograf&iacute;a</th> <th>Biograf&iacute;a larga</th> </tr>
+                </thead>
+                <tbody>
+                {% if blogs %}
+                {% for blog in blogs %}
+                <tr> <th scope=row>
+                    <img class="img-circle" src="/media/{{blog.image_1}}" width="140" height="140">
+                </th> <td>
+                    {{ blog.title }}
+                </td> <td>
+                    {{ blog.short_text }}
+                </td> </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
+

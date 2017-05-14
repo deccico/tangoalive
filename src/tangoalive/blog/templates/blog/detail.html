@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block custom_meta_tags %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{blog.title}}" />
+<meta property="og:description" content="{{blog.description |striptags}}" />
+<meta property="og:image" content="http://tangoalive.com/media/{{blog.image_1}}" />
+<meta property="og:locale" content="es_AR" />
+{% endblock %}
+{% block content %}
+<section class="rd-parallax context-dark">
+    <div data-speed="0.2" data-type="media" data-url="/static/eventos/images/buraku.png" class="rd-parallax-layer"></div>
+    <div data-speed="0" data-type="html" class="rd-parallax-layer">
+        <div class="shell section-top-34 section-sm-top-98 section-bottom-34">
+            <div>
+                <h1 class="text-bold"></br>{{ blog.title }}</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Contents-->
+<main class="page-content">
+    <section class="section-98 section-sm-110">
+        <div class="shell">
+            <div class="offset-sm-top-66">
+                <div class="range">
+                    <div class="cell-md-7 cell-lg-8">
+                        <!-- Owl Carousel-->
+                        <div data-items="1" data-dots="true" data-nav="true" data-nav-class="[&quot;owl-prev mdi mdi-chevron-left&quot;, &quot;owl-next mdi mdi-chevron-right&quot;]"
+                             data-photo-swipe-gallery="" class="owl-carousel owl-carousel-classic">
+                            {# todo: fix the model (maybe) #}
+                            {% if blog.image_1 %}
+                            <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{blog.image_1}}">
+                                <figure><img width="770" height="510" src="/media/{{blog.image_1}}" alt=""/></figure></a>
+                            {% endif %}
+                            {% if blog.image_2 %}
+                            <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{blog.image_2}}">
+                                <figure><img width="770" height="510" src="/media/{{blog.image_2}}" alt=""/></figure></a>
+                            {% endif %}
+                            {% if blog.image_3 %}
+                            <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{blog.image_3}}">
+                                <figure><img width="770" height="510" src="/media/{{blog.image_3}}" alt=""/></figure></a>
+                            {% endif %}
+                            {% if blog.image_4 %}
+                            <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{blog.image_4}}">
+                                <figure><img width="770" height="510" src="/media/{{blog.image_4}}" alt=""/></figure></a>
+                            {% endif %}
+                            {% if blog.image_5 %}
+                            <a class="thumbnail-classic" data-photo-swipe-item="" data-size="770x510" href="/media/{{blog.image_5}}">
+                                <figure><img width="770" height="510" src="/media/{{blog.image_5}}" alt=""/></figure></a>
+                            {% endif %}
+                        </div>
+                        <div class="text-sm-left offset-top-50">
+                            <h5 class="text-bold">Descripci&oacute;n</h5><p></p>
+                            {{ blog.text | safe }}
+                        </div>
+                    </div>
+                    <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
+                        <div class="range">
+                            <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
+                                <p>
+                                    <span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span>
+                                    <span>{{blog.pub_date}}</span>
+                                </p>
+                                {% if blog %}
+                            <div class="table-responsive clearfix">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>Categor&iacute;as</th>
+                                    </tr>
+                                    {% for tag in blog.tags.all %}
+                                    <tr>
+                                        <td>{{ tag }}</th>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
