@@ -46,7 +46,7 @@ def get_blogs(page_from, quantity):
     results_to = page_from * quantity + quantity
     blogs = Blog.objects.filter(
         image_1__isnull=False
-    ).exclude(image_1=u'').order_by('title')[results_from:results_to]
+    ).exclude(image_1=u'').order_by('pub_date').reverse()[results_from:results_to]
     #todo:cache this operation
     total = len(Blog.objects.filter(image_1__isnull=False).exclude(image_1=u''))
     return total, blogs
