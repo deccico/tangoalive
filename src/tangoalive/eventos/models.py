@@ -142,7 +142,7 @@ class Evento(models.Model):
     event_date = models.DateField()
     time_from = models.TimeField()
     duration = models.DurationField()
-    recurrent_definition = models.CharField(max_length=20, blank=True)
+    #recurrent_definition = models.CharField(max_length=20, blank=True)
     place = models.ForeignKey(Place, blank=True, null=True)
     highlighted = models.BooleanField(default=False)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)

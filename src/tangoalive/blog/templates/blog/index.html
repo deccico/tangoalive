@@ -31,7 +31,7 @@
               {% if not blog.short_text %}
                     No disponible.
               {% else %}
-                    {{ blog.short_text|safe|default:" No disponible." }}
+                    {{ blog.short_text|safe|striptags|default:" No disponible." }}
               {% endif %}
             </br></br>
           </div>
@@ -73,7 +73,7 @@
                 </th> <td>
                     {{ blog.title }}
                 </td> <td>
-                    {{ blog.short_text }}
+                    {{ blog.short_text|striptags}}
                 </td> </tr>
                 {% endfor %}
                 {% endif %}
