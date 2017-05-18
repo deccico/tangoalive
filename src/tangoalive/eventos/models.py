@@ -131,8 +131,42 @@ class EventoEntradaAdmin(admin.ModelAdmin):
     show_full_result_count = True
     save_on_top = True
 
-@python_2_unicode_compatible  
+
+class EventoManager(models.Manager):
+    #reference: https://docs.djangoproject.com/en/1.11/topics/db/managers/#adding-extra-manager-methods
+    def _next_day(self, keyword):
+        yesterday = timezone.now() - datetime.timedelta(days = 1)
+        #filter out incomplete events
+        if not self.image_1 or len(self.description) < 25 or self.pub_date > timezone.now():
+            return yesterday
+        #filter out finished events
+        if self.finish_date and self.finish_date < timezone.now():
+            return yesterday
+        #return next day if is in the future
+        if self.event_date > timezone.now():
+            return self.event_date
+        #return next day if is in the past but the recurrence makes it active
+        if self.weekly_recurrence:
+            for i in range(7):
+                computed_date = timezone.today() + datetime.timedelta(days = i)
+                if computed_date.weekday() == self.weekly_recurrence:
+                    return computed_date
+        return yesterday
+
+    def get(self, *args, **kwargs):
+        print('ki--------------------------------------------------------------------')
+        next_day = kwargs.pop('next_day', None)
+        # Override #1) Query by dynamic property 'next_day'
+        if next_day:
+            ret = [('next_day',self._next_day())]
+            kwargs = dict(kwargs.items() + ret.items())
+        return super(EventoManager, self).get(*args, **kwargs)
+
+
+@python_2_unicode_compatible
 class Evento(models.Model):
+    obj = EventoManager()
+
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)
     grupo = models.ManyToManyField(Grupo, blank=True)
@@ -142,7 +176,16 @@ class Evento(models.Model):
     event_date = models.DateField()
     time_from = models.TimeField()
     duration = models.DurationField()
-    recurrent_definition = models.CharField(max_length=20, blank=True)
+    weekly_recurrence = models.SmallIntegerField(blank=True, null=True, choices=(
+        (0,'monday'),
+        (1,'tuesday'),
+        (2,'wednesday'),
+        (3,'thursday'),
+        (4,'friday'),
+        (5,'saturday'),
+        (6,'sunday'),
+    ))
+    finish_date = models.DateField(blank=True, null=True)
     place = models.ForeignKey(Place, blank=True, null=True)
     highlighted = models.BooleanField(default=False)
     image_1 = models.ImageField(upload_to=EVENTOS_FOLDER_FORMAT, blank=True, null=True)
@@ -184,6 +227,28 @@ class Evento(models.Model):
     is_in_the_future.boolean = True
     is_in_the_future.admin_order_field = 'event_date'
     is_in_the_future.short_description = 'Activo?'
+
+
+    #compute next date for a particular event. Return yesterday if none was found
+    # def next_day(self):
+    #     yesterday = timezone.now() - datetime.timedelta(days = 1)
+    #     #filter out incomplete events
+    #     if not self.image_1 or len(self.description) < 25 or self.pub_date > timezone.now():
+    #         return yesterday
+    #     #filter out finished events
+    #     if self.finish_date and self.finish_date < timezone.now():
+    #         return yesterday
+    #     #return next day if is in the future
+    #     if self.event_date > timezone.now():
+    #         return self.event_date
+    #     #return next day if is in the past but the recurrence makes it active
+    #     if self.weekly_recurrence:
+    #         for i in range(7):
+    #             computed_date = timezone.today() + datetime.timedelta(days = i)
+    #             if computed_date.weekday() == self.weekly_recurrence:
+    #                 return computed_date
+    #     return yesterday
+
 
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo', 'tipo_entradas']
