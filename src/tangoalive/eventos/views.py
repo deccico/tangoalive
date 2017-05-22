@@ -16,18 +16,13 @@ from .models import Evento, Grupo, EventoEntrada
 def get_last_eventos(page_from, quantity):
     results_from = page_from * quantity
     results_to = page_from * quantity + quantity
-    eventos = Evento.obj.filter(
-        next_day__gte=timezone.now()
-    ).exclude(image_1=u'').order_by('next_day')[results_from:results_to]
+    eventos = Evento.objects.with_next_day()
     total = len(eventos)
-    return total, eventos
+    return total, eventos[results_from:results_to]
 
 def get_last_highlighted(quantity):
-    eventos = Evento.objects.filter(
-        highlighted=True,
-        next_day__gte=timezone.now()
-    ).order_by('next_day')[:quantity]
-    return  eventos
+    eventos = Evento.objects.with_next_day(with_highlight=True)
+    return eventos[:quantity]
 
 def get_eventos_from_grupo(grupo_name, quantity=10):
     return Evento.objects.filter(
@@ -41,7 +36,6 @@ def get_grupos(page_from, quantity):
     grupos = Grupo.objects.filter(
         image_1__isnull=False
     ).exclude(image_1=u'').order_by('name')[results_from:results_to]
-    #todo:cache this operation
     total = len(Grupo.objects.filter(image_1__isnull=False).exclude(image_1=u''))
     return total, grupos
 
@@ -49,10 +43,11 @@ def home_page(request):
     _, latest_eventos_list = get_last_eventos(0, 6)
     latest_eventos_highlighted = get_last_highlighted(4)
     template = loader.get_template('eventos/index.html')
+    print('len latest eventos {0}'.format(len(latest_eventos_list)))
     context = {
         'latest_eventos_list': latest_eventos_list,
         'latest_eventos_highlighted': latest_eventos_highlighted,
-        'img_rnd_head': '{0:04d}'.format(random.randint(1, 27)),
+        'img_rnd_head': '{0:04d}'.format(random.randint(1, 27))
     }
     return HttpResponse(template.render(context, request))
 

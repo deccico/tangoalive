@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
+from operator import itemgetter
 import datetime
+
 from django.contrib import admin
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -153,19 +155,41 @@ class EventoManager(models.Manager):
                     return computed_date
         return yesterday
 
-    def get(self, *args, **kwargs):
-        print('ki--------------------------------------------------------------------')
-        next_day = kwargs.pop('next_day', None)
-        # Override #1) Query by dynamic property 'next_day'
-        if next_day:
-            ret = [('next_day',self._next_day())]
-            kwargs = dict(kwargs.items() + ret.items())
-        return super(EventoManager, self).get(*args, **kwargs)
+    def with_next_day(self, with_highlight=False):
+        eventos = Evento.objects.filter(pub_date__lte=timezone.now())
+        if with_highlight:
+            eventos = eventos.filter(highlighted=True)
+
+        eventos_next_day = []
+        #idea: modify queryset. Maybe based on: http://stackoverflow.com/questions/18255290/how-to-create-an-empty-queryset-and-to-add-objects-manually-in-django#18255443
+        for e in eventos:
+            evento = {'id':e.id,
+                      'image_1': e.image_1,
+                      'name': e.name,
+                      'place': e.place,
+                      'get_precio': e.get_precio,
+                      'tipo_evento': e.tipo_evento,
+                      'description': e.description,
+                      }
+            if e.finish_date and e.finish_date < timezone.now().date():
+                continue
+            elif e.event_date > timezone.now().date():
+                evento['next_day'] = e.event_date
+                eventos_next_day.append(evento)
+            elif e.weekly_recurrence:
+                for i in range(7):
+                    computed_date = timezone.now().date() + datetime.timedelta(days = i)
+                    if computed_date.weekday() == e.weekly_recurrence:
+                        evento['next_day'] = computed_date
+                        eventos_next_day.append(evento)
+
+        eventos = sorted(eventos_next_day, key=itemgetter('next_day'), reverse=False)
+        return eventos
 
 
 @python_2_unicode_compatible
 class Evento(models.Model):
-    obj = EventoManager()
+    objects = EventoManager()
 
     EVENTOS_FOLDER_FORMAT = 'eventos_pics/{0}/'.format(PICS_DIR)
     name = models.CharField(max_length=200)

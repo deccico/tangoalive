@@ -72,7 +72,7 @@ Creemos que vivir la experiencia de la música en vivo es un momento único e in
     <h2 class="text-bold">Pr&oacute;ximos Eventos</h2>
     <div class="range">
     {% if latest_eventos_list %}
-    {% for evento in latest_eventos_list %}
+    {% for evento in latest_eventos_list  %}
       <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
         <a href="/eventos/{{ evento.id }}">
             <img src="/media/{{evento.image_1}}" width="370" height="250" alt=""
@@ -87,7 +87,7 @@ Creemos que vivir la experiencia de la música en vivo es un momento único e in
             {% if evento.tipo_evento %}
               <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
             {% endif %}
-            <li><i class="fa fa-calendar"></i> {{ evento.event_date }}</li>
+            <li><i class="fa fa-calendar"></i> {{ evento.next_day }}</li>
             {% if evento.place %}
               <li><i class="mdi mdi-home-variant"> </i>{{ evento.place }}</li>
             {% endif %}
