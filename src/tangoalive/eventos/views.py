@@ -6,7 +6,6 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.conf import settings
-from django.utils import timezone
 
 import random
 
@@ -25,10 +24,7 @@ def get_last_highlighted(quantity):
     return eventos[:quantity]
 
 def get_eventos_from_grupo(grupo_name, quantity=10):
-    return Evento.objects.filter(
-        next_day__gte=timezone.now(),
-        grupo__name=grupo_name
-    ).order_by('next_day')[:quantity]
+    return Evento.objects.with_next_day(grupo_name=grupo_name)[:quantity]
 
 def get_grupos(page_from, quantity):
     results_from = page_from * quantity
@@ -53,7 +49,8 @@ def home_page(request):
 
 def evento_detail(request, eventos_id):
     try:
-        evento = Evento.objects.get(pk=eventos_id)
+        evento_next_date = Evento.objects.with_next_day(id=eventos_id)
+        evento = Evento.objects.get(id=eventos_id)
         select_pago='<select name="quantity"><option value="1">1 ticket</option>{0}</select>'
         additional_options = ''
         if evento.entradas_disponibles > 1:
@@ -64,6 +61,7 @@ def evento_detail(request, eventos_id):
         raise Http404("Código de evento inexistente.")
     return render(request, 'eventos/detail.html',
                   {'evento': evento,
+                   'next_day': evento_next_date['next_day'],
                    'select_pago': select_pago,
                    'tipo_entradas': evento.tipo_entradas.all(),
                    'number_entradas': len(evento.tipo_entradas.all())
@@ -71,7 +69,7 @@ def evento_detail(request, eventos_id):
 
 def evento_from_permalink(request, slug):
     try:
-        evento = Evento.objects.get(permalink=slug)
+        evento = Evento.objects.with_next_day(slug=slug)
     except:
         #couldn't find event. So so sorry...
         return HttpResponseRedirect("/eventos")
@@ -127,6 +125,7 @@ def banda_detail(request, grupo_id):
     try:
         grupo = Grupo.objects.get(pk=grupo_id)
         eventos = get_eventos_from_grupo(grupo.name, 10)
+        print("len(eventos)s", len(eventos))
     except Evento.DoesNotExist:
         raise Http404("Grupo does not exist")
     return render(request, 'eventos/grupo_detail.html',
@@ -170,6 +169,11 @@ def get_compra_obj(title, quantity, price, external_reference, picture_url):
 def buy(request, eventos_id):
     #get event object based on the event id
     evento = get_object_or_404(Evento, pk=eventos_id)
+    #not in use now, but might be helpful to get the concert next day
+    # try:
+    #     evento_next_day = Evento.objects.with_next_day(id=eventos_id)
+    # except:
+    #     return HttpResponseRedirect("/")
     #get quantity from the form
     try:
         quantity = int(request.POST['quantity'])
@@ -224,12 +228,18 @@ def payment_ok(request):
 
 def payment_ok_render(request, event_id, quantity):
     evento = get_object_or_404(Evento, pk=event_id)
+    event_date = evento.event_date
+    try:
+        evento_nd = Evento.objects.with_next_day(id=event_id)
+        event_date = evento_nd.next_day
+    except:
+        print("warning couldn't get event next date. Falling back to event_date")
     template = loader.get_template('eventos/payment_ok.html')
     context = {
         'evento':  evento,
         'message': 'Compraste {0} ticket/s para el evento: "{1}" '
                    'el {2} a las {3} en "{4}"'.format(int(quantity), evento,
-                                                      evento.event_date.strftime("%d/%m"),
+                                                      event_date.strftime("%d/%m"),
                                                       evento.time_from.strftime("%I:%M %p"),
                                                       evento.place),
     }

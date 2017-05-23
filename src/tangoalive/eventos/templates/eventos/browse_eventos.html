@@ -34,7 +34,7 @@
             {% if evento.tipo_evento %}
               <li><i class="mdi mdi-library-music"></i>{{ evento.tipo_evento }}</li>
             {% endif %}
-            <li><i class="fa fa-calendar"></i> {{ evento.event_date }}</li>
+            <li><i class="fa fa-calendar"></i> {{ evento.next_day }}</li>
             {% if evento.place %}
               <li><i class="mdi mdi-home-variant"> </i>{{ evento.place }}</li>
             {% endif %}

@@ -135,41 +135,47 @@ class EventoEntradaAdmin(admin.ModelAdmin):
 
 
 class EventoManager(models.Manager):
-    #reference: https://docs.djangoproject.com/en/1.11/topics/db/managers/#adding-extra-manager-methods
-    def _next_day(self, keyword):
-        yesterday = timezone.now() - datetime.timedelta(days = 1)
-        #filter out incomplete events
-        if not self.image_1 or len(self.description) < 25 or self.pub_date > timezone.now():
-            return yesterday
-        #filter out finished events
-        if self.finish_date and self.finish_date < timezone.now():
-            return yesterday
-        #return next day if is in the future
-        if self.event_date > timezone.now():
-            return self.event_date
-        #return next day if is in the past but the recurrence makes it active
-        if self.weekly_recurrence:
-            for i in range(7):
-                computed_date = timezone.today() + datetime.timedelta(days = i)
-                if computed_date.weekday() == self.weekly_recurrence:
-                    return computed_date
-        return yesterday
+    def with_next_day(self, with_highlight=False, id=None, grupo_name=None, slug=None):
+        if id:
+            eventos = Evento.objects.get(pk=id)
+        elif slug:
+            eventos = Evento.objects.get(permalink=slug)
+        else:
+            eventos = Evento.objects.filter(pub_date__lte=timezone.now())
+            if with_highlight:
+                eventos = eventos.filter(highlighted=True)
+            if grupo_name:
+                eventos = eventos.filter(grupo__name=grupo_name)
 
-    def with_next_day(self, with_highlight=False):
-        eventos = Evento.objects.filter(pub_date__lte=timezone.now())
-        if with_highlight:
-            eventos = eventos.filter(highlighted=True)
+        if not eventos:
+            raise RuntimeError("Couldn't find any evento object with data with highlight:{0} id:{1} grupo_name:{2} "
+                               "slug:{3}".format(with_highlight, id, grupo_name, slug))
+
+        is_single_object = False
+        if eventos.__class__.__name__ == "Evento":
+            is_single_object = True
+            eventos = [eventos]
 
         eventos_next_day = []
         #idea: modify queryset. Maybe based on: http://stackoverflow.com/questions/18255290/how-to-create-an-empty-queryset-and-to-add-objects-manually-in-django#18255443
         for e in eventos:
             evento = {'id':e.id,
                       'image_1': e.image_1,
+                      'image_2': e.image_2,
+                      'image_3': e.image_3,
+                      'image_4': e.image_4,
+                      'image_5': e.image_5,
                       'name': e.name,
                       'place': e.place,
                       'get_precio': e.get_precio,
                       'tipo_evento': e.tipo_evento,
                       'description': e.description,
+                      'time_from': e.time_from,
+                      'duration': e.duration,
+                      'entradas_disponibles': e.entradas_disponibles,
+                      'tipo_entradas': e.tipo_entradas,
+                      'permalink': e.permalink,
+                      'notes': e.notes,
                       }
             if e.finish_date and e.finish_date < timezone.now().date():
                 continue
@@ -182,6 +188,10 @@ class EventoManager(models.Manager):
                     if computed_date.weekday() == e.weekly_recurrence:
                         evento['next_day'] = computed_date
                         eventos_next_day.append(evento)
+
+        if is_single_object:
+            #we have only one object and we expect only one object
+            return eventos_next_day[0]
 
         eventos = sorted(eventos_next_day, key=itemgetter('next_day'), reverse=False)
         return eventos
@@ -247,37 +257,24 @@ class Evento(models.Model):
     is_published.short_description = 'Publicado?'
 
     def is_in_the_future(self):
-        return self.event_date >= timezone.now().date()
+        if self.event_date >= timezone.now().date():
+            return True
+        else:
+            if self.finish_date and self.finish_date > timezone.now().date() and self.weekly_recurrence:
+                return True
+        return False
+
     is_in_the_future.boolean = True
     is_in_the_future.admin_order_field = 'event_date'
     is_in_the_future.short_description = 'Activo?'
 
 
-    #compute next date for a particular event. Return yesterday if none was found
-    # def next_day(self):
-    #     yesterday = timezone.now() - datetime.timedelta(days = 1)
-    #     #filter out incomplete events
-    #     if not self.image_1 or len(self.description) < 25 or self.pub_date > timezone.now():
-    #         return yesterday
-    #     #filter out finished events
-    #     if self.finish_date and self.finish_date < timezone.now():
-    #         return yesterday
-    #     #return next day if is in the future
-    #     if self.event_date > timezone.now():
-    #         return self.event_date
-    #     #return next day if is in the past but the recurrence makes it active
-    #     if self.weekly_recurrence:
-    #         for i in range(7):
-    #             computed_date = timezone.today() + datetime.timedelta(days = i)
-    #             if computed_date.weekday() == self.weekly_recurrence:
-    #                 return computed_date
-    #     return yesterday
-
 
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo', 'tipo_entradas']
     list_display = ('id', 'name', 'place', 'pub_date', 'event_date',
-                    'is_published', 'is_in_the_future', 'highlighted')
+                    'is_published', 'weekly_recurrence', 'finish_date',
+                    'is_in_the_future', 'highlighted')
     list_filter = ['pub_date', 'event_date', 'highlighted']
     search_fields = ['name']
     ordering = ['event_date']

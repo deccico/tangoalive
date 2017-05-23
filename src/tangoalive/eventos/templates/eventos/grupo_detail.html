@@ -71,9 +71,9 @@
                         <tr>
                             <th>Fecha</th><th>Lugar</th><th>Evento</th><th></th>
                         </tr>
-                        {% for evento in eventos.all %}
+                        {% for evento in eventos %}
                           <tr>
-                              <td><a href="/eventos/{{evento.id}}">{{ evento.event_date }}</a></td>
+                              <td><a href="/eventos/{{evento.id}}">{{ evento.next_day }}</a></td>
                               <td>{{ evento.place }}</td>
                               <td><a href="/eventos/{{evento.id}}">{{ evento.name }}</a></td>
                               <td><a href="/eventos/{{evento.id}}">
