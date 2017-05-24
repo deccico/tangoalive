@@ -152,6 +152,7 @@ class EventoManager(models.Manager):
                                "slug:{3}".format(with_highlight, id, grupo_name, slug))
 
         is_single_object = False
+        print eventos.__class__.__name__
         if eventos.__class__.__name__ == "Evento":
             is_single_object = True
             eventos = [eventos]
@@ -159,6 +160,7 @@ class EventoManager(models.Manager):
         eventos_next_day = []
         #idea: modify queryset. Maybe based on: http://stackoverflow.com/questions/18255290/how-to-create-an-empty-queryset-and-to-add-objects-manually-in-django#18255443
         for e in eventos:
+            print("loopisEvento")
             evento = {'id':e.id,
                       'image_1': e.image_1,
                       'image_2': e.image_2,
@@ -178,8 +180,9 @@ class EventoManager(models.Manager):
                       'notes': e.notes,
                       }
             if e.finish_date and e.finish_date < timezone.now().date():
+                print 'finished'
                 continue
-            elif e.event_date > timezone.now().date():
+            elif e.event_date >= timezone.now().date():
                 evento['next_day'] = e.event_date
                 eventos_next_day.append(evento)
             elif e.weekly_recurrence:
@@ -191,7 +194,7 @@ class EventoManager(models.Manager):
 
         if is_single_object:
             #we have only one object and we expect only one object
-            return eventos_next_day[0]
+            return eventos_next_day[0] if len(eventos_next_day) else eventos[0]
 
         eventos = sorted(eventos_next_day, key=itemgetter('next_day'), reverse=False)
         return eventos
