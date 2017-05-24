@@ -265,6 +265,8 @@ class Evento(models.Model):
         else:
             if self.finish_date and self.finish_date > timezone.now().date() and self.weekly_recurrence:
                 return True
+            if not self.finish_date and self.weekly_recurrence:
+                return True
         return False
 
     is_in_the_future.boolean = True
