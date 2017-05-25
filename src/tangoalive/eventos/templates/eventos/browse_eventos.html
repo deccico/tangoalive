@@ -21,7 +21,7 @@
     {% if latest_eventos_list %}
     {% for evento in latest_eventos_list %}
       <div class="cell-sm-6 cell-md-4 {% cycle '' 'offset-sm-top-0' 'offset-sm-top-0' %}">
-        <a href="/eventos/{{ evento.id }}">
+        <a href="/eventos/{{ evento.permalink }}">
             <img src="/media/{{evento.image_1}}" width="370" height="250" alt=""
                  class="img-responsive reveal-inline-block">
         </a>

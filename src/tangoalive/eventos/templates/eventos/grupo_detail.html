@@ -73,7 +73,7 @@
                         </tr>
                         {% for evento in eventos %}
                           <tr>
-                              <td><a href="/eventos/{{evento.id}}">{{ evento.next_day }}</a></td>
+                              <td><a href="/eventos/{{evento.permalink}}">{{ evento.next_day }}</a></td>
                               <td>{{ evento.place }}</td>
                               <td><a href="/eventos/{{evento.id}}">{{ evento.name }}</a></td>
                               <td><a href="/eventos/{{evento.id}}">

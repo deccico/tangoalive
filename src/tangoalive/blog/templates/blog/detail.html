@@ -56,12 +56,16 @@
                     <div class="cell-md-5 cell-lg-4 text-md-left inset-md-left-30 offset-top-66 offset-sm-top-0">
                         <div class="range">
                             <div class="cell-xs-12 cell-md-push-1 offset-top-41 offset-md-top-0">
+                                {% if blog %}
                                 <p>
                                     <span class="text-middle mdi-calendar-today mdi text-light icon icon-xxs"></span>
                                     <span>{{blog.pub_date}}</span>
                                 </p>
-                                {% if blog %}
-                            <div class="table-responsive clearfix">
+                                <p>
+                                    <span class="text-middle glyphicon glyphicon-user text-light icon icon-xxs"></span>
+                                    <span>{{blog.author}}</span>
+                                </p>
+                                <div class="table-responsive clearfix">
                                 <table class="table table-striped">
                                     <tr>
                                         <th>Categor&iacute;as</th>
@@ -72,8 +76,8 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
-                            </div>
                                 {% endif %}
+                            </div>
                             </div>
                         </div>
                     </div>
