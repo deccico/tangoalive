@@ -180,7 +180,6 @@ class EventoManager(models.Manager):
                       'notes': e.notes,
                       }
             if e.finish_date and e.finish_date < timezone.now().date():
-                print 'finished'
                 continue
             elif e.event_date >= timezone.now().date():
                 evento['next_day'] = e.event_date
@@ -277,7 +276,7 @@ class Evento(models.Model):
 
 class EventoAdmin(admin.ModelAdmin):
     filter_horizontal = ['grupo', 'tipo_entradas']
-    list_display = ('id', 'name', 'place', 'pub_date', 'event_date',
+    list_display = ('id', 'name', 'permalink', 'place', 'pub_date', 'event_date',
                     'is_published', 'weekly_recurrence', 'finish_date',
                     'is_in_the_future', 'highlighted')
     list_filter = ['pub_date', 'event_date', 'highlighted']

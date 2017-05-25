@@ -19,6 +19,18 @@ class Tag(models.Model):
 class TagAdmin(admin.ModelAdmin):
     ordering = ['name']
 
+
+@python_2_unicode_compatible
+class Author(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class AuthorAdmin(admin.ModelAdmin):
+    ordering = ['name']
+
+
 @python_2_unicode_compatible
 class Blog(models.Model):
     BLOG_FOLDER_FORMAT = 'blog_pics/{0}/'.format(PICS_DIR)
@@ -31,6 +43,7 @@ class Blog(models.Model):
     short_text = models.TextField(blank=True, null=True)
     text = models.TextField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    author = models.ForeignKey(Author, blank=True, null=True)
 
     def __str__(self):
         return self.title

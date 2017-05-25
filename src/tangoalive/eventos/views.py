@@ -70,10 +70,11 @@ def evento_detail(request, eventos_id):
 def evento_from_permalink(request, slug):
     try:
         evento = Evento.objects.with_next_day(slug=slug)
+        print evento
     except:
         #couldn't find event. So so sorry...
         return HttpResponseRedirect("/eventos")
-    return evento_detail(request, evento.id)
+    return evento_detail(request, evento['id'])
 
 def browse_eventos(request):
     page_size = request.GET.get('q', '24')
